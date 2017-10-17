@@ -1,0 +1,34 @@
+﻿<Window x:Class="iDental.Views.AnswerDialogOne"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="AnswerDialogOne" Height="120" Width="500" 
+        FontFamily="Microsoft JhengHei"
+        ResizeMode="NoResize" WindowStyle="None"
+        WindowStartupLocation="CenterScreen" Topmost="True">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" 
+                   x:Name="Question"
+                   Margin="5"
+                   FontSize="16" 
+                   Text="QUESTION" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" 
+                 Margin="5" 
+                 x:Name="txtAnswer" 
+                 FontSize="12" 
+                 Text="{Binding Answer,UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="2" 
+                Margin="5" Height="30" Width="80"
+                FontSize="16" 
+                Content="確定" HorizontalAlignment="Right" VerticalAlignment="Center"
+                IsDefault="True"
+                Click="Button_Sure_Click" IsEnabled="{Binding IsValid}"/>
+    </Grid>
+</Window>

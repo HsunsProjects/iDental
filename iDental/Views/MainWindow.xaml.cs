@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using iDental.Class;
+using System;
+using System.Windows;
 
 namespace iDental.Views
 {
@@ -10,6 +12,22 @@ namespace iDental.Views
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                Login login = new Login();
+                if (login.ShowDialog() == true)
+                {
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorMessageOutput(ex.ToString());
+                Application.Current.Shutdown();
+            }
         }
     }
 }
