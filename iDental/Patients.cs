@@ -18,8 +18,8 @@ namespace iDental
         public Patients()
         {
             this.Registrations = new HashSet<Registrations>();
-            this.PatientCategorys = new HashSet<PatientCategorys>();
             this.Templates_Images = new HashSet<Templates_Images>();
+            this.PatientCategorys = new HashSet<PatientCategorys>();
         }
     
         public string Patient_ID { get; set; }
@@ -35,8 +35,8 @@ namespace iDental
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Registrations> Registrations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PatientCategorys> PatientCategorys { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Templates_Images> Templates_Images { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PatientCategorys> PatientCategorys { get; set; }
     }
 }

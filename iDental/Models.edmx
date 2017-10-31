@@ -80,7 +80,7 @@
           <Property Name="Patient_Name" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Patient_Gender" Type="bit" Nullable="false" />
           <Property Name="Patient_Birth" Type="date" Nullable="false" />
-          <Property Name="Patient_IDNumber" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Patient_IDNumber" Type="nvarchar" MaxLength="15" />
           <Property Name="Patient_Photo" Type="varchar" MaxLength="100" />
           <Property Name="UpdateDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
@@ -321,24 +321,7 @@
           </Key>
           <Property Name="PatientCategory_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PatientCategory_Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Patients" Relationship="Self.Patients_PatientCategorys" FromRole="PatientCategorys" ToRole="Patients" />
-        </EntityType>
-        <EntityType Name="Patients">
-          <Key>
-            <PropertyRef Name="Patient_ID" />
-          </Key>
-          <Property Name="Patient_ID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patient_Number" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patient_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patient_Gender" Type="Boolean" Nullable="false" />
-          <Property Name="Patient_Birth" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Patient_IDNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patient_Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Registrations" Relationship="Self.FK_Registrations_Patients" FromRole="Patients" ToRole="Registrations" />
-          <NavigationProperty Name="PatientCategorys" Relationship="Self.Patients_PatientCategorys" FromRole="Patients" ToRole="PatientCategorys" />
-          <NavigationProperty Name="Templates_Images" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Patients" ToRole="Templates_Images" />
+          <NavigationProperty Name="Patients" Relationship="iDentalModel.Patients_PatientCategorys" FromRole="PatientCategorys" ToRole="Patients" />
         </EntityType>
         <EntityType Name="Registrations">
           <Key>
@@ -348,7 +331,7 @@
           <Property Name="Registration_Date" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Patient_ID" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Images_Registrations" FromRole="Registrations" ToRole="Images" />
-          <NavigationProperty Name="Patients" Relationship="Self.FK_Registrations_Patients" FromRole="Registrations" ToRole="Patients" />
+          <NavigationProperty Name="Patients" Relationship="iDentalModel.FK_Registrations_Patients" FromRole="Registrations" ToRole="Patients" />
         </EntityType>
         <EntityType Name="Templates">
           <Key>
@@ -375,42 +358,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Registrations_Patients">
-          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
-          <End Role="Registrations" Type="Self.Registrations" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patients">
-              <PropertyRef Name="Patient_ID" />
-            </Principal>
-            <Dependent Role="Registrations">
-              <PropertyRef Name="Patient_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Patients_PatientCategorys">
-          <End Role="PatientCategorys" Type="Self.PatientCategorys" Multiplicity="*" />
-          <End Role="Patients" Type="Self.Patients" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="iDentalEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Clients" EntityType="Self.Clients" />
           <EntitySet Name="ConnectingLogs" EntityType="Self.ConnectingLogs" />
           <EntitySet Name="Functions" EntityType="Self.Functions" />
           <EntitySet Name="Images" EntityType="Self.Images" />
           <EntitySet Name="PatientCategorys" EntityType="Self.PatientCategorys" />
-          <EntitySet Name="Patients" EntityType="Self.Patients" />
           <EntitySet Name="Registrations" EntityType="Self.Registrations" />
           <EntitySet Name="Templates" EntityType="Self.Templates" />
           <AssociationSet Name="FK_Images_Registrations" Association="Self.FK_Images_Registrations">
             <End Role="Registrations" EntitySet="Registrations" />
             <End Role="Images" EntitySet="Images" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Registrations_Patients" Association="Self.FK_Registrations_Patients">
-            <End Role="Patients" EntitySet="Patients" />
-            <End Role="Registrations" EntitySet="Registrations" />
-          </AssociationSet>
-          <AssociationSet Name="Patients_PatientCategorys" Association="Self.Patients_PatientCategorys">
-            <End Role="PatientCategorys" EntitySet="PatientCategorys" />
-            <End Role="Patients" EntitySet="Patients" />
           </AssociationSet>
           <EntitySet Name="Agencys" EntityType="iDentalModel.Agencys" />
           <AssociationSet Name="FK_Agencys_Functions" Association="iDentalModel.FK_Agencys_Functions">
@@ -422,13 +380,22 @@
             <End Role="Images" EntitySet="Images" />
             <End Role="Templates_Images" EntitySet="Templates_Images" />
           </AssociationSet>
+          <AssociationSet Name="FK_Templates_Images_Templates" Association="iDentalModel.FK_Templates_Images_Templates">
+            <End Role="Templates" EntitySet="Templates" />
+            <End Role="Templates_Images" EntitySet="Templates_Images" />
+          </AssociationSet>
+          <EntitySet Name="Patients" EntityType="iDentalModel.Patients" />
+          <AssociationSet Name="FK_Registrations_Patients" Association="iDentalModel.FK_Registrations_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Registrations" EntitySet="Registrations" />
+          </AssociationSet>
           <AssociationSet Name="FK_Templates_Images_Patients" Association="iDentalModel.FK_Templates_Images_Patients">
             <End Role="Patients" EntitySet="Patients" />
             <End Role="Templates_Images" EntitySet="Templates_Images" />
           </AssociationSet>
-          <AssociationSet Name="FK_Templates_Images_Templates" Association="iDentalModel.FK_Templates_Images_Templates">
-            <End Role="Templates" EntitySet="Templates" />
-            <End Role="Templates_Images" EntitySet="Templates_Images" />
+          <AssociationSet Name="Patients_PatientCategorys" Association="iDentalModel.Patients_PatientCategorys">
+            <End Role="PatientCategorys" EntitySet="PatientCategorys" />
+            <End Role="Patients" EntitySet="Patients" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Agencys">
@@ -473,8 +440,8 @@
           <Property Name="Image_Path" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="Patient_ID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Images" Relationship="iDentalModel.FK_Templates_Images_Images" FromRole="Templates_Images" ToRole="Images" />
-          <NavigationProperty Name="Patients" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Templates_Images" ToRole="Patients" />
           <NavigationProperty Name="Templates" Relationship="iDentalModel.FK_Templates_Images_Templates" FromRole="Templates_Images" ToRole="Templates" />
+          <NavigationProperty Name="Patients" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Templates_Images" ToRole="Patients" />
         </EntityType>
         <Association Name="FK_Templates_Images_Images">
           <End Type="iDentalModel.Images" Role="Images" Multiplicity="0..1" />
@@ -485,6 +452,47 @@
             </Principal>
             <Dependent Role="Templates_Images">
               <PropertyRef Name="Image_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Templates_Images_Templates">
+          <End Type="iDentalModel.Templates" Role="Templates" Multiplicity="1" />
+          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Templates">
+              <PropertyRef Name="Template_ID" />
+            </Principal>
+            <Dependent Role="Templates_Images">
+              <PropertyRef Name="Template_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="Patient_ID" />
+          </Key>
+          <Property Name="Patient_ID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Patient_Number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Patient_Name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Patient_Gender" Type="Boolean" Nullable="false" />
+          <Property Name="Patient_Birth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Patient_IDNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="true" />
+          <Property Name="Patient_Photo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Registrations" Relationship="iDentalModel.FK_Registrations_Patients" FromRole="Patients" ToRole="Registrations" />
+          <NavigationProperty Name="Templates_Images" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Patients" ToRole="Templates_Images" />
+          <NavigationProperty Name="PatientCategorys" Relationship="iDentalModel.Patients_PatientCategorys" FromRole="Patients" ToRole="PatientCategorys" />
+        </EntityType>
+        <Association Name="FK_Registrations_Patients">
+          <End Type="iDentalModel.Patients" Role="Patients" Multiplicity="1" />
+          <End Type="iDentalModel.Registrations" Role="Registrations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Patient_ID" />
+            </Principal>
+            <Dependent Role="Registrations">
+              <PropertyRef Name="Patient_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -500,17 +508,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Templates_Images_Templates">
-          <End Type="iDentalModel.Templates" Role="Templates" Multiplicity="1" />
-          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Templates">
-              <PropertyRef Name="Template_ID" />
-            </Principal>
-            <Dependent Role="Templates_Images">
-              <PropertyRef Name="Template_ID" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="Patients_PatientCategorys">
+          <End Type="iDentalModel.PatientCategorys" Role="PatientCategorys" Multiplicity="*" />
+          <End Type="iDentalModel.Patients" Role="Patients" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -572,21 +572,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Patients">
-            <EntityTypeMapping TypeName="iDentalModel.Patients">
-              <MappingFragment StoreEntitySet="Patients">
-                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
-                <ScalarProperty Name="Patient_Number" ColumnName="Patient_Number" />
-                <ScalarProperty Name="Patient_Name" ColumnName="Patient_Name" />
-                <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
-                <ScalarProperty Name="Patient_Birth" ColumnName="Patient_Birth" />
-                <ScalarProperty Name="Patient_IDNumber" ColumnName="Patient_IDNumber" />
-                <ScalarProperty Name="Patient_Photo" ColumnName="Patient_Photo" />
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Registrations">
             <EntityTypeMapping TypeName="iDentalModel.Registrations">
               <MappingFragment StoreEntitySet="Registrations">
@@ -609,14 +594,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Patients_PatientCategorys" TypeName="iDentalModel.Patients_PatientCategorys" StoreEntitySet="Patients_PatientCategorys">
-            <EndProperty Name="PatientCategorys">
-              <ScalarProperty Name="PatientCategory_ID" ColumnName="PatientCategory_ID" />
-            </EndProperty>
-            <EndProperty Name="Patients">
-              <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Agencys">
             <EntityTypeMapping TypeName="iDentalModel.Agencys">
               <MappingFragment StoreEntitySet="Agencys">
@@ -648,6 +625,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="iDentalModel.Patients">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Patient_Photo" ColumnName="Patient_Photo" />
+                <ScalarProperty Name="Patient_IDNumber" ColumnName="Patient_IDNumber" />
+                <ScalarProperty Name="Patient_Birth" ColumnName="Patient_Birth" />
+                <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+                <ScalarProperty Name="Patient_Name" ColumnName="Patient_Name" />
+                <ScalarProperty Name="Patient_Number" ColumnName="Patient_Number" />
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Patients_PatientCategorys" TypeName="iDentalModel.Patients_PatientCategorys" StoreEntitySet="Patients_PatientCategorys">
+            <EndProperty Name="Patients">
+              <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+            </EndProperty>
+            <EndProperty Name="PatientCategorys">
+              <ScalarProperty Name="PatientCategory_ID" ColumnName="PatientCategory_ID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
