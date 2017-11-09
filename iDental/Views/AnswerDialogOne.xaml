@@ -17,7 +17,7 @@
         <TextBlock Grid.Row="0" 
                    x:Name="Question"
                    Margin="5"
-                   FontSize="16" 
+                   FontSize="16" FontWeight="Bold"
                    Text="QUESTION" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" 
                  Margin="5" 

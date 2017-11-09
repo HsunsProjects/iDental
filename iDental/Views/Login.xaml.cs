@@ -2,6 +2,7 @@
 using iDental.DatabaseAccess.DatabaseObject;
 using iDental.DatabaseAccess.QueryEntities;
 using System;
+using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows;
@@ -22,9 +23,21 @@ namespace iDental.Views
         /// 載入的病患資訊
         /// </summary>
         public Patients Patients { get; private set; }
-
-        private bool MessageBoxStatus = false;
+        /// <summary>
+        /// 影像路徑是否存在
+        /// </summary>
+        public bool IsExistImagePath = false;
+        /// <summary>
+        /// 試用期，合法使用
+        /// </summary>
+        private bool IsValidTrialPeriod = false;
+        /// <summary>
+        /// 訊息視窗提示
+        /// </summary>
         private string MessageBoxTips = string.Empty;
+        /// <summary>
+        /// Login 頁面回傳
+        /// </summary>
         private bool ReturnDialogResult = false;
 
         public Login()
@@ -186,10 +199,17 @@ namespace iDental.Views
                 {
                     TextBlockStatus.Dispatcher.Invoke(() =>
                     {
+                        TextBlockStatus.Text = "影像路徑測試中，請稍候";
+                    }, DispatcherPriority.Render);
+
+                    IsExistImagePath = PathCheck.IsPathExist(Agencys.Agency_ImagePath);
+
+                    TextBlockStatus.Dispatcher.Invoke(() =>
+                    {
                         TextBlockStatus.Text = "成功登入，歡迎使用iDental";
                     }, DispatcherPriority.Render);
 
-                    if (MessageBoxStatus)//還在試用期內可以使用
+                    if (IsValidTrialPeriod)//還在試用期內可以使用
                     {
                         MessageBox.Show(MessageBoxTips, "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -237,7 +257,7 @@ namespace iDental.Views
                     }
                     else
                     {
-                        MessageBoxStatus = true;
+                        IsValidTrialPeriod = true;
 
                         MessageBoxTips = "此為試用版本，試用日期至" + ((DateTime)agencys.Agency_TrialPeriod).ToShortDateString();
 

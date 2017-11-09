@@ -44,8 +44,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,7 +66,67 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\CreateBitmapImage.cs" />
+    <Compile Include="Class\ImageHelper.cs" />
+    <Compile Include="Class\PathCheck.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TableFunctions.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TableImages.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TableRegistrations.cs" />
+    <Compile Include="iDentalClass\ComboBoxItemInfo.cs" />
+    <Compile Include="iDentalClass\ImageInfo.cs" />
+    <Compile Include="iDentalClass\PatientFolderSetting.cs" />
+    <Compile Include="iDentalClass\PatientImageFolderInfo.cs" />
+    <Compile Include="iDentalClass\PatientPhotoFolderInfo.cs" />
+    <Compile Include="iDentalClass\TransClass.cs" />
+    <Compile Include="ViewModels\AgencySettingViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ProgressDialogIndeterminateViewModel.cs" />
+    <Compile Include="ViewModels\ProgressDialogViewModel.cs" />
+    <Compile Include="ViewModels\UserControlViewModels\FunctionListViewModel.cs" />
+    <Compile Include="ViewModels\UserControlViewModels\FunctionTemplateViewModel.cs" />
+    <Compile Include="ViewModels\UserControlViewModels\ImageEditorBaseViewModel.cs" />
+    <Compile Include="ViewModels\UserControlViewModels\PatientInformationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase\MTObservableCollection.cs" />
+    <Compile Include="ViewModels\ViewModelBase\RadioButtonConverter.cs" />
+    <Compile Include="Views\AgencySetting.xaml.cs">
+      <DependentUpon>AgencySetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageEditor.xaml.cs">
+      <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgressDialog.xaml.cs">
+      <DependentUpon>ProgressDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProgressDialogIndeterminate.xaml.cs">
+      <DependentUpon>ProgressDialogIndeterminate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionList.xaml.cs">
+      <DependentUpon>FunctionList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplate.xaml.cs">
+      <DependentUpon>FunctionTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\ImageEditorBase.xaml.cs">
+      <DependentUpon>ImageEditorBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\ImageEditorCrop.xaml.cs">
+      <DependentUpon>ImageEditorCrop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\ImageEditorRotate.xaml.cs">
+      <DependentUpon>ImageEditorRotate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\PatientInformation.xaml.cs">
+      <DependentUpon>PatientInformation.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\AgencySetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AnswerDialogOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,6 +207,38 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ProgressDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProgressDialogIndeterminate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\ImageEditorBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\ImageEditorCrop.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\ImageEditorRotate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\PatientInformation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -194,6 +288,32 @@
       <DependentUpon>Models.edmx</DependentUpon>
       <LastGenOutput>Models.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Icon\gridline.png" />
+    <Resource Include="Resource\Icon\undo.png" />
+    <Resource Include="Resource\Icon\save.png" />
+    <Resource Include="Resource\Icon\rotateleft.png" />
+    <Resource Include="Resource\Icon\rotateright.png" />
+    <Resource Include="Resource\Icon\mirrorvertical.png" />
+    <Resource Include="Resource\Icon\mirrorhorizontal.png" />
+    <Resource Include="Resource\Icon\crop.png" />
+    <Resource Include="Resource\Icon\rotate.png" />
+    <Resource Include="Resource\Icon\last.png" />
+    <Resource Include="Resource\Icon\next.png" />
+    <Resource Include="Resource\Icon\saveas.png" />
+    <Resource Include="Resource\Icon\exportimage.png" />
+    <Resource Include="Resource\Icon\exportppt.png" />
+    <Resource Include="Resource\Icon\autocamera.png" />
+    <Resource Include="Resource\Icon\zoomout.png" />
+    <Resource Include="Resource\Icon\zoomin.png" />
+    <Resource Include="Resource\Icon\delete.png" />
+    <Resource Include="Resource\Icon\export.png" />
+    <Resource Include="Resource\Icon\edit.png" />
+    <Resource Include="Resource\Image\avatar.jpg" />
+    <Resource Include="Resource\Icon\setting.png" />
+    <Resource Include="Resource\Icon\add.png" />
+    <Resource Include="Resource\Icon\search.png" />
+    <Resource Include="Resource\Icon\manage.png" />
+    <Resource Include="Resource\Icon\exit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

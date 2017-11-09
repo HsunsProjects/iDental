@@ -1,0 +1,37 @@
+﻿<Window x:Class="iDental.Views.ProgressDialogIndeterminate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{Binding DTitle}" Height="150" Width="400"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Topmost="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.17*"></RowDefinition>
+            <RowDefinition Height="0.32*"></RowDefinition>
+            <RowDefinition Height="0.17*"></RowDefinition>
+            <RowDefinition Height="0.17*"></RowDefinition>
+            <RowDefinition Height="0.17*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1"
+                   FontSize="16" FontWeight="Bold"
+                   Text="{Binding PText}"/>
+        <ProgressBar Grid.Column="1" Grid.Row="2"
+                     IsIndeterminate="{Binding PIsIndeterminate}" Minimum="{Binding PMinimum}" Maximum="{Binding PMaximum}" Value="{Binding PValue}"/>
+        <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="{Binding ButtonContent}" Visibility="{Binding ButtonContentVisibility}"
+                    Click="Button_Click"/>
+            <Button Grid.Column="1" Content="停止" Click="Button_Stop_Click"></Button>
+        </Grid>
+    </Grid>
+</Window>

@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="iDental" Height="768" Width="1366"
-        WindowState="Maximized">
+        WindowState="Maximized"
+        ContentRendered="Window_ContentRendered">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="檔案">
+                <MenuItem Header="離開"
+                          Click="MenuItem_Exit_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/iDental;component/Resource/Icon/exit.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="病患管理">
+                <MenuItem Header="新增病患" Click="MenuItem_PatientAdd_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/iDental;component/Resource/Icon/add.png"/>
+                    </MenuItem.Icon></MenuItem>
+                <MenuItem Header="病患搜尋" Click="MenuItem_PatientSearch_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/iDental;component/Resource/Icon/search.png"/>
+                    </MenuItem.Icon></MenuItem>
+                <MenuItem Header="病患類別管理" Click="MenuItem_PatientCategorysManage_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/iDental;component/Resource/Icon/manage.png"/>
+                    </MenuItem.Icon></MenuItem>
+            </MenuItem>
+            <MenuItem Header="設定" Click="MenuItem_Setting_Click"></MenuItem>
+            <MenuItem Header="關於" Click="MenuItem_About_Click"></MenuItem>
+        </Menu>
+        <ContentControl Grid.Row="1"
+                        x:Name="MainContent"></ContentControl>
     </Grid>
 </Window>

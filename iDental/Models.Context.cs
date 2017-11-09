@@ -28,12 +28,12 @@ namespace iDental
         public virtual DbSet<Clients> Clients { get; set; }
         public virtual DbSet<ConnectingLogs> ConnectingLogs { get; set; }
         public virtual DbSet<Functions> Functions { get; set; }
-        public virtual DbSet<Images> Images { get; set; }
         public virtual DbSet<PatientCategorys> PatientCategorys { get; set; }
         public virtual DbSet<Registrations> Registrations { get; set; }
         public virtual DbSet<Templates> Templates { get; set; }
         public virtual DbSet<Agencys> Agencys { get; set; }
         public virtual DbSet<Templates_Images> Templates_Images { get; set; }
         public virtual DbSet<Patients> Patients { get; set; }
+        public virtual DbSet<Images> Images { get; set; }
     }
 }

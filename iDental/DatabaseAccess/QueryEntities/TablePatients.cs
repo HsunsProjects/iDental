@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace iDental.DatabaseAccess.QueryEntities
 {
@@ -22,6 +23,7 @@ namespace iDental.DatabaseAccess.QueryEntities
                 }
                 else
                 {
+                    patients.Patient_FirstRegistrationDate = DateTime.Now.Date;
                     ide.Patients.Add(patients);
                     ide.SaveChanges();
                     return patients;

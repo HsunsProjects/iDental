@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iDental.Views"
         mc:Ignorable="d"
-        Title="Login" Height="300" Width="450"
+        Title="Login" Height="400" Width="500"
         Topmost="True" WindowStartupLocation="CenterScreen" 
         ResizeMode="NoResize" WindowStyle="None"
         ContentRendered="Window_Login_ContentRendered">
@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
         <Image Grid.Row="0"></Image>
         <TextBlock Grid.Row="1"
-                   x:Name="TextBlockStatus" VerticalAlignment="Center" Text="狀態列" FontSize="16" FontFamily="Microsoft JhengHei"/>
+                   x:Name="TextBlockStatus" Text="狀態列" FontSize="16"
+                   VerticalAlignment="Center"/>
     </Grid>
 </Window>
