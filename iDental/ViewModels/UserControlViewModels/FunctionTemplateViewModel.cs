@@ -13,8 +13,7 @@ namespace iDental.ViewModels.UserControlViewModels
     public class FunctionTemplateViewModel : PropertyChangedBase
     {
         public Agencys Agencys { get; set; }
-
-        private Patients Patients { get; set; }
+        public Patients Patients { get; set; }
 
         private MTObservableCollection<ImageInfo> displayImageInfo;
         public MTObservableCollection<ImageInfo> DisplayImageInfo
@@ -403,34 +402,52 @@ namespace iDental.ViewModels.UserControlViewModels
             switch (templateItem.Template_UserControlName)
             {
                 case "TBeforeAfter":
-                    TemplateContent = new TBeforeAfter(Agencys, Patients, templateItem, SelectedDate);
+                    TBeforeAfter tBeforeAfter = new TBeforeAfter(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tBeforeAfter;
+                    break;
+                case "TIn5s":
+                    TIn5s tIn5s = new TIn5s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tIn5s;
                     break;
                 case "TIn6s":
-                    TemplateContent = new TIn6s(Agencys, Patients, templateItem, SelectedDate);
+                    TIn6s tIn6s = new TIn6s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tIn6s;
+                    break;
+                case "TIn9s":
+                    TIn9s tIn9s = new TIn9s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tIn9s;
                     break;
                 case "TInOut9s":
-                    TemplateContent = new TInOut9s(Agencys, Patients, templateItem, SelectedDate);
+                    TInOut9s tInOut9s = new TInOut9s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tInOut9s;
                     break;
                 case "TInOut10s":
-                    TemplateContent = new TInOut10s(Agencys, Patients, templateItem, SelectedDate);
+                    TInOut10s tInOut10s = new TInOut10s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tInOut10s;
                     break;
                 case "TInOut11s":
-                    TemplateContent = new TInOut11s(Agencys, Patients, templateItem, SelectedDate);
+                    TInOut11s tInOut11s = new TInOut11s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tInOut11s;
                     break;
                 case "TXRay6s":
-                    TemplateContent = new TXRay6s(Agencys, Patients, templateItem, SelectedDate);
+                    TXRay6s tXRay6s = new TXRay6s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tXRay6s;
                     break;
                 case "TXRay19s":
-                    TemplateContent = new TXRay19s(Agencys, Patients, templateItem, SelectedDate);
+                    TXRay19s tXRay19s = new TXRay19s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tXRay19s;
                     break;
                 case "TPlasterModel5s":
-                    TemplateContent = new TPlasterModel5s(Agencys, Patients, templateItem, SelectedDate);
+                    TPlasterModel5s tPlasterModel5s = new TPlasterModel5s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tPlasterModel5s;
                     break;
                 case "TFdi52s":
-                    TemplateContent = new TFdi52s(Agencys, Patients, templateItem, SelectedDate);
+                    TFdi52s tFdi52s = new TFdi52s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tFdi52s;
                     break;
                 case "TOthers1s":
-                    TemplateContent = new TOthers1s(Agencys, Patients, templateItem, SelectedDate);
+                    TOthers1s tOthers1s = new TOthers1s(Agencys, Patients, templateItem, SelectedDate);
+                    TemplateContent = tOthers1s;
                     break;
             }
 

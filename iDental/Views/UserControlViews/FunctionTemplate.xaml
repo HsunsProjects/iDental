@@ -56,11 +56,13 @@
                            FontSize="16"
                            VerticalAlignment="Center"/>
                 <Button ToolTip="匯出模板圖片" 
-                        Height="30" >
+                        Height="30"
+                        Click="Button_ExportTemplateImage_Click">
                     <Image Source="/iDental;component/Resource/Icon/exportimage.png"/>
                 </Button>
                 <Button ToolTip="匯出模板PPT" 
-                        Height="30" >
+                        Height="30"
+                        Click="Button_ExportPPT_Click">
                     <Image Source="/iDental;component/Resource/Icon/exportppt.png"/>
                 </Button>
             </StackPanel>

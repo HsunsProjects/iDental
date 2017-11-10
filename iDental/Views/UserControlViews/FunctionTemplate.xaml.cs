@@ -1,8 +1,11 @@
 ﻿using iDental.Class;
+using iDental.DatabaseAccess.QueryEntities;
 using iDental.iDentalClass;
 using iDental.ViewModels.UserControlViewModels;
 using iDental.ViewModels.ViewModelBase;
+using Microsoft.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,6 +20,12 @@ namespace iDental.Views.UserControlViews
         {
             get { return functionTemplateViewModel.Agencys; }
             set { functionTemplateViewModel.Agencys = value; }
+        }
+
+        private Patients Patients
+        {
+            get { return functionTemplateViewModel.Patients; }
+            set { functionTemplateViewModel.Patients = value; }
         }
 
         public MTObservableCollection<ImageInfo> DisplayImageInfo
@@ -36,11 +45,7 @@ namespace iDental.Views.UserControlViews
 
             DisplayImageInfo = displayImageInfo;
         }
-
-        /// <summary>
-        /// 紀錄是否展開
-        /// </summary>
-        private bool IsStretch = true;
+        
         private void Button_Stretch_Click(object sender, RoutedEventArgs e)
         {
             switch (Agencys.Agency_ViewType)
@@ -71,6 +76,60 @@ namespace iDental.Views.UserControlViews
                         ButtonStretch.Content = "︿";
                     }
                     break;
+            }
+        }
+
+        private void Button_ExportTemplateImage_Click(object sender, RoutedEventArgs e)
+        {
+            if (functionTemplateViewModel.SelectedTemplate != null)
+            {
+                SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    FileName = Patients.Patient_ID + "-" + Patients.Patient_Name + "-" + functionTemplateViewModel.SelectedDate.ToString("yyyyMMdd") + functionTemplateViewModel.SelectedTemplate.Template_Title,
+                    DefaultExt = ".png",
+                    Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+                };
+                if (sfd.ShowDialog() == true)
+                {
+                    //匯出圖片
+                    UIElementExport.UIElementExportImage(functionTemplateViewModel.TemplateContent, sfd.FileName);
+
+                    MessageBox.Show("檔案建立成功，存放位置於" + sfd.FileName, "提示", MessageBoxButton.OK);
+                }
+            }
+            else
+            {
+                MessageBox.Show("尚未選擇想要匯出的樣板", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void Button_ExportPPT_Click(object sender, RoutedEventArgs e)
+        {
+            if (functionTemplateViewModel.SelectedTemplate != null)
+            {
+                SaveFileDialog sfd = new SaveFileDialog()
+                {
+                    FileName = Patients.Patient_ID + "-" + Patients.Patient_Name + "-" + functionTemplateViewModel.SelectedDate.ToString("yyyyMMdd") + functionTemplateViewModel.SelectedTemplate.Template_Title,
+                    DefaultExt = ".pptx",
+                    Filter = "PowerPoint 簡報 (*.pptx)|*.pptx"
+                };
+                if (sfd.ShowDialog() == true)
+                {
+                    ObservableCollection<Templates_Images> observableCollection = new TableTemplates_Images().QueryTemplatesImagesImportDateAndReturnFullImagePath(Agencys, Patients, functionTemplateViewModel.SelectedTemplate, functionTemplateViewModel.SelectedDate);
+                    if (new PPTPresentation().CreatePPTExport(observableCollection, sfd.FileName, functionTemplateViewModel.SelectedTemplate.Template_Title))
+                    {
+                        MessageBox.Show("檔案建立成功，存放位置於" + sfd.FileName, "提示", MessageBoxButton.OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show("檔案匯出發生問題", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                GC.Collect();
+            }
+            else
+            {
+                MessageBox.Show("尚未選擇想要匯出的樣板", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
