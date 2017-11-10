@@ -1,11 +1,21 @@
-﻿using iDental.iDentalClass;
+﻿using iDental.DatabaseAccess.QueryEntities;
+using iDental.iDentalClass;
 using iDental.ViewModels.ViewModelBase;
+using iDental.Views.UserControlViews.FunctionTemplates;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace iDental.ViewModels.UserControlViewModels
 {
     public class FunctionTemplateViewModel : PropertyChangedBase
     {
+        public Agencys Agencys { get; set; }
+
+        private Patients Patients { get; set; }
+
         private MTObservableCollection<ImageInfo> displayImageInfo;
         public MTObservableCollection<ImageInfo> DisplayImageInfo
         {
@@ -14,10 +24,11 @@ namespace iDental.ViewModels.UserControlViewModels
             {
                 displayImageInfo = value;
                 OnPropertyChanged("DisplayImageInfo");
+                CountImages = displayImageInfo.Count;
             }
         }
 
-        #region 頁面設定
+        #region 頁面配置設定
 
         private int columnSpan;
         public int ColumnSpan
@@ -41,8 +52,8 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private int stretchWidth = 270;
-        public int StretchWidth
+        private GridLength stretchWidth = new GridLength(270, GridUnitType.Pixel);
+        public GridLength StretchWidth
         {
             get { return stretchWidth; }
             set
@@ -52,8 +63,8 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private int stretchHeight = 205;
-        public int StretchHeight
+        private GridLength stretchHeight = new GridLength(205, GridUnitType.Pixel);
+        public GridLength StretchHeight
         {
             get { return stretchHeight; }
             set
@@ -197,10 +208,155 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
         #endregion
-
-        public FunctionTemplateViewModel(Agencys agencys)
+        #region 頁面Control設定
+        /// <summary>
+        /// 是否可以使用自動拍攝功能
+        /// </summary>
+        private bool autoImportEnable = false;
+        public bool AutoImportEnable
         {
+            get { return autoImportEnable; }
+            set
+            {
+                autoImportEnable = value;
+                OnPropertyChanged("AutoImportEnable");
+            }
+        }
+        /// <summary>
+        /// 統計圖片總和
+        /// </summary>
+        private int countImages = 0;
+        public int CountImages
+        {
+            get { return countImages; }
+            set
+            {
+                countImages = value;
+                OnPropertyChanged("CountImages");
+            }
+        }
+
+        #endregion
+
+        #region TemplateConent 設定
+        
+        private UserControl templateContent;
+        public UserControl TemplateContent
+        {
+            get { return templateContent; }
+            set
+            {
+                templateContent = value;
+                OnPropertyChanged("TemplateContent");
+            }
+        }
+
+        #endregion
+        #region 載入ComboBox Templates 清單
+        /// <summary>
+        /// Binding 選擇樣板日期
+        /// </summary>
+        private DateTime selectedDate = DateTime.Now.Date;
+        public DateTime SelectedDate
+        {
+            get { return selectedDate; }
+            set
+            {
+                if (selectedDate != value)
+                {
+                    selectedDate = value;
+                    OnPropertyChanged("SelectedDate");
+                    if (SelectedTemplate != null)
+                    {
+                        SetTemplateContent(SelectedTemplate);
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Binding ComboBox 樣板清單
+        /// </summary>
+        private ObservableCollection<Templates> templates;
+        public ObservableCollection<Templates> Templates
+        {
+            get { return templates; }
+            set
+            {
+                templates = value;
+                OnPropertyChanged("Templates");
+
+            }
+        }
+        /// <summary>
+        /// Binding ComboBox Selected
+        /// </summary>
+        private Templates selectedTemplate;
+        public Templates SelectedTemplate
+        {
+            get { return selectedTemplate; }
+            set
+            {
+                if (selectedTemplate != value)
+                {
+                    selectedTemplate = value;
+                    OnPropertyChanged("SelectedTemplate");
+                    SetTemplateContent(selectedTemplate);
+                    if (selectedTemplate != null)
+                    {
+                        AutoImportEnable = true;
+                    }
+                    else
+                    {
+                        AutoImportEnable = false;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Binding 瀏覽ComboBox
+        /// </summary>
+        private ObservableCollection<string> importDateCollect = new ObservableCollection<string>();
+
+        public ObservableCollection<string> ImportDateCollect
+        {
+            get { return importDateCollect; }
+            set
+            {
+                importDateCollect = value;
+                OnPropertyChanged("ImportDateCollect");
+            }
+        }
+        /// <summary>
+        /// Binding Selected 瀏覽ComboBox
+        /// </summary>
+        private string selectedImportDate;
+        public string SelectedImportDate
+        {
+            get { return selectedImportDate; }
+            set
+            {
+                if (selectedImportDate != value)
+                {
+                    selectedImportDate = value;
+                    OnPropertyChanged("SelectedImportDate");
+                    if (selectedImportDate != null)
+                        SelectedDate = DateTime.Parse(selectedImportDate);
+                    else
+                        SelectedDate = SelectedDate;
+                }
+            }
+        }
+
+        #endregion
+        public FunctionTemplateViewModel(Agencys agencys, Patients patients)
+        {
+            Agencys = agencys;
+            Patients = patients;
+
             SetTemplateLayout(agencys);
+            //載入樣板
+            Templates = new TableTemplates().QueryAllTemplates();
         }
 
         private void SetTemplateLayout(Agencys agencys)
@@ -240,6 +396,48 @@ namespace iDental.ViewModels.UserControlViewModels
                     WrapOrientation = Orientation.Horizontal;
                     break;
             }
+        }
+
+        private void SetTemplateContent(Templates templateItem)
+        {
+            switch (templateItem.Template_UserControlName)
+            {
+                case "TBeforeAfter":
+                    TemplateContent = new TBeforeAfter(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TIn6s":
+                    TemplateContent = new TIn6s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TInOut9s":
+                    TemplateContent = new TInOut9s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TInOut10s":
+                    TemplateContent = new TInOut10s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TInOut11s":
+                    TemplateContent = new TInOut11s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TXRay6s":
+                    TemplateContent = new TXRay6s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TXRay19s":
+                    TemplateContent = new TXRay19s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TPlasterModel5s":
+                    TemplateContent = new TPlasterModel5s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TFdi52s":
+                    TemplateContent = new TFdi52s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+                case "TOthers1s":
+                    TemplateContent = new TOthers1s(Agencys, Patients, templateItem, SelectedDate);
+                    break;
+            }
+
+            ImportDateCollect = new TableTemplates_Images().QueryAllTemplatesImagesImportDate(Patients, templateItem);
+            SelectedImportDate = (from idc in ImportDateCollect
+                                  where idc == selectedDate.ToString("yyyy/MM/dd")
+                                  select idc).ToList().Count() > 0 ? selectedDate.ToString("yyyy/MM/dd") : null;
         }
     }
 }

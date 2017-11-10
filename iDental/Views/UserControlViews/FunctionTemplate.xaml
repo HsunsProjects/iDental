@@ -27,15 +27,23 @@
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Text="模板日期"
+                <TextBlock Text="選擇日期"
+                           FontSize="16"
                            VerticalAlignment="Center"/>
-                <DatePicker/>
+                <DatePicker SelectedDate="{Binding SelectedDate}"
+                            FontSize="14"
+                            Width="120"/>
                 <TextBlock Text="選擇模板"
+                           FontSize="16"
                            VerticalAlignment="Center"/>
-                <ComboBox/>
+                <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}"
+                          DisplayMemberPath="Template_Title" 
+                          Width="100"/>
                 <TextBlock Text="瀏覽"
+                           FontSize="16"
                            VerticalAlignment="Center"/>
-                <ComboBox/>
+                <ComboBox ItemsSource="{Binding ImportDateCollect}" SelectedItem="{Binding SelectedImportDate}"
+                          Width="100"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button ToolTip="精靈拍攝" 
@@ -45,6 +53,7 @@
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <TextBlock Text="匯出功能"
+                           FontSize="16"
                            VerticalAlignment="Center"/>
                 <Button ToolTip="匯出模板圖片" 
                         Height="30" >
@@ -75,7 +84,8 @@
                     Grid.ColumnSpan="{Binding ColumnSpan}" Grid.RowSpan="{Binding RowSpan}"
                     Content="{Binding ButtonStretchContent}"
                     Width="{Binding ButtonStretchWidth}" Height="{Binding ButtonStretchHeight}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="PowderBlue"/>
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Background="PowderBlue"
+                    Click="Button_Stretch_Click"/>
             <Border BorderBrush="Black" BorderThickness="1" Margin="0,5,0,0"
                      Grid.Column="{Binding ListColumn}" Grid.Row="{Binding ListRow}"
                      Grid.ColumnSpan="{Binding ColumnSpan}" Grid.RowSpan="{Binding RowSpan}">
@@ -95,7 +105,8 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <Image Grid.Row="0" Margin="5" MaxWidth="220" MaxHeight="150" Source="{Binding BitmapImage}">
+                                <Image Grid.Row="0" Margin="5" MaxWidth="220" MaxHeight="150" Source="{Binding BitmapImage}"
+                                       MouseLeftButtonDown="Image_MouseLeftButtonDown">
                                 </Image>
                                 <TextBlock Grid.Row="1" Text="{Binding Image_FileName}"/>
                             </Grid>

@@ -72,8 +72,11 @@
     <Compile Include="DatabaseAccess\QueryEntities\TableFunctions.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableImages.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableRegistrations.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TableTemplates.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TableTemplates_Images.cs" />
     <Compile Include="iDentalClass\ComboBoxItemInfo.cs" />
     <Compile Include="iDentalClass\ImageInfo.cs" />
+    <Compile Include="iDentalClass\LoadTemplates_Images.cs" />
     <Compile Include="iDentalClass\PatientFolderSetting.cs" />
     <Compile Include="iDentalClass\PatientImageFolderInfo.cs" />
     <Compile Include="iDentalClass\PatientPhotoFolderInfo.cs" />
@@ -105,6 +108,36 @@
     </Compile>
     <Compile Include="Views\UserControlViews\FunctionTemplate.xaml.cs">
       <DependentUpon>FunctionTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TBeforeAfter.xaml.cs">
+      <DependentUpon>TBeforeAfter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TFdi52s.xaml.cs">
+      <DependentUpon>TFdi52s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TIn6s.xaml.cs">
+      <DependentUpon>TIn6s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TInOut10s.xaml.cs">
+      <DependentUpon>TInOut10s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TInOut11s.xaml.cs">
+      <DependentUpon>TInOut11s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TInOut9s.xaml.cs">
+      <DependentUpon>TInOut9s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TOthers1s.xaml.cs">
+      <DependentUpon>TOthers1s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TPlasterModel5s.xaml.cs">
+      <DependentUpon>TPlasterModel5s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TXRay19s.xaml.cs">
+      <DependentUpon>TXRay19s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\FunctionTemplates\TXRay6s.xaml.cs">
+      <DependentUpon>TXRay6s.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControlViews\ImageEditorBase.xaml.cs">
       <DependentUpon>ImageEditorBase.xaml</DependentUpon>
@@ -223,6 +256,46 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TBeforeAfter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TFdi52s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TIn6s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TInOut10s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TInOut11s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TInOut9s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TOthers1s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TPlasterModel5s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TXRay19s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\FunctionTemplates\TXRay6s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserControlViews\ImageEditorBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -288,6 +361,7 @@
       <DependentUpon>Models.edmx</DependentUpon>
       <LastGenOutput>Models.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Image\imagearea.png" />
     <Resource Include="Resource\Icon\gridline.png" />
     <Resource Include="Resource\Icon\undo.png" />
     <Resource Include="Resource\Icon\save.png" />
@@ -315,5 +389,6 @@
     <Resource Include="Resource\Icon\manage.png" />
     <Resource Include="Resource\Icon\exit.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

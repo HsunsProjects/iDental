@@ -356,7 +356,7 @@ namespace iDental.ViewModels.UserControlViewModels
                         functionList = new FunctionList(DisplayImageInfo);
                         break;
                     case "2":
-                        functionTemplate = new FunctionTemplate(Agencys, DisplayImageInfo);
+                        functionTemplate = new FunctionTemplate(Agencys, Patients, DisplayImageInfo);
                         break;
                 }
 

@@ -30,5 +30,22 @@ namespace iDental.DatabaseAccess.QueryEntities
                 }
             }
         }
+        /// <summary>
+        /// 更新病患大頭照
+        /// </summary>
+        /// <param name="patients"></param>
+        /// <param name="photoPath"></param>
+        public void UpdatePatientPhoto(Patients patients, string photoPath)
+        {
+            using (var ide = new iDentalEntities())
+            {
+                Patients p = (from qp in ide.Patients
+                              where qp.Patient_ID == patients.Patient_ID
+                              select qp).First();
+                p.Patient_Photo = photoPath;
+                p.UpdateDate = DateTime.Now;
+                ide.SaveChanges();
+            }
+        }
     }
 }

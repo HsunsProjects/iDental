@@ -1,4 +1,5 @@
 ﻿using iDental.Class;
+using iDental.DatabaseAccess.QueryEntities;
 using iDental.iDentalClass;
 using iDental.ViewModels.UserControlViewModels;
 using Microsoft.Win32;
@@ -334,6 +335,36 @@ namespace iDental.Views.UserControlViews
             if (isDetecting)
             {
                 isStop = isDetecting;
+            }
+        }
+        
+        private void Image_Drop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                Image img = e.Source as Image;
+
+                ImageInfo dragImage = new ImageInfo();
+                dragImage = ((ImageInfo)e.Data.GetData(DataFormats.Text));
+
+                //病患大頭照路徑
+                PatientPhotoFolderInfo patientPhotoFolderInfo = PatientFolderSetting.PatientPhotoFolderSetting(Agencys, Patients);
+                //建立大頭照路徑
+                PathCheck.CheckPathAndCreate(patientPhotoFolderInfo.PatientPhotoFullPath);
+
+                string newPatientPhotoFileName = DateTime.Now.ToString("yyyyMMddHHmmssffff") + dragImage.Image_Extension;
+                string newPatientPhotoFile = patientPhotoFolderInfo.PatientPhotoFullPath + @"\" + newPatientPhotoFileName;
+                File.Copy(dragImage.Image_FullPath, newPatientPhotoFile);
+                Thread.Sleep(500);
+
+                patientInformationViewModel.Patient_Photo = new CreateBitmapImage().SettingBitmapImage(newPatientPhotoFile, 400);
+
+                new TablePatients().UpdatePatientPhoto(Patients, patientPhotoFolderInfo.PatientPhotoPath + @"\" + newPatientPhotoFileName);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorMessageOutput(ex.ToString());
+                MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

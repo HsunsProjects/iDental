@@ -85,7 +85,8 @@
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Border Grid.Row="0" BorderThickness="1" BorderBrush="Black">
-                            <Image Margin="10" MaxHeight="600" Source="{Binding BitmapImage}"/>
+                            <Image Margin="10" MaxHeight="600" Source="{Binding BitmapImage}"
+                                   MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                         </Border>
                         <TextBlock Grid.Row="1" Text="{Binding Image_FileName}"/>
                     </Grid>

@@ -28,18 +28,19 @@ namespace iDental.Views.UserControlViews
             InitializeComponent();
 
             functionListViewModel = new FunctionListViewModel();
+
             DataContext = functionListViewModel;
 
             DisplayImageInfo = displayImageInfo;
         }
 
-        private void Button_ZoomIn_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_ZoomIn_Click(object sender, RoutedEventArgs e)
         {
             if (functionListViewModel.ColumnCount > 1)
                 functionListViewModel.ColumnCount--;
         }
 
-        private void Button_ZoomOut_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void Button_ZoomOut_Click(object sender, RoutedEventArgs e)
         {
             if (functionListViewModel.ColumnCount < 5)
                 functionListViewModel.ColumnCount++;
@@ -124,9 +125,6 @@ namespace iDental.Views.UserControlViews
                         deleteItem.ForEach(i => i.Image_IsEnable = false);
                         ide.SaveChanges();
 
-                        //var selectedItem = from si in functionListViewModel.DisplayImageInfo
-                        //                   where si.IsSelected == true
-                        //                   select si;
                         foreach (ImageInfo ii in DisplayImageInfo.ToArray())
                         {
                             if (ii.IsSelected)
@@ -139,6 +137,22 @@ namespace iDental.Views.UserControlViews
                         ErrorLog.ErrorMessageOutput(ex.ToString());
                     }
                 }
+            }
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                ImageInfo dragImage = (ImageInfo)((Image)e.Source).DataContext;
+                DataObject data = new DataObject(DataFormats.Text, dragImage);
+
+                DragDrop.DoDragDrop((DependencyObject)e.Source, data, DragDropEffects.Copy);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.ErrorMessageOutput(ex.ToString());
+                MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
