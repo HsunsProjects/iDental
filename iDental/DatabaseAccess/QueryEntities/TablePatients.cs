@@ -30,6 +30,22 @@ namespace iDental.DatabaseAccess.QueryEntities
                 }
             }
         }
+
+        /// <summary>
+        /// 查詢病患並回傳
+        /// </summary>
+        /// <param name="patients">Patients</param>
+        /// <returns></returns>
+        public Patients QueryPatient(Patients patients)
+        {
+            using (var ide = new iDentalEntities())
+            {
+                var queryPatient = from p in ide.Patients
+                                   where p.Patient_ID == patients.Patient_ID
+                                   select p;
+                return queryPatient.First();
+            }
+        }
         /// <summary>
         /// 更新病患大頭照
         /// </summary>

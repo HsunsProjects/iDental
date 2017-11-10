@@ -46,10 +46,12 @@
                           Width="100"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Button ToolTip="精靈拍攝" 
-                        Height="30" IsEnabled="{Binding AutoImportEnable}">
+                <ToggleButton x:Name="btnAutoImport" 
+                              ToolTip="精靈拍攝" 
+                              Height="30" IsEnabled="{Binding AutoImportEnable}"
+                              Click="Button_AutoImport_Click">
                     <Image Source="/iDental;component/Resource/Icon/autocamera.png"/>
-                </Button>
+                </ToggleButton>
             </StackPanel>
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <TextBlock Text="匯出功能"

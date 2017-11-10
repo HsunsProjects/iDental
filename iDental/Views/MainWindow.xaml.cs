@@ -1,4 +1,5 @@
 ﻿using iDental.Class;
+using iDental.DatabaseAccess.QueryEntities;
 using iDental.ViewModels;
 using iDental.Views.UserControlViews;
 using System;
@@ -103,6 +104,11 @@ namespace iDental.Views
             AgencySetting agencySetting = new AgencySetting(Agencys);
             if (agencySetting.ShowDialog() == true)
             {
+                //Agencys 會載入Patients 所以先載入Patients資料
+                if (Patients != null)
+                {
+                    Patients = new TablePatients().QueryPatient(Patients);
+                }
                 Agencys = agencySetting.Agencys;
             }
         }

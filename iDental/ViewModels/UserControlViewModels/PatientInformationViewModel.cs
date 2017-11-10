@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace iDental.ViewModels.UserControlViewModels
 {
-    public class PatientInformationViewModel : ViewModelBase.PropertyChangedBase
+    public class PatientInformationViewModel : PropertyChangedBase
     {
         private Agencys Agencys { get; set; }
         
@@ -107,7 +107,6 @@ namespace iDental.ViewModels.UserControlViewModels
         }
 
         private BitmapImage patient_Photo;
-
         public BitmapImage Patient_Photo
         {
             get { return patient_Photo; }
@@ -179,7 +178,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 {
                     if (!comboBoxItemInfo.SelectedValue.Equals(-1))
                     {
-                        ////設定匯入日期，並載入那天的影像
+                        //設定匯入日期，並載入那天的影像
                         ImageInfo = new TableImages().QueryRegistrationDateImageToImageInfo(Agencys, Patients, DateTime.Parse(comboBoxItemInfo.DisplayName)); ;
                     }
                     else
@@ -357,6 +356,7 @@ namespace iDental.ViewModels.UserControlViewModels
                         break;
                     case "2":
                         functionTemplate = new FunctionTemplate(Agencys, Patients, DisplayImageInfo);
+                        functionTemplate.ReturnValueCallback += new FunctionTemplate.ReturnValueDelegate(RenewUsercontrol);
                         break;
                 }
 
@@ -394,6 +394,17 @@ namespace iDental.ViewModels.UserControlViewModels
                         break;
                 }
             });
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="registrationDate"></param>
+        public void RenewUsercontrol(DateTime registrationDate)
+        {
+            //wifi auto 載入  取掛號資訊清單 Registration
+            RegistrationSetting();
+            ComboBoxItemInfo = RegistrationsList.Where(w => w.DisplayName == registrationDate.ToString("yyyy/MM/dd")).First();
         }
     }
 }

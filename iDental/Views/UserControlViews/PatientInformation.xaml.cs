@@ -205,7 +205,7 @@ namespace iDental.Views.UserControlViews
                         progressDialogIndeterminate.PText = "準備匯入至(" + RegistrationDate.ToString("yyyy/MM/dd") + ")，圖片偵測中";
                         progressDialogIndeterminate.PIsIndeterminate = true;
                         progressDialogIndeterminate.ButtonContentVisibility = Visibility.Hidden;
-                        progressDialogIndeterminate.ReturnValueCallback += new ProgressDialogIndeterminate.ReturnValueDelegate(this.SetReturnValueCallbackFun);
+                        progressDialogIndeterminate.ReturnValueCallback += new ProgressDialogIndeterminate.ReturnValueDelegate(SetReturnValueCallbackFun);
 
                         progressDialogIndeterminate.Show();
                     });
@@ -255,6 +255,8 @@ namespace iDental.Views.UserControlViews
                                         ide.SaveChanges();
                                     }
 
+                                    //複製完如果刪除發生問題
+                                    //嘗試五次每次間隔3秒
                                     int deleteTime = 0;
                                     while(deleteTime < 5)
                                     {
