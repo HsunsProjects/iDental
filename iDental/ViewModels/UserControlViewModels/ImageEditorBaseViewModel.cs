@@ -15,19 +15,19 @@ namespace iDental.ViewModels.UserControlViewModels
             {
                 imageInfo = value;
                 OnPropertyChanged("ImageInfo");
-                BitmapSource = new CreateBitmapImage().SettingBitmapImage(imageInfo.Image_FullPath, 0);
+                BitmapImage = new CreateBitmapImage().SettingBitmapImage(imageInfo.Image_FullPath, 0);
             }
         }
 
 
-        private BitmapSource bitmapSource;
-        public BitmapSource BitmapSource
+        private BitmapImage bitmapImage;
+        public BitmapImage BitmapImage
         {
-            get { return bitmapSource; }
+            get { return bitmapImage; }
             set
             {
-                bitmapSource = value;
-                OnPropertyChanged("BitmapSource");
+                bitmapImage = value;
+                OnPropertyChanged("BitmapImage");
             }
         }
 

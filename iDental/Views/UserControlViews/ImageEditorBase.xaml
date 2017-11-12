@@ -49,7 +49,7 @@
             <Border Grid.Column="0" Background="Black" >
                 <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <Viewbox Stretch="Uniform">
-                        <Image Name="ImageEdi" Source="{Binding BitmapSource}"
+                        <Image Name="ImageEdi" Source="{Binding BitmapImage}"
                                MouseWheel="ImageEdi_MouseWheel">
                         </Image>
                     </Viewbox>

@@ -24,10 +24,10 @@ namespace iDental.Views.UserControlViews
             set { imageEditorBaseViewModel.ImageInfo = value; }
         }
 
-        private BitmapSource BitmapSource
+        private BitmapImage BitmapImage
         {
-            get { return imageEditorBaseViewModel.BitmapSource; }
-            set { imageEditorBaseViewModel.BitmapSource = value; }
+            get { return imageEditorBaseViewModel.BitmapImage; }
+            set { imageEditorBaseViewModel.BitmapImage = value; }
         }
 
         /// <summary>
@@ -36,6 +36,10 @@ namespace iDental.Views.UserControlViews
         private double scaleValue = 1;
 
         private ImageEditorBaseViewModel imageEditorBaseViewModel;
+
+        private TransformGroup transformGroup;
+        private RotateTransform rotateTransform;
+        private ScaleTransform scaleTransform;
 
         public ImageEditorBase(ObservableCollection<ImageInfo> imagesCollection, ImageInfo imageInfo)
         {
@@ -46,6 +50,15 @@ namespace iDental.Views.UserControlViews
             imageEditorBaseViewModel = new ImageEditorBaseViewModel(imageInfo);
 
             DataContext = imageEditorBaseViewModel;
+
+            transformGroup = new TransformGroup();
+
+            rotateTransform = new RotateTransform();
+
+            scaleTransform = new ScaleTransform();
+
+            transformGroup.Children.Add(rotateTransform);
+            transformGroup.Children.Add(scaleTransform);
         }
 
         private void Button_Save_Click(object sender, RoutedEventArgs e)
@@ -53,7 +66,9 @@ namespace iDental.Views.UserControlViews
             try
             {
                 //儲存新影像
-                ImageHelper.SaveUsingEncoder(BitmapSource, ImageInfo.Image_FullPath, ImageInfo.Image_Extension);
+                BitmapSource bitmapSource = BitmapImage;
+                bitmapSource = new TransformedBitmap(bitmapSource, transformGroup);
+                ImageHelper.SaveUsingEncoder(bitmapSource, ImageInfo.Image_FullPath, ImageInfo.Image_Extension);
                 ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
                 MessageBox.Show("儲存成功", "提示", MessageBoxButton.OK);
             }
@@ -76,7 +91,9 @@ namespace iDental.Views.UserControlViews
                     //儲存的副檔名
                     string extension = sfd.SafeFileName.Substring(sfd.SafeFileName.IndexOf('.'), (sfd.SafeFileName.Length - sfd.SafeFileName.IndexOf('.')));
                     //另存新影像
-                    ImageHelper.SaveUsingEncoder(BitmapSource, sfd.FileName, extension);
+                    BitmapSource bitmapSource = BitmapImage;
+                    bitmapSource = new TransformedBitmap(bitmapSource, transformGroup);
+                    ImageHelper.SaveUsingEncoder(bitmapSource, sfd.FileName, extension);
                     MessageBox.Show("檔案建立成功，存放位置於" + sfd.FileName, "提示", MessageBoxButton.OK);
                 }
             }
@@ -86,27 +103,155 @@ namespace iDental.Views.UserControlViews
                 MessageBox.Show("寫入失敗", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
+        
         private void Button_RotateLeft_Click(object sender, RoutedEventArgs e)
         {
-            BitmapSource = new TransformedBitmap(BitmapSource, new RotateTransform(-90));
+            ////直接修改原圖BitmapImage
+            //BitmapSource = new TransformedBitmap(BitmapSource, new RotateTransform(-90));
+
+            if (scaleTransform.ScaleY == 1)
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    if (rotateTransform.Angle == -360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle -= 90;
+                }
+                else
+                {
+                    if (rotateTransform.Angle == 360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle += 90;
+                }
+            }
+            else
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    if (rotateTransform.Angle == 360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle += 90;
+                }
+                else
+                {
+                    if (rotateTransform.Angle == -360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle -= 90;
+                }
+            }
+
+            ImageEdi.LayoutTransform = transformGroup;
+
             GC.Collect();
         }
         private void Button_RotateRight_Click(object sender, RoutedEventArgs e)
         {
-            BitmapSource = new TransformedBitmap(BitmapSource, new RotateTransform(90));
+            ////直接修改原圖BitmapImage
+            //BitmapSource = new TransformedBitmap(BitmapSource, new RotateTransform(90));
+
+            if (scaleTransform.ScaleY == 1)
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    if (rotateTransform.Angle == 360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle += 90;
+                }
+                else
+                {
+                    if (rotateTransform.Angle == -360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle -= 90;
+                }
+            }
+            else
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    if (rotateTransform.Angle == -360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle -= 90;
+                }
+                else
+                {
+                    if (rotateTransform.Angle == 360)
+                        rotateTransform.Angle = 0;
+                    rotateTransform.Angle += 90;
+                }
+            }
+            
+            ImageEdi.LayoutTransform = transformGroup;
+
             GC.Collect();
         }
 
         private void Button_MirrorHorizontal_Click(object sender, RoutedEventArgs e)
         {
-            BitmapSource = new TransformedBitmap(BitmapSource, new ScaleTransform(-1, 1));
+            ////直接修改原圖BitmapImage
+            //BitmapSource = new TransformedBitmap(BitmapSource, new ScaleTransform(-1, 1));
+
+            if (scaleTransform.ScaleX == 1)
+            {
+                if (scaleTransform.ScaleY == 1)
+                {
+                    MirrorSetting("VrH");
+                }
+                else
+                {
+                    MirrorSetting("rVrH");
+                }
+                scaleTransform.ScaleX = -1;
+            }
+            else
+            {
+                if (scaleTransform.ScaleY == 1)
+                {
+                    MirrorSetting("VH");
+                }
+                else
+                {
+                    MirrorSetting("rVH");
+                }
+                scaleTransform.ScaleX = 1;
+            }
+
+            ImageEdi.LayoutTransform = transformGroup;
+
             GC.Collect();
         }
 
         private void Button_MirrorVertical_Click(object sender, RoutedEventArgs e)
         {
-            BitmapSource = new TransformedBitmap(BitmapSource, new ScaleTransform(1, -1));
+            ////直接修改原圖BitmapImage
+            //BitmapSource = new TransformedBitmap(BitmapSource, new ScaleTransform(1, -1));
+
+            if (scaleTransform.ScaleY == 1)
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    MirrorSetting("rVH");
+                }
+                else
+                {
+                    MirrorSetting("rVrH");
+                }
+                scaleTransform.ScaleY = -1;
+            }
+            else
+            {
+                if (scaleTransform.ScaleX == 1)
+                {
+                    MirrorSetting("VH");
+                }
+                else
+                {
+                    MirrorSetting("VrH");
+                }
+                scaleTransform.ScaleY = 1;
+            }
+            
+            ImageEdi.LayoutTransform = transformGroup;
+
             GC.Collect();
         }
 
@@ -114,6 +259,10 @@ namespace iDental.Views.UserControlViews
         {
             if (ImagesCollection.IndexOf(ImageInfo) > 0)
             {
+                rotateTransform.Angle = 0;
+                scaleTransform.ScaleX = 1;
+                scaleTransform.ScaleY = 1;
+                ImageEdi.LayoutTransform = transformGroup;
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) - 1];
             }
         }
@@ -122,6 +271,10 @@ namespace iDental.Views.UserControlViews
         {
             if (ImagesCollection.IndexOf(ImageInfo) < ImagesCollection.Count - 1)
             {
+                rotateTransform.Angle = 0;
+                scaleTransform.ScaleX = 1;
+                scaleTransform.ScaleY = 1;
+                ImageEdi.LayoutTransform = transformGroup;
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) + 1];
             }
         }
@@ -156,6 +309,34 @@ namespace iDental.Views.UserControlViews
             }
             ImageEdi.RenderTransform = new ScaleTransform(scaleValue, scaleValue, e.GetPosition(ImageEdi).X, e.GetPosition(ImageEdi).Y);
             e.Handled = true;
+        }
+
+        private void MirrorSetting(string imageDir)
+        {
+            switch(imageDir)
+            {
+                case "VH":
+                    //正常
+                    scaleTransform.ScaleX = 1;
+                    scaleTransform.ScaleY = 1;
+                    break;
+                case "rVH":
+                    //上下顛倒
+                    scaleTransform.ScaleX = 1;
+                    scaleTransform.ScaleY = -1;
+                    break;
+                case "VrH":
+                    //左右顛倒
+                    scaleTransform.ScaleX = -1;
+                    scaleTransform.ScaleY = 1;
+                    break;
+                case "rVrH":
+                    //上下左右顛倒
+                    scaleTransform.ScaleX = -1;
+                    scaleTransform.ScaleY = -1;
+                    break;
+
+            }
         }
     }
 }
