@@ -170,7 +170,7 @@ namespace iDental.Views.UserControlViews
                                         Thread.Sleep(1000);
 
                                         //設定病患資料夾
-                                        PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients, RegistrationDate);
+                                        PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients.Patient_ID, RegistrationDate);
                                         //檢查是否存在，不存在就新增
                                         PathCheck.CheckPathAndCreate(patientImageFolderInfo.PatientImageFullPath);
 

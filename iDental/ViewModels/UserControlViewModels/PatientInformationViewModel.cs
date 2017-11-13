@@ -5,6 +5,7 @@ using iDental.ViewModels.ViewModelBase;
 using iDental.Views;
 using iDental.Views.UserControlViews;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
@@ -43,9 +44,13 @@ namespace iDental.ViewModels.UserControlViewModels
                 {
                     Patient_Photo = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Image/avatar.jpg", UriKind.Absolute));
                 }
+
                 Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_FirstRegistrationDate).ToString("yyyy/MM/dd");
-                Patient_LastRegistrationDate = patients.Patient_LastRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_LastRegistrationDate).ToString("yyyy/MM/dd");
-                
+                DateTime lastRegistrationDate = new TableRegistrations().QueryLastRegistrationDate(patients);
+                Patient_LastRegistrationDate = lastRegistrationDate == null ? Patient_FirstRegistrationDate : lastRegistrationDate.ToString("yyyy/MM/dd");
+
+                //設定病患分類
+                PatientCategoryInfo = new TablePatientCategorys().QueryPatientCheckedPatientCategoryInfo(patients);
                 //設定掛號日
                 RegistrationSetting();
             }
@@ -136,6 +141,17 @@ namespace iDental.ViewModels.UserControlViewModels
             {
                 patient_LastRegistrationDate = value;
                 OnPropertyChanged("Patient_LastRegistrationDate");
+            }
+        }
+
+        private List<PatientCategoryInfo> patientCategoryInfo;
+        public List<PatientCategoryInfo> PatientCategoryInfo
+        {
+            get { return patientCategoryInfo; }
+            set
+            {
+                patientCategoryInfo = value;
+                OnPropertyChanged("PatientCategoryInfo");
             }
         }
         #endregion
@@ -326,7 +342,8 @@ namespace iDental.ViewModels.UserControlViewModels
         public PatientInformationViewModel(Agencys agencys, Patients patients)
         {
             Agencys = agencys;
-            Patients = patients;
+            Patients = patients;            
+
             FunctionsSetting();
         }
 

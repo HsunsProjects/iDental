@@ -1,0 +1,61 @@
+﻿<Window x:Class="iDental.Views.PatientCategorySetting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="新增病患類別" Height="500" Width="600" 
+        WindowStartupLocation="CenterScreen" Topmost="True"
+        Icon="/iDental;component/Resource/Icon/manage.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" 
+                       Text="新增類別" FontSize="16"
+                       Margin="0,0,5,0"
+                       VerticalAlignment="Center"/>
+            <TextBox x:Name="textBoxCategoryInput" Grid.Column="1"
+                       Margin="0,0,5,0"/>
+            <Button Grid.Column="2" Margin="0,0,5,0" Content="新增" FontSize="16"
+                    IsEnabled="{Binding ElementName=textBoxCategoryInput, Path=Text.Length}"
+                    Click="Button_CategoryAdd_Click"/>
+        </Grid>
+        <GroupBox Grid.Row="2" Header="病患類別清單" FontSize="16">
+            <DataGrid Margin="10,10,10,10" ItemsSource="{Binding PatientCategorys}" 
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False" CanUserResizeColumns="False" HeadersVisibility="Column"
+                      SelectionMode="Single" SelectionUnit="FullRow"
+                      CellEditEnding="DataGrid_Update_CellEditEnding">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="*" Header="類別名稱" Binding="{Binding PatientCategory_Title}"/>
+                    <DataGridTemplateColumn Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="刪除" Click="Button_CategoryDelete_Click"></Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <StackPanel Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="5" Content="結束" FontSize="16"
+                    Click="Button_Exit_Click"/>
+        </StackPanel>
+        <!--Grid Row 2 GridSplitter -->
+        <GridSplitter Grid.Column="0" Grid.Row="1"
+                          Height="1" Background="Gray" 
+                          HorizontalAlignment="Stretch"
+                          IsEnabled="False"/>
+    </Grid>
+</Window>

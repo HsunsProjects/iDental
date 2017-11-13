@@ -30,7 +30,6 @@ namespace iDental
         public string Patient_IDNumber { get; set; }
         public string Patient_Photo { get; set; }
         public Nullable<System.DateTime> Patient_FirstRegistrationDate { get; set; }
-        public Nullable<System.DateTime> Patient_LastRegistrationDate { get; set; }
         public System.DateTime UpdateDate { get; set; }
         public System.DateTime CreateDate { get; set; }
     

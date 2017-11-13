@@ -1,4 +1,5 @@
 ﻿using iDental.iDentalClass;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -33,6 +34,18 @@ namespace iDental.DatabaseAccess.QueryEntities
                     observableCollection = new ObservableCollection<ComboBoxItemInfo>(queryRegistrations.ToList().OrderByDescending(o => o.DisplayName));
                 }
                 return observableCollection;
+            }
+        }
+
+        public DateTime QueryLastRegistrationDate(Patients patients)
+        {
+            using (var ide = new iDentalEntities())
+            {
+                var queryRegistrationDate = (from r in ide.Registrations
+                                             where r.Patient_ID == patients.Patient_ID
+                                             orderby r.Registration_Date descending
+                                             select r.Registration_Date).First();
+                return queryRegistrationDate;
             }
         }
     }

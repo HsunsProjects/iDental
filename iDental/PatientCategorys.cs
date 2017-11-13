@@ -22,6 +22,7 @@ namespace iDental
     
         public int PatientCategory_ID { get; set; }
         public string PatientCategory_Title { get; set; }
+        public Nullable<int> PatientCategory_SeqNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Patients> Patients { get; set; }

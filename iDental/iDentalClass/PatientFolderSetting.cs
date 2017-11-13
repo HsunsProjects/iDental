@@ -10,12 +10,12 @@ namespace iDental.iDentalClass
         /// <param name="agencys">機構資料</param>
         /// <param name="patients">病患資料</param>
         /// <returns></returns>
-        public static PatientPhotoFolderInfo PatientPhotoFolderSetting(Agencys agencys, Patients patients)
+        public static PatientPhotoFolderInfo PatientPhotoFolderSetting(Agencys agencys, string patientsID)
         {
             PatientPhotoFolderInfo patientPhotoInfo = new PatientPhotoFolderInfo()
             {
-                PatientPhotoPath = @"\" + patients.Patient_ID + @"\PatientPhoto",
-                PatientPhotoFullPath = agencys.Agency_ImagePath + @"\" + patients.Patient_ID + @"\PatientPhoto"
+                PatientPhotoPath = @"\" + patientsID + @"\PatientPhoto",
+                PatientPhotoFullPath = agencys.Agency_ImagePath + @"\" + patientsID + @"\PatientPhoto"
             };
             return patientPhotoInfo;
         }
@@ -26,12 +26,12 @@ namespace iDental.iDentalClass
         /// <param name="agencys">機構資料</param>
         /// <param name="patients">病患資料</param>
         /// <param name="registrationDate">掛號日</param>
-        public static PatientImageFolderInfo PatientImageFolderSetting(Agencys agencys, Patients patients, DateTime registrationDate)
+        public static PatientImageFolderInfo PatientImageFolderSetting(Agencys agencys, string patientsID, DateTime registrationDate)
         {
             PatientImageFolderInfo patientImageFolderInfo = new PatientImageFolderInfo()
             {
-                PatientImagePath = @"\" + patients.Patient_ID + @"\" + registrationDate.ToString("yyyyMMdd"),
-                PatientImageFullPath = agencys.Agency_ImagePath + @"\" + patients.Patient_ID + @"\" + registrationDate.ToString("yyyyMMdd")
+                PatientImagePath = @"\" + patientsID + @"\" + registrationDate.ToString("yyyyMMdd"),
+                PatientImageFullPath = agencys.Agency_ImagePath + @"\" + patientsID + @"\" + registrationDate.ToString("yyyyMMdd")
             };
             return patientImageFolderInfo;
         }

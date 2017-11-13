@@ -71,12 +71,14 @@
     <Compile Include="Class\PathCheck.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableFunctions.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableImages.cs" />
+    <Compile Include="DatabaseAccess\QueryEntities\TablePatientCategorys.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableRegistrations.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableTemplates.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableTemplates_Images.cs" />
     <Compile Include="iDentalClass\ComboBoxItemInfo.cs" />
     <Compile Include="iDentalClass\ImageInfo.cs" />
     <Compile Include="iDentalClass\LoadTemplates_Images.cs" />
+    <Compile Include="iDentalClass\PatientCategoryInfo.cs" />
     <Compile Include="iDentalClass\PatientFolderSetting.cs" />
     <Compile Include="iDentalClass\PatientImageFolderInfo.cs" />
     <Compile Include="iDentalClass\PatientPhotoFolderInfo.cs" />
@@ -85,6 +87,9 @@
     <Compile Include="iDentalClass\UIElementExport.cs" />
     <Compile Include="ViewModels\AgencySettingViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\PatientCategorySettingViewModel.cs" />
+    <Compile Include="ViewModels\PatientCategoryViewModel.cs" />
+    <Compile Include="ViewModels\PatientSettingViewModel.cs" />
     <Compile Include="ViewModels\ProgressDialogIndeterminateViewModel.cs" />
     <Compile Include="ViewModels\ProgressDialogViewModel.cs" />
     <Compile Include="ViewModels\UserControlViewModels\FunctionListViewModel.cs" />
@@ -98,6 +103,15 @@
     </Compile>
     <Compile Include="Views\ImageEditor.xaml.cs">
       <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PatientCategory.xaml.cs">
+      <DependentUpon>PatientCategory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PatientCategorySetting.xaml.cs">
+      <DependentUpon>PatientCategorySetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PatientSetting.xaml.cs">
+      <DependentUpon>PatientSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
@@ -248,6 +262,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\PatientCategory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PatientCategorySetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PatientSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProgressDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

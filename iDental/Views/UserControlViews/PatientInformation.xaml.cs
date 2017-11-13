@@ -53,6 +53,17 @@ namespace iDental.Views.UserControlViews
         }
 
         #region event
+        
+        private void Button_PatientEdit_Click(object sender, RoutedEventArgs e)
+        {
+            PatientSetting patientSetting = new PatientSetting("病患基本資料設定", Agencys, Patients);
+            if (patientSetting.ShowDialog() == true)
+            {
+                //更新畫面(ViewModel) 和.cs的Patients
+                Patients = patientSetting.Patients;
+                patientInformationViewModel.Patients = Patients;
+            }
+        }
 
         private void Button_Stretch_Click(object sender, RoutedEventArgs e)
         {
@@ -93,7 +104,7 @@ namespace iDental.Views.UserControlViews
                     DateTime RegistrationDate = patientInformationViewModel.ImportDate;                
 
                     //設定病患資料夾
-                    PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients, RegistrationDate);
+                    PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients.Patient_ID, RegistrationDate);
                     //檢查是否存在，不存在就新增
                     PathCheck.CheckPathAndCreate(patientImageFolderInfo.PatientImageFullPath);
 
@@ -226,7 +237,7 @@ namespace iDental.Views.UserControlViews
                                     Thread.Sleep(1000);
 
                                     //設定病患資料夾
-                                    PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients, RegistrationDate);
+                                    PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients.Patient_ID, RegistrationDate);
                                     //檢查是否存在，不存在就新增
                                     PathCheck.CheckPathAndCreate(patientImageFolderInfo.PatientImageFullPath);
 
@@ -350,7 +361,7 @@ namespace iDental.Views.UserControlViews
                 dragImage = ((ImageInfo)e.Data.GetData(DataFormats.Text));
 
                 //病患大頭照路徑
-                PatientPhotoFolderInfo patientPhotoFolderInfo = PatientFolderSetting.PatientPhotoFolderSetting(Agencys, Patients);
+                PatientPhotoFolderInfo patientPhotoFolderInfo = PatientFolderSetting.PatientPhotoFolderSetting(Agencys, Patients.Patient_ID);
                 //建立大頭照路徑
                 PathCheck.CheckPathAndCreate(patientPhotoFolderInfo.PatientPhotoFullPath);
 

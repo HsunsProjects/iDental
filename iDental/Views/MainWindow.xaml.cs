@@ -86,6 +86,12 @@ namespace iDental.Views
 
         private void MenuItem_PatientAdd_Click(object sender, RoutedEventArgs e)
         {
+            PatientSetting patientSetting = new PatientSetting("新增病患", Agencys);
+            if (patientSetting.ShowDialog() == true)
+            {
+                Patients = patientSetting.Patients;
+                Agencys = Agencys;
+            }
 
         }
 
@@ -96,7 +102,10 @@ namespace iDental.Views
 
         private void MenuItem_PatientCategorysManage_Click(object sender, RoutedEventArgs e)
         {
-
+            PatientCategorySetting patientCategorySetting = new PatientCategorySetting();
+            if (patientCategorySetting.ShowDialog() == true)
+            {
+            }
         }
 
         private void MenuItem_Setting_Click(object sender, RoutedEventArgs e)
