@@ -11,18 +11,52 @@ namespace iDental.ViewModels
 {
     public class PatientSettingViewModel : ViewModelBase.PropertyChangedBase
     {
-        private string windowTitle;
+        private string windowType;
 
+        public string WindowType
+        {
+            get { return windowType; }
+            set
+            {
+                windowType = value;
+                OnPropertyChanged("WindowType");
+                switch (windowType)
+                {
+                    case "ADD":
+                        WindowTitle = @"新增病患";
+                        WindowIcon = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Icon/add.png", UriKind.Absolute));
+                        break;
+                    case "EDIT":
+                        WindowTitle = @"病患基本資料設定";
+                        WindowIcon = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Icon/setting.png", UriKind.Absolute));
+                        break;
+                }
+            }
+        }
+
+        private string windowTitle;
         public string WindowTitle
         {
-            get { return  windowTitle; }
+            get { return windowTitle; }
             set
             {
                 windowTitle = value;
                 OnPropertyChanged("WindowTitle");
             }
         }
-        
+
+        private BitmapImage windowIcon;
+        public BitmapImage WindowIcon
+        {
+            get { return windowIcon; }
+            set
+            {
+                windowIcon = value;
+                OnPropertyChanged("WindowIcon");
+            }
+        }
+
+
         public Patients Patients { get; set; }
 
         private string patient_Number;
@@ -172,15 +206,15 @@ namespace iDental.ViewModels
         }
 
         //新增
-        public PatientSettingViewModel(string windowTitle)
+        public PatientSettingViewModel(string windowType)
         {
-            WindowTitle = windowTitle;
+            WindowType = windowType;
         }
         
         //編輯
-        public PatientSettingViewModel(string windowTitle, Agencys agencys, Patients patients)
+        public PatientSettingViewModel(string windowType, Agencys agencys, Patients patients)
         {
-            WindowTitle = windowTitle;
+            WindowType = windowType;
             Patients = patients;
 
             //設定病患資料

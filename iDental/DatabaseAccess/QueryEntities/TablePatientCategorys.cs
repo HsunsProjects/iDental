@@ -78,7 +78,13 @@ namespace iDental.DatabaseAccess.QueryEntities
                 return qpc.ToList();
             }
         }
-
+        public List<PatientCategorys> QueryPatientCategoryItem(string keyword)
+        {
+            using (var ide = new iDentalEntities())
+            {
+                return ide.PatientCategorys.Where(pc => pc.PatientCategory_Title.Contains(keyword)).ToList();
+            }
+        }
         /// <summary>
         /// 
         /// </summary>

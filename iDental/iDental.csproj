@@ -81,6 +81,7 @@
     <Compile Include="iDentalClass\PatientCategoryInfo.cs" />
     <Compile Include="iDentalClass\PatientFolderSetting.cs" />
     <Compile Include="iDentalClass\PatientImageFolderInfo.cs" />
+    <Compile Include="iDentalClass\PatientInfo.cs" />
     <Compile Include="iDentalClass\PatientPhotoFolderInfo.cs" />
     <Compile Include="iDentalClass\PPTPresentation.cs" />
     <Compile Include="iDentalClass\TransClass.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PatientCategorySettingViewModel.cs" />
     <Compile Include="ViewModels\PatientCategoryViewModel.cs" />
+    <Compile Include="ViewModels\PatientSearchViewModel.cs.cs" />
     <Compile Include="ViewModels\PatientSettingViewModel.cs" />
     <Compile Include="ViewModels\ProgressDialogIndeterminateViewModel.cs" />
     <Compile Include="ViewModels\ProgressDialogViewModel.cs" />
@@ -98,6 +100,9 @@
     <Compile Include="ViewModels\UserControlViewModels\PatientInformationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase\MTObservableCollection.cs" />
     <Compile Include="ViewModels\ViewModelBase\RadioButtonConverter.cs" />
+    <Compile Include="Views\About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AgencySetting.xaml.cs">
       <DependentUpon>AgencySetting.xaml</DependentUpon>
     </Compile>
@@ -109,6 +114,9 @@
     </Compile>
     <Compile Include="Views\PatientCategorySetting.xaml.cs">
       <DependentUpon>PatientCategorySetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PatientSearch.xaml.cs">
+      <DependentUpon>PatientSearch.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PatientSetting.xaml.cs">
       <DependentUpon>PatientSetting.xaml</DependentUpon>
@@ -173,6 +181,10 @@
     <Compile Include="Views\UserControlViews\PatientInformation.xaml.cs">
       <DependentUpon>PatientInformation.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AgencySetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,6 +279,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PatientCategorySetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PatientSearch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -403,6 +419,7 @@
       <DependentUpon>Models.edmx</DependentUpon>
       <LastGenOutput>Models.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Icon\edit2.png" />
     <Resource Include="Resource\Image\imagearea.png" />
     <Resource Include="Resource\Icon\gridline.png" />
     <Resource Include="Resource\Icon\undo.png" />

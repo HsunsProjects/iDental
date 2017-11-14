@@ -56,7 +56,7 @@ namespace iDental.Views.UserControlViews
         
         private void Button_PatientEdit_Click(object sender, RoutedEventArgs e)
         {
-            PatientSetting patientSetting = new PatientSetting("病患基本資料設定", Agencys, Patients);
+            PatientSetting patientSetting = new PatientSetting("EDIT", Agencys, Patients);
             if (patientSetting.ShowDialog() == true)
             {
                 //更新畫面(ViewModel) 和.cs的Patients

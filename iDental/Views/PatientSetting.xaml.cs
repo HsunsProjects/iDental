@@ -20,44 +20,46 @@ namespace iDental.Views
     {
         private Agencys Agencys { get; set; }
         public Patients Patients { get; set; }
-        private string WindowTitle { get; set; }
+        private string WindowType { get; set; }
 
         private PatientSettingViewModel patientSettingViewModel;
 
         private TablePatients tablePatients;
         private TablePatientCategorys tablePatientCategorys;
+
         /// <summary>
         /// 新增
         /// </summary>
-        public PatientSetting(string windowTitle, Agencys agencys)
+        public PatientSetting(string windowType, Agencys agencys)
         {
             InitializeComponent();
             Agencys = agencys;
-            WindowTitle = windowTitle;
+            WindowType = windowType;
         }
+
         /// <summary>
         /// 編輯
         /// </summary>
         /// <param name="windowTitle"></param>
         /// <param name="agencys"></param>
         /// <param name="patients"></param>
-        public PatientSetting(string windowTitle, Agencys agencys, Patients patients)
+        public PatientSetting(string windowType, Agencys agencys, Patients patients)
         {
             InitializeComponent();
             Agencys = agencys;
             Patients = patients;
-            WindowTitle = windowTitle;
+            WindowType = windowType;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             if (Patients != null)
             {
-                patientSettingViewModel = new PatientSettingViewModel(WindowTitle, Agencys, Patients);
+                patientSettingViewModel = new PatientSettingViewModel(WindowType, Agencys, Patients);
             }
             else
             {
-                patientSettingViewModel = new PatientSettingViewModel(WindowTitle);
+                patientSettingViewModel = new PatientSettingViewModel(WindowType);
             }
 
             DataContext = patientSettingViewModel;

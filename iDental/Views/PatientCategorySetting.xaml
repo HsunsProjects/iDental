@@ -6,6 +6,7 @@
         mc:Ignorable="d"
         Title="新增病患類別" Height="500" Width="600" 
         WindowStartupLocation="CenterScreen" Topmost="True"
+        ResizeMode="NoResize"
         Icon="/iDental;component/Resource/Icon/manage.png">
     <Grid>
         <Grid.RowDefinitions>

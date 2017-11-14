@@ -46,8 +46,6 @@ namespace iDental.ViewModels.UserControlViewModels
                 }
 
                 Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_FirstRegistrationDate).ToString("yyyy/MM/dd");
-                DateTime lastRegistrationDate = new TableRegistrations().QueryLastRegistrationDate(patients);
-                Patient_LastRegistrationDate = lastRegistrationDate == null ? Patient_FirstRegistrationDate : lastRegistrationDate.ToString("yyyy/MM/dd");
 
                 //設定病患分類
                 PatientCategoryInfo = new TablePatientCategorys().QueryPatientCheckedPatientCategoryInfo(patients);
@@ -351,6 +349,7 @@ namespace iDental.ViewModels.UserControlViewModels
         {
             //設定掛號日
             RegistrationsList = new TableRegistrations().QueryRegistrationsList(patients);
+            Patient_LastRegistrationDate = RegistrationsList.Count() > 0 ? RegistrationsList[0].DisplayName : Patient_FirstRegistrationDate;
             RegistrationsList.Insert(0, new ComboBoxItemInfo("全部", -1));
         }
 

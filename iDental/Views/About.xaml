@@ -1,0 +1,24 @@
+﻿<Window x:Class="iDental.Views.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="關於iDental" Height="500" Width="600" 
+        WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="ProductVersion" Grid.Row="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="CompanyCopyright" Grid.Row="3" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <!--Grid Row 1 GridSplitter -->
+        <GridSplitter  Grid.Row="1"
+                       Height="1" Background="Gray" 
+                       HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                       IsEnabled="False"/>
+    </Grid>
+</Window>

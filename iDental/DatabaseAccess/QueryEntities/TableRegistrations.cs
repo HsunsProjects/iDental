@@ -37,15 +37,20 @@ namespace iDental.DatabaseAccess.QueryEntities
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="patients"></param>
+        /// <returns></returns>
         public DateTime QueryLastRegistrationDate(Patients patients)
         {
             using (var ide = new iDentalEntities())
             {
-                var queryRegistrationDate = (from r in ide.Registrations
-                                             where r.Patient_ID == patients.Patient_ID
-                                             orderby r.Registration_Date descending
-                                             select r.Registration_Date).First();
-                return queryRegistrationDate;
+                var queryRegistrationDate = from r in ide.Registrations
+                                            where r.Patient_ID == patients.Patient_ID
+                                            orderby r.Registration_Date descending
+                                            select r;
+                return queryRegistrationDate.Count() > 0 ? queryRegistrationDate.First().Registration_Date : (DateTime)patients.Patient_FirstRegistrationDate;
             }
         }
     }

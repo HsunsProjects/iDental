@@ -1,4 +1,6 @@
-﻿using System;
+﻿using iDental.iDentalClass;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace iDental.DatabaseAccess.QueryEntities
@@ -36,12 +38,12 @@ namespace iDental.DatabaseAccess.QueryEntities
         /// </summary>
         /// <param name="patients">Patients</param>
         /// <returns></returns>
-        public Patients QueryPatient(Patients patients)
+        public Patients QueryPatient(string patient_ID)
         {
             using (var ide = new iDentalEntities())
             {
                 var queryPatient = from p in ide.Patients
-                                   where p.Patient_ID == patients.Patient_ID
+                                   where p.Patient_ID == patient_ID
                                    select p;
                 return queryPatient.First();
             }
@@ -117,6 +119,39 @@ namespace iDental.DatabaseAccess.QueryEntities
                 ide.Patients.Add(patients);
                 ide.SaveChanges();
                 return patients;
+            }
+        }
+        public List<PatientInfo> QueryPatientAllToPatientInfo()
+        {
+            using (var ide = new iDentalEntities())
+            {
+                var qp = (from p in ide.Patients
+                          select new
+                          {
+                              Patient_ID = p.Patient_ID,
+                              Patient_Number = p.Patient_Number,
+                              Patient_Name = p.Patient_Name,
+                              Patient_Gender = p.Patient_Gender,
+                              Patient_Birth = p.Patient_Birth,
+                              Patient_IDNumber = p.Patient_IDNumber,
+                              Patient_Photo = p.Patient_Photo,
+                              Patient_FirstRegistrationDate = (DateTime)p.Patient_FirstRegistrationDate,
+                              Patient_LastRegistrationDate = p.Registrations.OrderByDescending(o => o.Registration_Date).Count() > 0 ? p.Registrations.OrderByDescending(o => o.Registration_Date).FirstOrDefault().Registration_Date : (DateTime)p.Patient_FirstRegistrationDate,
+                              Patient_PatientCategorys = p.PatientCategorys.ToList()
+                          }).ToList().Select(s => new PatientInfo()
+                          {
+                              Patient_ID = s.Patient_ID,
+                              Patient_Number = s.Patient_Number,
+                              Patient_Name = s.Patient_Name,
+                              Patient_Gender = s.Patient_Gender,
+                              Patient_Birth = s.Patient_Birth,
+                              Patient_IDNumber = s.Patient_IDNumber,
+                              Patient_Photo = s.Patient_Photo,
+                              Patient_FirstRegistrationDate = s.Patient_FirstRegistrationDate,
+                              Patient_LastRegistrationDate = s.Patient_LastRegistrationDate,
+                              Patient_PatientCategorys = s.Patient_PatientCategorys.ToList()
+                          });
+                return qp.ToList();
             }
         }
     }

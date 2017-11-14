@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" Height="450" Width="500" 
         WindowStartupLocation="CenterScreen" Topmost="True"
-        Icon="/iDental;component/Resource/Icon/setting.png"
+        Icon="{Binding WindowIcon}"
         Loaded="Window_Loaded">
     <Window.Resources>
         <vmb:RadioButtonConverter x:Key="radioButtonConverterKey"/>
@@ -147,7 +147,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <!--Grid column 8 GridSplitter -->
+                <!--Grid Row 1 GridSplitter -->
                 <GridSplitter  Grid.Row="1"
                           Height="1" Background="Gray" 
                           HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 

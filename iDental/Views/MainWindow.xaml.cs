@@ -19,15 +19,7 @@ namespace iDental.Views
         public Agencys Agencys
         {
             get { return agencys; }
-            set
-            {
-                agencys = value;
-                //MainWindow 設定
-                mainWindowViewModel = new MainWindowViewModel();
-                DataContext = mainWindowViewModel;
-                //MainWindow 的ContentControl區
-                MainContent.Content = new PatientInformation(agencys, Patients);
-            }
+            set { agencys = value; }
         }
         /// <summary>
         /// 病患資料
@@ -56,6 +48,11 @@ namespace iDental.Views
                     Agencys = login.Agencys;
                     //先判斷影像路徑是否存在
                     //不存在提醒路徑有問題
+                    //MainWindow 設定
+                    mainWindowViewModel = new MainWindowViewModel();
+                    DataContext = mainWindowViewModel;
+                    //MainWindow 的ContentControl區
+                    MainContent.Content = new PatientInformation(Agencys, Patients);
                 }
                 else
                 {
@@ -86,26 +83,29 @@ namespace iDental.Views
 
         private void MenuItem_PatientAdd_Click(object sender, RoutedEventArgs e)
         {
-            PatientSetting patientSetting = new PatientSetting("新增病患", Agencys);
+            PatientSetting patientSetting = new PatientSetting("ADD", Agencys);
             if (patientSetting.ShowDialog() == true)
             {
                 Patients = patientSetting.Patients;
-                Agencys = Agencys;
+                MainContent.Content = new PatientInformation(Agencys, Patients);
             }
 
         }
 
         private void MenuItem_PatientSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            PatientSearch patientSearch = new PatientSearch();
+            if (patientSearch.ShowDialog() == true)
+            {
+                Patients = patientSearch.Patients;
+                MainContent.Content = new PatientInformation(Agencys, Patients);
+            }
         }
 
         private void MenuItem_PatientCategorysManage_Click(object sender, RoutedEventArgs e)
         {
             PatientCategorySetting patientCategorySetting = new PatientCategorySetting();
-            if (patientCategorySetting.ShowDialog() == true)
-            {
-            }
+            patientCategorySetting.ShowDialog();
         }
 
         private void MenuItem_Setting_Click(object sender, RoutedEventArgs e)
@@ -113,18 +113,15 @@ namespace iDental.Views
             AgencySetting agencySetting = new AgencySetting(Agencys);
             if (agencySetting.ShowDialog() == true)
             {
-                //Agencys 會載入Patients 所以先載入Patients資料
-                if (Patients != null)
-                {
-                    Patients = new TablePatients().QueryPatient(Patients);
-                }
                 Agencys = agencySetting.Agencys;
+                MainContent.Content = new PatientInformation(Agencys, Patients);
             }
         }
 
         private void MenuItem_About_Click(object sender, RoutedEventArgs e)
         {
-
+            About about = new About();
+            about.ShowDialog();
         }
         #endregion
 
