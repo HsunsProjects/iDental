@@ -19,14 +19,14 @@
         <TextBlock Grid.Column="0" Grid.Row="0"
                    Text="矯正前" FontSize="16"/>
         <Border Grid.Column="0" Grid.Row="1">
-            <Image x:Name="Image0" Uid="0"
+            <Image x:Name="Image0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
         </Border>
         <TextBlock Grid.Column="1" Grid.Row="0" 
                    Text="矯正後" FontSize="16"/>
         <Border Grid.Column="1" Grid.Row="1">
-            <Image x:Name="Image1" Uid="1"
+            <Image x:Name="Image1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
         </Border>

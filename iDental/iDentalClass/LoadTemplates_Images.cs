@@ -35,7 +35,9 @@ namespace iDental.iDentalClass
                             {
                                 grid.Dispatcher.Invoke(() =>
                                 {
-                                    ((Image)grid.FindName("Image" + ti.Template_Image_Number)).Source = new CreateBitmapImage().SettingBitmapImage(ti.Image_Path, templateImagePixelWidth);
+                                    Image iTarget = (Image)grid.FindName("Image" + ti.Template_Image_Number);
+                                    iTarget.Uid = ti.Template_Image_ID.ToString();
+                                    iTarget.Source = new CreateBitmapImage().SettingBitmapImage(ti.Image_Path, templateImagePixelWidth);
                                 });
 
                             }

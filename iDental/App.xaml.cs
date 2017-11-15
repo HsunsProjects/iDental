@@ -27,17 +27,17 @@ namespace iDental
                 {
                     //測試資料
                     //1. Patient = null
-                    //Patients = new Patients();
+                    Patients = new Patients();
                     //2.Patient Testing
-                    Patients = new Patients()
-                    {
-                        Patient_ID = "0001",
-                        Patient_Number = "E0001",
-                        Patient_Name = "Eason",
-                        Patient_Gender = true,
-                        Patient_Birth = DateTime.Parse("1986-08-11"),
-                        Patient_IDNumber = "W100399932"
-                    };
+                    //Patients = new Patients()
+                    //{
+                    //    Patient_ID = "0001",
+                    //    Patient_Number = "E0001",
+                    //    Patient_Name = "Eason",
+                    //    Patient_Gender = true,
+                    //    Patient_Birth = DateTime.Parse("1986-08-11"),
+                    //    Patient_IDNumber = "W100399932"
+                    //};
                 }
                 base.OnStartup(e);
             }

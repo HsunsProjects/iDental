@@ -42,7 +42,7 @@
             <StackPanel Grid.Column="3" Grid.Row="0" Margin="2">
                 <TextBlock Text="55"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image0" Uid="0"
+                    <Image x:Name="Image0"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -50,7 +50,7 @@
             <StackPanel Grid.Column="4" Grid.Row="0" Margin="2">
                 <TextBlock Text="54"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image1" Uid="1"
+                    <Image x:Name="Image1"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -58,7 +58,7 @@
             <StackPanel Grid.Column="5" Grid.Row="0" Margin="2">
                 <TextBlock Text="53"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image2" Uid="2"
+                    <Image x:Name="Image2"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -66,7 +66,7 @@
             <StackPanel Grid.Column="6" Grid.Row="0" Margin="2">
                 <TextBlock Text="52"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image3" Uid="3"
+                    <Image x:Name="Image3"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -74,7 +74,7 @@
             <StackPanel Grid.Column="7" Grid.Row="0" Margin="2">
                 <TextBlock Text="51"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image4" Uid="4"
+                    <Image x:Name="Image4"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -82,7 +82,7 @@
             <StackPanel Grid.Column="9" Grid.Row="0" Margin="2">
                 <TextBlock Text="61"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image5" Uid="5"
+                    <Image x:Name="Image5"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -90,7 +90,7 @@
             <StackPanel Grid.Column="10" Grid.Row="0" Margin="2">
                 <TextBlock Text="62"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image6" Uid="6"
+                    <Image x:Name="Image6"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -98,7 +98,7 @@
             <StackPanel Grid.Column="11" Grid.Row="0" Margin="2">
                 <TextBlock Text="63"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image7" Uid="7"
+                    <Image x:Name="Image7"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -106,7 +106,7 @@
             <StackPanel Grid.Column="12" Grid.Row="0" Margin="2">
                 <TextBlock Text="64"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image8" Uid="8"
+                    <Image x:Name="Image8"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -114,7 +114,7 @@
             <StackPanel Grid.Column="13" Grid.Row="0" Margin="2">
                 <TextBlock Text="65"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image9" Uid="9"
+                    <Image x:Name="Image9"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -123,7 +123,7 @@
             <StackPanel Grid.Column="0" Grid.Row="1" Margin="2">
                 <TextBlock Text="18"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image10" Uid="10"
+                    <Image x:Name="Image10"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -131,7 +131,7 @@
             <StackPanel Grid.Column="1" Grid.Row="1" Margin="2">
                 <TextBlock Text="17"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image11" Uid="11"
+                    <Image x:Name="Image11"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -139,7 +139,7 @@
             <StackPanel Grid.Column="2" Grid.Row="1" Margin="2">
                 <TextBlock Text="16"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image12" Uid="12"
+                    <Image x:Name="Image12"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -147,7 +147,7 @@
             <StackPanel Grid.Column="3" Grid.Row="1" Margin="2">
                 <TextBlock Text="15"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image13" Uid="13"
+                    <Image x:Name="Image13"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -155,7 +155,7 @@
             <StackPanel Grid.Column="4" Grid.Row="1" Margin="2">
                 <TextBlock Text="14"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image14" Uid="14"
+                    <Image x:Name="Image14"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -163,7 +163,7 @@
             <StackPanel Grid.Column="5" Grid.Row="1" Margin="2">
                 <TextBlock Text="13"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image15" Uid="15"
+                    <Image x:Name="Image15"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -171,7 +171,7 @@
             <StackPanel Grid.Column="6" Grid.Row="1" Margin="2">
                 <TextBlock Text="12"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image16" Uid="16"
+                    <Image x:Name="Image16"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -179,7 +179,7 @@
             <StackPanel Grid.Column="7" Grid.Row="1" Margin="2">
                 <TextBlock Text="11"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image17" Uid="17"
+                    <Image x:Name="Image17"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -187,7 +187,7 @@
             <StackPanel Grid.Column="9" Grid.Row="1" Margin="2">
                 <TextBlock Text="21"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image18" Uid="18"
+                    <Image x:Name="Image18"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -195,7 +195,7 @@
             <StackPanel Grid.Column="10" Grid.Row="1" Margin="2">
                 <TextBlock Text="22"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image19" Uid="19"
+                    <Image x:Name="Image19"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -203,7 +203,7 @@
             <StackPanel Grid.Column="11" Grid.Row="1" Margin="2">
                 <TextBlock Text="23"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image20" Uid="20"
+                    <Image x:Name="Image20"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -211,7 +211,7 @@
             <StackPanel Grid.Column="12" Grid.Row="1" Margin="2">
                 <TextBlock Text="24"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image21" Uid="21"
+                    <Image x:Name="Image21"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -219,7 +219,7 @@
             <StackPanel Grid.Column="13" Grid.Row="1" Margin="2">
                 <TextBlock Text="25"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image22" Uid="22"
+                    <Image x:Name="Image22"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -227,7 +227,7 @@
             <StackPanel Grid.Column="14" Grid.Row="1" Margin="2">
                 <TextBlock Text="26"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image23" Uid="23"
+                    <Image x:Name="Image23"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -235,7 +235,7 @@
             <StackPanel Grid.Column="15" Grid.Row="1" Margin="2">
                 <TextBlock Text="27"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image24" Uid="24"
+                    <Image x:Name="Image24"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -243,7 +243,7 @@
             <StackPanel Grid.Column="16" Grid.Row="1" Margin="2">
                 <TextBlock Text="28"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image25" Uid="25"
+                    <Image x:Name="Image25"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -252,7 +252,7 @@
             <StackPanel Grid.Column="0" Grid.Row="3" Margin="2">
                 <TextBlock Text="48"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image26" Uid="26"
+                    <Image x:Name="Image26"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -260,7 +260,7 @@
             <StackPanel Grid.Column="1" Grid.Row="3" Margin="2">
                 <TextBlock Text="47"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image27" Uid="27"
+                    <Image x:Name="Image27"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -268,7 +268,7 @@
             <StackPanel Grid.Column="2" Grid.Row="3" Margin="2">
                 <TextBlock Text="46"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image28" Uid="28"
+                    <Image x:Name="Image28"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -276,7 +276,7 @@
             <StackPanel Grid.Column="3" Grid.Row="3" Margin="2">
                 <TextBlock Text="45"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image29" Uid="29"
+                    <Image x:Name="Image29"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -284,7 +284,7 @@
             <StackPanel Grid.Column="4" Grid.Row="3" Margin="2">
                 <TextBlock Text="44"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image30" Uid="30"
+                    <Image x:Name="Image30"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -292,7 +292,7 @@
             <StackPanel Grid.Column="5" Grid.Row="3" Margin="2">
                 <TextBlock Text="43"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image31" Uid="31"
+                    <Image x:Name="Image31"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -300,7 +300,7 @@
             <StackPanel Grid.Column="6" Grid.Row="3" Margin="2">
                 <TextBlock Text="42"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image32" Uid="32"
+                    <Image x:Name="Image32"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -308,7 +308,7 @@
             <StackPanel Grid.Column="7" Grid.Row="3" Margin="2">
                 <TextBlock Text="41"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image33" Uid="33"
+                    <Image x:Name="Image33"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -316,7 +316,7 @@
             <StackPanel Grid.Column="9" Grid.Row="3" Margin="2">
                 <TextBlock Text="31"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image34" Uid="34"
+                    <Image x:Name="Image34"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -324,7 +324,7 @@
             <StackPanel Grid.Column="10" Grid.Row="3" Margin="2">
                 <TextBlock Text="32"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image35" Uid="35"
+                    <Image x:Name="Image35"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -332,7 +332,7 @@
             <StackPanel Grid.Column="11" Grid.Row="3" Margin="2">
                 <TextBlock Text="33"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image36" Uid="36"
+                    <Image x:Name="Image36"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -340,7 +340,7 @@
             <StackPanel Grid.Column="12" Grid.Row="3" Margin="2">
                 <TextBlock Text="34"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image37" Uid="37"
+                    <Image x:Name="Image37"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -348,7 +348,7 @@
             <StackPanel Grid.Column="13" Grid.Row="3" Margin="2">
                 <TextBlock Text="35"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image38" Uid="38"
+                    <Image x:Name="Image38"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -356,7 +356,7 @@
             <StackPanel Grid.Column="14" Grid.Row="3" Margin="2">
                 <TextBlock Text="36"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image39" Uid="39"
+                    <Image x:Name="Image39"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -364,7 +364,7 @@
             <StackPanel Grid.Column="15" Grid.Row="3" Margin="2">
                 <TextBlock Text="37"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image40" Uid="40"
+                    <Image x:Name="Image40"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -372,7 +372,7 @@
             <StackPanel Grid.Column="16" Grid.Row="3" Margin="2">
                 <TextBlock Text="38"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image41" Uid="41"
+                    <Image x:Name="Image41"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -381,7 +381,7 @@
             <StackPanel Grid.Column="3" Grid.Row="4" Margin="2">
                 <TextBlock Text="85"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image42" Uid="42"
+                    <Image x:Name="Image42"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -389,7 +389,7 @@
             <StackPanel Grid.Column="4" Grid.Row="4" Margin="2">
                 <TextBlock Text="84"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image43" Uid="43"
+                    <Image x:Name="Image43"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -397,7 +397,7 @@
             <StackPanel Grid.Column="5" Grid.Row="4" Margin="2">
                 <TextBlock Text="83"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image44" Uid="44"
+                    <Image x:Name="Image44"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -405,7 +405,7 @@
             <StackPanel Grid.Column="6" Grid.Row="4" Margin="2">
                 <TextBlock Text="82"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image45" Uid="45"
+                    <Image x:Name="Image45"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -413,7 +413,7 @@
             <StackPanel Grid.Column="7" Grid.Row="4" Margin="2">
                 <TextBlock Text="81"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image46" Uid="46"
+                    <Image x:Name="Image46"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -421,7 +421,7 @@
             <StackPanel Grid.Column="9" Grid.Row="4" Margin="2">
                 <TextBlock Text="71"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image47" Uid="47"
+                    <Image x:Name="Image47"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -429,7 +429,7 @@
             <StackPanel Grid.Column="10" Grid.Row="4" Margin="2">
                 <TextBlock Text="72"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image48" Uid="48"
+                    <Image x:Name="Image48"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -437,7 +437,7 @@
             <StackPanel Grid.Column="11" Grid.Row="4" Margin="2">
                 <TextBlock Text="73"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image49" Uid="49"
+                    <Image x:Name="Image49"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -445,7 +445,7 @@
             <StackPanel Grid.Column="12" Grid.Row="4" Margin="2">
                 <TextBlock Text="74"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image50" Uid="50"
+                    <Image x:Name="Image50"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>
@@ -453,7 +453,7 @@
             <StackPanel Grid.Column="13" Grid.Row="4" Margin="2">
                 <TextBlock Text="75"/>
                 <Border BorderBrush="PowderBlue" BorderThickness="1">
-                    <Image x:Name="Image51" Uid="51"
+                    <Image x:Name="Image51"
                            Source="/iDental;component/Resource/Icon/add.png"
                            AllowDrop="True" Drop="Image_Drop"></Image>
                 </Border>

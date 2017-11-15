@@ -82,7 +82,7 @@
             </Grid.RowDefinitions>
             <ContentControl Margin="5" Grid.Column="0" Grid.Row="0"
                             Grid.ColumnSpan="{Binding ColumnSpan}" Grid.RowSpan="{Binding RowSpan}"
-                            Content="{Binding TemplateContent}"/>
+                            Content="{Binding TemplateContent}" MouseRightButtonDown="ContentControl_MouseRightButtonDown"/>
             <Button x:Name="ButtonStretch"
                     Grid.Column="{Binding ButtonStretchColumn}" Grid.Row="{Binding ButtonStretchRow}"
                     Grid.ColumnSpan="{Binding ColumnSpan}" Grid.RowSpan="{Binding RowSpan}"

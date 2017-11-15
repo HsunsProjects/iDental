@@ -78,10 +78,11 @@ namespace iDental.DatabaseAccess.QueryEntities
         /// <param name="imageID"></param>
         /// <param name="imagePath"></param>
         /// <param name="tiNumber"></param>
-        public void InsertOrUpdateTemplatesImages(Patients patients, Templates templates, DateTime templateImportDate, int imageID, string imagePath, string tiNumber)
+        public string InsertOrUpdateTemplatesImages(Patients patients, Templates templates, DateTime templateImportDate, int imageID, string imagePath, string tiNumber)
         {
             using (var ide = new iDentalEntities())
             {
+                Templates_Images templates_Images = new Templates_Images();
                 var IsImageExist = from iie in ide.Templates_Images
                                    where iie.Template_ID == templates.Template_ID &&
                                    iie.Template_Image_Number == tiNumber &&
@@ -90,7 +91,6 @@ namespace iDental.DatabaseAccess.QueryEntities
                                    select iie;
                 if (IsImageExist.Count() > 0)
                 {
-                    Templates_Images templates_Images = new Templates_Images();
                     templates_Images = IsImageExist.First();
                     templates_Images.Image_ID = imageID;
                     templates_Images.Image_Path = imagePath;
@@ -98,17 +98,42 @@ namespace iDental.DatabaseAccess.QueryEntities
                 }
                 else
                 {
-                    ide.Templates_Images.Add(new Templates_Images()
-                    {
-                        Template_Image_Number = tiNumber,
-                        Template_ID = templates.Template_ID,
-                        Template_Image_ImportDate = templateImportDate.Date,
-                        Image_ID = imageID,
-                        Image_Path = imagePath,
-                        Patient_ID = patients.Patient_ID
-                    });
+                    templates_Images.Template_Image_Number = tiNumber;
+                    templates_Images.Template_ID = templates.Template_ID;
+                    templates_Images.Template_Image_ImportDate = templateImportDate.Date;
+                    templates_Images.Image_ID = imageID;
+                    templates_Images.Image_Path = imagePath;
+                    templates_Images.Patient_ID = patients.Patient_ID;
+
+                    ide.Templates_Images.Add(templates_Images);
                     ide.SaveChanges();
                 }
+                return templates_Images.Template_Image_ID.ToString();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="template_image_id"></param>
+        public string RemoveAndReturnUidTemplatesImages(int template_image_id)
+        {
+            using (var ide = new iDentalEntities())
+            {
+                var qti = from ti in ide.Templates_Images
+                         where ti.Template_Image_ID == template_image_id
+                         select ti;
+                if (qti.Count() > 0)
+                {
+                    Templates_Images templates_Images = new Templates_Images();
+                    templates_Images = qti.First();
+                    templates_Images.Image_ID = null;
+                    templates_Images.Image_Path = string.Empty;
+                    ide.SaveChanges();
+                    var qt = ide.Templates.Where(w => w.Template_ID == templates_Images.Template_ID).First();
+                    return qt.Template_DefaultImage;
+                }
+                return null;
             }
         }
     }

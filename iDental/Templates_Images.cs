@@ -22,8 +22,8 @@ namespace iDental
         public string Image_Path { get; set; }
         public string Patient_ID { get; set; }
     
-        public virtual Templates Templates { get; set; }
         public virtual Images Images { get; set; }
         public virtual Patients Patients { get; set; }
+        public virtual Templates Templates { get; set; }
     }
 }

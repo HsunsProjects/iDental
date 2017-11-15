@@ -19,27 +19,27 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Image0" Uid="0"
+            <Image x:Name="Image0"
                    Grid.Column="0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image1" Uid="1"
+            <Image x:Name="Image1"
                    Grid.Column="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image2" Uid="2"
+            <Image x:Name="Image2"
                    Grid.Column="2"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image3" Uid="3"
+            <Image x:Name="Image3"
                    Grid.Column="3"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image4" Uid="4"
+            <Image x:Name="Image4"
                    Grid.Column="4"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image5" Uid="5"
+            <Image x:Name="Image5"
                    Grid.Column="5"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
@@ -55,23 +55,23 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Image x:Name="Image6" Uid="6"
+            <Image x:Name="Image6"
                    Grid.Column="1" Grid.Row="0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image7" Uid="7"
+            <Image x:Name="Image7"
                    Grid.Column="0" Grid.Row="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image8" Uid="8"
+            <Image x:Name="Image8"
                    Grid.Column="1" Grid.Row="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image9" Uid="9"
+            <Image x:Name="Image9"
                    Grid.Column="2" Grid.Row="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>
-            <Image x:Name="Image10" Uid="10"
+            <Image x:Name="Image10"
                    Grid.Column="1" Grid.Row="2"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"></Image>

@@ -15,11 +15,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Image0" Uid="0"
+            <Image x:Name="Image0"
                    Grid.Column="0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
-            <Image x:Name="Image1" Uid="1"
+            <Image x:Name="Image1"
                    Grid.Column="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
@@ -30,15 +30,15 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image x:Name="Image2" Uid="2"
+            <Image x:Name="Image2"
                    Grid.Column="0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
-            <Image x:Name="Image3" Uid="3"
+            <Image x:Name="Image3"
                    Grid.Column="1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
-            <Image x:Name="Image4" Uid="4"
+            <Image x:Name="Image4"
                    Grid.Column="2"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>

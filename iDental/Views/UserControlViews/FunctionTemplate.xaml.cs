@@ -6,12 +6,12 @@ using iDental.ViewModels.ViewModelBase;
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.IO;
-using System.Threading;
-using System.Linq;
 using System.Windows.Media.Imaging;
 
 namespace iDental.Views.UserControlViews
@@ -50,6 +50,7 @@ namespace iDental.Views.UserControlViews
         }
 
         private FunctionTemplateViewModel functionTemplateViewModel;
+        private TableTemplates_Images tableTemplates_Images;
         public FunctionTemplate(Agencys agencys, Patients patients, MTObservableCollection<ImageInfo> displayImageInfo)
         {
             InitializeComponent();
@@ -59,6 +60,8 @@ namespace iDental.Views.UserControlViews
             DataContext = functionTemplateViewModel;
 
             DisplayImageInfo = displayImageInfo;
+
+            tableTemplates_Images = new TableTemplates_Images();
         }
         
         private void Button_Stretch_Click(object sender, RoutedEventArgs e)
@@ -130,8 +133,6 @@ namespace iDental.Views.UserControlViews
                         using (var ide = new iDentalEntities())
                         {
                             CreateBitmapImage createBitmapImage = new CreateBitmapImage();
-
-                            TableTemplates_Images tableTemplates_Images = new TableTemplates_Images();
 
                             ObservableCollection<Templates_Images> Templates_ImagesCollect = tableTemplates_Images.QueryTemplatesImagesImportDateAndReturnFullImagePath(Agencys, Patients, SelectedTemplate, functionTemplateViewModel.SelectedDate);
 
@@ -236,11 +237,14 @@ namespace iDental.Views.UserControlViews
 
                                         TemplateContent.Dispatcher.Invoke(() =>
                                         {
+                                            //INSERT TemplateImages
+                                            //寫入資料庫再帶回畫面
+                                            string ImageUID = string.Empty;
+                                            ImageUID = tableTemplates_Images.InsertOrUpdateTemplatesImages(Patients, functionTemplateViewModel.SelectedTemplate, functionTemplateViewModel.SelectedDate, images.Image_ID, images.Image_Path, Imagei.ToString());
+
                                             iTarget = new Image();
                                             iTarget = (Image)TemplateContent.FindName("Image" + Imagei);
-
-                                            //INSERT TemplateImages
-                                            tableTemplates_Images.InsertOrUpdateTemplatesImages(Patients, functionTemplateViewModel.SelectedTemplate, functionTemplateViewModel.SelectedDate, images.Image_ID, images.Image_Path, iTarget.Uid);
+                                            iTarget.Uid = ImageUID;
                                             iTarget.Source = createBitmapImage.SettingBitmapImage(patientImageFolderInfo.PatientImageFullPath + @"\" + imageFileName, DecodePixelWidth);
                                             isChanged = true;
                                         });
@@ -293,7 +297,7 @@ namespace iDental.Views.UserControlViews
                                                     }
                                                     else
                                                     {
-                                                        iTarget.Source = new BitmapImage(new Uri(@"/DigiDental;component/Resource/no.png", UriKind.RelativeOrAbsolute));
+                                                        //iTarget.Source = new BitmapImage(new Uri(@"/DigiDental;component/Resource/no.png", UriKind.RelativeOrAbsolute));
                                                     }
                                                 });
                                             }
@@ -383,7 +387,7 @@ namespace iDental.Views.UserControlViews
                 };
                 if (sfd.ShowDialog() == true)
                 {
-                    ObservableCollection<Templates_Images> observableCollection = new TableTemplates_Images().QueryTemplatesImagesImportDateAndReturnFullImagePath(Agencys, Patients, functionTemplateViewModel.SelectedTemplate, functionTemplateViewModel.SelectedDate);
+                    ObservableCollection<Templates_Images> observableCollection = tableTemplates_Images.QueryTemplatesImagesImportDateAndReturnFullImagePath(Agencys, Patients, functionTemplateViewModel.SelectedTemplate, functionTemplateViewModel.SelectedDate);
                     if (new PPTPresentation().CreatePPTExport(observableCollection, sfd.FileName, functionTemplateViewModel.SelectedTemplate.Template_Title))
                     {
                         MessageBox.Show("檔案建立成功，存放位置於" + sfd.FileName, "提示", MessageBoxButton.OK);
@@ -414,6 +418,39 @@ namespace iDental.Views.UserControlViews
             {
                 ErrorLog.ErrorMessageOutput(ex.ToString());
                 MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void ContentControl_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (TemplateContent.IsMouseOver == true)
+            {
+                int imageCount = SelectedTemplate.Template_ImageCount;
+                for (int i = 0; i < imageCount; i++)
+                {
+                    if (((FrameworkElement)TemplateContent.FindName("Image" + i)).IsMouseOver)
+                    {
+                        if (typeof(Image) == TemplateContent.FindName("Image" + i).GetType())
+                        {
+                            Image iTarget = (Image)TemplateContent.FindName("Image" + i);
+                            if (!string.IsNullOrEmpty(iTarget.Uid))
+                            {
+                                if (MessageBox.Show("確定移除樣板圖片?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                                {
+                                    string DefaultImage = tableTemplates_Images.RemoveAndReturnUidTemplatesImages(int.Parse(iTarget.Uid));
+                                    iTarget.Dispatcher.Invoke(() => 
+                                    {
+                                        iTarget.Source = new BitmapImage(new Uri(@"pack://application:,,,/iDental;" + DefaultImage, UriKind.Absolute));
+                                    });
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("此區域尚未放置圖片", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
+                        }
+                    }
+                }
             }
         }
     }

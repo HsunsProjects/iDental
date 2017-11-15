@@ -17,47 +17,47 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Grid.Row="0">
-            <Image x:Name="Image0" Uid="0" 
+            <Image x:Name="Image0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="1" Grid.Row="0">
-            <Image x:Name="Image1" Uid="1"
+            <Image x:Name="Image1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="0">
-            <Image x:Name="Image2" Uid="2" 
+            <Image x:Name="Image2"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="0" Grid.Row="1">
-            <Image x:Name="Image3" Uid="3" 
+            <Image x:Name="Image3"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="1" Grid.Row="1">
-            <Image x:Name="Image4" Uid="4"
+            <Image x:Name="Image4"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="1">
-            <Image x:Name="Image5" Uid="5"
+            <Image x:Name="Image5"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="0" Grid.Row="2">
-            <Image x:Name="Image6" Uid="6" 
+            <Image x:Name="Image6"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="1" Grid.Row="2">
-            <Image x:Name="Image7" Uid="7" 
+            <Image x:Name="Image7"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border Grid.Column="2" Grid.Row="2">
-            <Image x:Name="Image8" Uid="8" 
+            <Image x:Name="Image8"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>

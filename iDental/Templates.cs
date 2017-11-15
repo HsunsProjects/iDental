@@ -17,6 +17,7 @@ namespace iDental
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Templates()
         {
+            this.Template_IsEnable = true;
             this.Templates_Images = new HashSet<Templates_Images>();
         }
     
@@ -24,7 +25,8 @@ namespace iDental
         public string Template_Title { get; set; }
         public string Template_UserControlName { get; set; }
         public Nullable<int> Template_SeqNo { get; set; }
-        public Nullable<int> Template_ImageCount { get; set; }
+        public int Template_ImageCount { get; set; }
+        public string Template_DefaultImage { get; set; }
         public Nullable<int> Template_DecodePixelWidth { get; set; }
         public bool Template_IsEnable { get; set; }
     

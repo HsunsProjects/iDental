@@ -46,9 +46,13 @@ namespace iDental.Views.UserControlViews.FunctionTemplates
 
                 dragImage = ((ImageInfo)e.Data.GetData(DataFormats.Text));
 
+                //取得圖片位置代號寫入圖片用
+                string Template_Image_Number = img.Name.Replace("Image", "");
+                string ImageUID = string.Empty;
+                //寫入資料庫再帶回畫面
+                ImageUID = tableTemplates_Images.InsertOrUpdateTemplatesImages(Patients, Templates, TemplateImportDate, dragImage.Image_ID, dragImage.Image_Path, Template_Image_Number);
+                img.Uid = ImageUID;
                 img.Source = new CreateBitmapImage().SettingBitmapImage(dragImage.Image_FullPath, TemplateImagePixelWidth);
-
-                tableTemplates_Images.InsertOrUpdateTemplatesImages(Patients, Templates, TemplateImportDate, dragImage.Image_ID, dragImage.Image_Path, img.Uid);
             }
             catch (Exception ex)
             {

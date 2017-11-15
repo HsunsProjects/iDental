@@ -40,10 +40,6 @@ namespace iDental.ViewModels.UserControlViewModels
                 {
                     Patient_Photo = new CreateBitmapImage().SettingBitmapImage(Agencys.Agency_ImagePath + patients.Patient_Photo, 400);
                 }
-                else
-                {
-                    Patient_Photo = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Image/avatar.jpg", UriKind.Absolute));
-                }
 
                 Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_FirstRegistrationDate).ToString("yyyy/MM/dd");
 
@@ -87,7 +83,7 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private bool patient_Gender;
+        private bool patient_Gender = true;
         public bool Patient_Gender
         {
             get { return patient_Gender; }
@@ -98,7 +94,7 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private DateTime patient_Birth;
+        private DateTime patient_Birth = DateTime.Now;
         public DateTime Patient_Birth
         {
             get { return patient_Birth; }
@@ -109,7 +105,7 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private BitmapImage patient_Photo;
+        private BitmapImage patient_Photo = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Image/avatar.jpg", UriKind.Absolute));
         public BitmapImage Patient_Photo
         {
             get { return patient_Photo; }

@@ -22,116 +22,116 @@
         </Grid.RowDefinitions>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="0" Grid.Row="0">
-            <Image x:Name="Image0" Uid="0"
+            <Image x:Name="Image0"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="1" Grid.Row="0">
-            <Image x:Name="Image1" Uid="1"
+            <Image x:Name="Image1"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="2" Grid.Row="0"
                 Grid.ColumnSpan="3">
-            <Image x:Name="Image2" Uid="2"
+            <Image x:Name="Image2"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="5" Grid.Row="0">
-            <Image x:Name="Image3" Uid="3"
+            <Image x:Name="Image3"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="6" Grid.Row="0">
-            <Image x:Name="Image4" Uid="4"
+            <Image x:Name="Image4"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="0" Grid.Row="1">
-            <Image x:Name="Image5" Uid="5"
+            <Image x:Name="Image5"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="1" Grid.Row="1">
-            <Image x:Name="Image6" Uid="6"
+            <Image x:Name="Image6"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="2" Grid.Row="1">
-            <Image x:Name="Image7" Uid="7"
+            <Image x:Name="Image7"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="3" Grid.Row="1">
-            <Image x:Name="Image8" Uid="8"
+            <Image x:Name="Image8"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="4" Grid.Row="1">
-            <Image x:Name="Image9" Uid="9"
+            <Image x:Name="Image9"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="5" Grid.Row="1">
-            <Image x:Name="Image10" Uid="10"
+            <Image x:Name="Image10"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="6" Grid.Row="1">
-            <Image x:Name="Image11" Uid="11"
+            <Image x:Name="Image11"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="0" Grid.Row="2">
-            <Image x:Name="Image12" Uid="12"
+            <Image x:Name="Image12"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="1" Grid.Row="2">
-            <Image x:Name="Image13" Uid="13"
+            <Image x:Name="Image13"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="2" Grid.Row="2">
-            <Image x:Name="Image14" Uid="14"
+            <Image x:Name="Image14"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="3" Grid.Row="2">
-            <Image x:Name="Image15" Uid="15"
+            <Image x:Name="Image15"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="4" Grid.Row="2">
-            <Image x:Name="Image16" Uid="16"
+            <Image x:Name="Image16"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="5" Grid.Row="2">
-            <Image x:Name="Image17" Uid="17"
+            <Image x:Name="Image17"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
         <Border BorderBrush="PowderBlue" BorderThickness="0.5"
                 Grid.Column="6" Grid.Row="2">
-            <Image x:Name="Image18" Uid="18"
+            <Image x:Name="Image18"
                    Source="/iDental;component/Resource/Image/imagearea.png"
                    AllowDrop="True" Drop="Image_Drop"/>
         </Border>
