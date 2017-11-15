@@ -365,6 +365,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 {
                     case "1":
                         functionList = new FunctionList(DisplayImageInfo);
+                        functionList.ReturnValueCallback += new FunctionList.ReturnValueDelegate(RegistrationSetting);
                         break;
                     case "2":
                         functionTemplate = new FunctionTemplate(Agencys, Patients, DisplayImageInfo);

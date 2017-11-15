@@ -17,14 +17,11 @@ namespace iDental.DatabaseAccess.QueryEntities
         {
             using (var ide = new iDentalEntities())
             {
-                var queryImages = from r in ide.Registrations
-                                  where r.Patient_ID == patients.Patient_ID
-                                  join i in ide.Images
-                                  on r.Registration_ID equals i.Registration_ID into ri
-                                  from qri in ri.DefaultIfEmpty()
-                                  where qri.Image_IsEnable == true
-                                  select qri;
-                ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(queryImages.ToList().Select(s => new ImageInfo
+                var qi = from i in ide.Images
+                         where i.Registrations.Patient_ID == patients.Patient_ID
+                         && i.Image_IsEnable == true
+                         select i;
+                ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(qi.ToList().Select(s => new ImageInfo
                 {
                     Registration_Date = s.Registrations.Registration_Date,
                     Image_ID = s.Image_ID,
@@ -51,14 +48,12 @@ namespace iDental.DatabaseAccess.QueryEntities
         {
             using (var ide = new iDentalEntities())
             {
-                var queryImages = from r in ide.Registrations
-                                  where r.Patient_ID == patients.Patient_ID && r.Registration_Date == registrationDate.Date
-                                  join i in ide.Images
-                                  on r.Registration_ID equals i.Registration_ID into ri
-                                  from qri in ri.DefaultIfEmpty()
-                                  where qri.Image_IsEnable == true
-                                  select qri;
-                ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(queryImages.ToList().Select(s => new ImageInfo
+                var qi = from i in ide.Images
+                         where i.Registrations.Patient_ID == patients.Patient_ID
+                         && i.Registrations.Registration_Date == registrationDate
+                         && i.Image_IsEnable == true
+                         select i;
+                ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(qi.ToList().Select(s => new ImageInfo
                 {
                     Registration_Date = s.Registrations.Registration_Date,
                     Image_ID = s.Image_ID,

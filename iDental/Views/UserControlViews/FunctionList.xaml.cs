@@ -108,6 +108,11 @@ namespace iDental.Views.UserControlViews
             }
         }
 
+        // 委派回傳 MainWindows
+        // 刪圖片完後更新所有匯入的紀錄
+        public delegate void ReturnValueDelegate();
+        public event ReturnValueDelegate ReturnValueCallback;
+
         private void Button_ImageDelete_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("確定刪除已選定的" + functionListViewModel.ImageSelectedCount + "個項目?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -131,10 +136,13 @@ namespace iDental.Views.UserControlViews
                                 DisplayImageInfo.Remove(ii);
                         }
                         functionListViewModel.CountImages = DisplayImageInfo.Count();
+
+                        ReturnValueCallback();
                     }
                     catch (Exception ex)
                     {
                         ErrorLog.ErrorMessageOutput(ex.ToString());
+                        MessageBox.Show("刪除圖片發生錯誤", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -152,7 +160,7 @@ namespace iDental.Views.UserControlViews
             catch (Exception ex)
             {
                 ErrorLog.ErrorMessageOutput(ex.ToString());
-                MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
