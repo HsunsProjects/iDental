@@ -136,8 +136,10 @@ namespace iDental.Views.UserControlViews
                                 DisplayImageInfo.Remove(ii);
                         }
                         functionListViewModel.CountImages = DisplayImageInfo.Count();
-
-                        ReturnValueCallback();
+                        if (DisplayImageInfo.Count() == 0)
+                        {
+                            ReturnValueCallback();
+                        }
                     }
                     catch (Exception ex)
                     {
