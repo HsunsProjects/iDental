@@ -394,7 +394,7 @@ namespace iDental.Views.UserControlViews
                     }
                     else
                     {
-                        MessageBox.Show("檔案匯出發生問題", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("檔案匯出發生問題，請確認是否有安裝Microsoft Office", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 GC.Collect();

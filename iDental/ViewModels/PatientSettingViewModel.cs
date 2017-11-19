@@ -172,7 +172,7 @@ namespace iDental.ViewModels
             }
         }
 
-        private List<PatientCategoryInfo> patientCategoryInfo;
+        private List<PatientCategoryInfo> patientCategoryInfo = new List<PatientCategoryInfo>();
         public List<PatientCategoryInfo> PatientCategoryInfo
         {
             get { return patientCategoryInfo; }
