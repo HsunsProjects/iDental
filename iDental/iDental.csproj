@@ -423,6 +423,8 @@
       <DependentUpon>Models.edmx</DependentUpon>
       <LastGenOutput>Models.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Icon\exportimage.png" />
+    <Resource Include="Resource\Icon\exportppt.png" />
     <Resource Include="Resource\Icon\edit2.png" />
     <Resource Include="Resource\Image\imagearea.png" />
     <Resource Include="Resource\Icon\gridline.png" />
@@ -437,8 +439,6 @@
     <Resource Include="Resource\Icon\last.png" />
     <Resource Include="Resource\Icon\next.png" />
     <Resource Include="Resource\Icon\saveas.png" />
-    <Resource Include="Resource\Icon\exportimage.png" />
-    <Resource Include="Resource\Icon\exportppt.png" />
     <Resource Include="Resource\Icon\autocamera.png" />
     <Resource Include="Resource\Icon\zoomout.png" />
     <Resource Include="Resource\Icon\zoomin.png" />
