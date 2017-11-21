@@ -4,7 +4,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="iDental" Height="768" Width="1366"
+        Title="iDental" Height="768" Width="1366" Icon="/iDental;component/Resource/Logo/logo.png"
         WindowState="Maximized"
         ContentRendered="Window_ContentRendered">
     <Grid>

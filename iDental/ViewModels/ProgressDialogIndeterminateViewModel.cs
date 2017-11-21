@@ -91,5 +91,16 @@ namespace iDental.ViewModels
                 OnPropertyChanged("ButtonContentVisibility");
             }
         }
+
+        private Visibility allButtonVisibility = Visibility.Visible;
+        public Visibility AllButtonVisibility
+        {
+            get { return allButtonVisibility; }
+            set
+            {
+                allButtonVisibility = value;
+                OnPropertyChanged("AllButtonVisibility");
+            }
+        }
     }
 }

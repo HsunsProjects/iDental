@@ -144,7 +144,7 @@ namespace iDental.Views
                             if (answerDialogOne.ShowDialog() == true)
                             {
                                 string verificationCodeClient = string.Empty;
-                                verificationCodeClient = answerDialogOne.Answer;
+                                verificationCodeClient = KeyGenerator.SHA384Encode(answerDialogOne.Answer);
                                 if (verificationCodeClient.Equals(agencys.Agency_VerificationCode))
                                 {
                                     TextBlockStatus.Dispatcher.Invoke(() =>

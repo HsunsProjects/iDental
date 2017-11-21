@@ -267,7 +267,7 @@ namespace iDental.Views
             OpenFileDialog ofd = new OpenFileDialog()
             {
                 DefaultExt = ".png",
-                Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
+                Filter = "All Files (*.*)|*.*|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif"
             };
             bool? ofdResult = ofd.ShowDialog();
             if (ofdResult.HasValue && ofdResult.Value)//OpenFileDialog 選確定

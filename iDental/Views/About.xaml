@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="關於iDental" Height="500" Width="600" 
+        Title="關於iDental" Height="550" Width="600" Icon="/iDental;component/Resource/Logo/logo.png"
         WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -13,6 +13,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Image Grid.Row="0" Width="376" Height="449" Source="/iDental;component/Resource/Logo/logoV.png"/>
         <TextBlock x:Name="ProductVersion" Grid.Row="2" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock x:Name="CompanyCopyright" Grid.Row="3" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <!--Grid Row 1 GridSplitter -->

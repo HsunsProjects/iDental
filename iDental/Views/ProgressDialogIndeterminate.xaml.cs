@@ -51,6 +51,11 @@ namespace iDental.Views
             get { return progressDialogIndeterminateViewModel.ButtonContentVisibility; }
             set { progressDialogIndeterminateViewModel.ButtonContentVisibility = value; }
         }
+        public Visibility AllButtonVisibility
+        {
+            get { return progressDialogIndeterminateViewModel.AllButtonVisibility; }
+            set { progressDialogIndeterminateViewModel.AllButtonVisibility = value; }
+        }
 
         /// <summary>
         /// 委派回傳ProcessingDialog 
@@ -78,6 +83,11 @@ namespace iDental.Views
         private void Button_Stop_Click(object sender, RoutedEventArgs e)
         {
             ReturnValueCallback(true);
+        }
+
+        private void Grid_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }

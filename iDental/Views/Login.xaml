@@ -1,22 +1,22 @@
 ﻿<Window x:Class="iDental.Views.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:iDental.Views"
         mc:Ignorable="d"
-        Title="Login" Height="400" Width="500"
-        Topmost="True" WindowStartupLocation="CenterScreen" 
+        Title="Login" Height="300" Width="650"
+        Topmost="True" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None"
         ContentRendered="Window_Login_ContentRendered">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.9*"></RowDefinition>
-            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0"></Image>
+        <Image Grid.Row="0" Width="600" Height="249" Source="/iDental;component/Resource/Logo/logoH.png"></Image>
         <TextBlock Grid.Row="1"
-                   x:Name="TextBlockStatus" Text="狀態列" FontSize="16"
-                   VerticalAlignment="Center"/>
+                   x:Name="TextBlockStatus" Text="狀態列"
+                   FontSize="16"
+                   HorizontalAlignment="Center"/>
     </Grid>
 </Window>

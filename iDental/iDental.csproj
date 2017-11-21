@@ -81,6 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\CreateBitmapImage.cs" />
     <Compile Include="Class\ImageHelper.cs" />
+    <Compile Include="Class\KeyGenerator.cs" />
     <Compile Include="Class\PathCheck.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableFunctions.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableImages.cs" />
@@ -433,6 +434,10 @@
       <DependentUpon>Models.edmx</DependentUpon>
       <LastGenOutput>Models.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\Icon\importwifi.png" />
+    <Resource Include="Resource\Logo\logo.png" />
+    <Resource Include="Resource\Logo\logoH.png" />
+    <Resource Include="Resource\Logo\logoV.png" />
     <Resource Include="Resource\Icon\exportimage.png" />
     <Resource Include="Resource\Icon\exportppt.png" />
     <Resource Include="Resource\Icon\edit2.png" />
