@@ -32,12 +32,28 @@
                    Text="影像路徑設定:" 
                    FontWeight="Bold"
                    VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Text="{Binding Agency_ImagePath}"/>
-        <TextBlock Grid.Row="2" 
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Agency_ImagePath}"/>
+            <Button Grid.Column="1" Content="選擇"
+                    Click="Button_ImagePath_Click"/>
+        </Grid>
+        <TextBlock Grid.Row="2"
                    Text="Wifi Card路徑設定:" 
                    FontWeight="Bold"
                    VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Text="{Binding Agency_WifiCardPath}"/>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Agency_WifiCardPath}"/>
+            <Button Grid.Column="1" Content="選擇"
+                    Click="Button_WifiCardPath_Click"/>
+        </Grid>
         <TextBlock Grid.Row="4" 
                    Text="預設功能起始頁:" 
                    FontWeight="Bold"

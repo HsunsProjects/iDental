@@ -63,5 +63,28 @@ namespace iDental.Views
             DialogResult = false;
             Close();
         }
+
+        private void Button_ImagePath_Click(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                folderBrowserDialog.Description = "請選擇影像路徑";
+                if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    agencySettingViewModel.Agency_ImagePath = folderBrowserDialog.SelectedPath;
+                }
+            }
+        }
+        private void Button_WifiCardPath_Click(object sender, RoutedEventArgs e)
+        {
+            using (System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                folderBrowserDialog.Description = "請選擇WifiCard路徑";
+                if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    agencySettingViewModel.Agency_WifiCardPath = folderBrowserDialog.SelectedPath;
+                }
+            }
+        }
     }
 }
