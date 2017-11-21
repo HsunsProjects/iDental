@@ -15,32 +15,38 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_1EC395695E19CDC783709F29013F1D2B"
-        "OwnerKey" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2E294901AD344E41F26ABE8ABA70B6D2"
-        "OwnerKey" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2E294901AD344E41F26ABE8ABA70B6D2"
-        "OwnerKey" = "8:_1EC395695E19CDC783709F29013F1D2B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
+        "MsmKey" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_7089A19B6BE51D0086373A852166F44B"
+        "OwnerKey" = "8:_8FDA3B6577944E4F979848E35EC69C88"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8FDA3B6577944E4F979848E35EC69C88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D1ADAE6051FC49B1CF8FC4D9D51B419D"
+        "OwnerKey" = "8:_8FDA3B6577944E4F979848E35EC69C88"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D1ADAE6051FC49B1CF8FC4D9D51B419D"
+        "OwnerKey" = "8:_7089A19B6BE51D0086373A852166F44B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_E3920E0C0CA6214DD5D0B57DBFC4EAC1"
-        "OwnerKey" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
+        "OwnerKey" = "8:_8FDA3B6577944E4F979848E35EC69C88"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -52,19 +58,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
+        "OwnerKey" = "8:_8FDA3B6577944E4F979848E35EC69C88"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1EC395695E19CDC783709F29013F1D2B"
+        "OwnerKey" = "8:_7089A19B6BE51D0086373A852166F44B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2E294901AD344E41F26ABE8ABA70B6D2"
+        "OwnerKey" = "8:_D1ADAE6051FC49B1CF8FC4D9D51B419D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -85,6 +91,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -101,6 +123,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -130,14 +160,34 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1EC395695E19CDC783709F29013F1D2B"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2EE208C05D974F03A9E378EEA4B3BB75"
+            {
+            "SourcePath" = "8:..\\iDental\\iDental.ico"
+            "TargetName" = "8:iDental.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_5575D87E787F467FA8C3215E69C63F4C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7089A19B6BE51D0086373A852166F44B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_1EC395695E19CDC783709F29013F1D2B"
+                    "_7089A19B6BE51D0086373A852166F44B"
                     {
                     "Name" = "8:EntityFramework.SqlServer.dll"
                     "Attributes" = "3:512"
@@ -161,14 +211,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2E294901AD344E41F26ABE8ABA70B6D2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D1ADAE6051FC49B1CF8FC4D9D51B419D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_2E294901AD344E41F26ABE8ABA70B6D2"
+                    "_D1ADAE6051FC49B1CF8FC4D9D51B419D"
                     {
                     "Name" = "8:EntityFramework.dll"
                     "Attributes" = "3:512"
@@ -280,7 +330,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup"
         "ProductCode" = "8:{D6A7E8C8-C90E-431F-B2D4-69B03976D0A5}"
-        "PackageCode" = "8:{EE18A749-3941-43A6-9091-74CB44CA264C}"
+        "PackageCode" = "8:{797FCBEA-4632-4E52-BE12-89447E14D93D}"
         "UpgradeCode" = "8:{F0096319-A6DC-4E25-B738-EBAC95A3D351}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -288,7 +338,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "Manufacturer" = "8:iDental"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Setup"
@@ -297,7 +347,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -400,18 +450,18 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_25AF3EFB42E14B4F973597FCF34D2945"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AE5CC8BBCFA0485CAA10281D5194D3AB"
             {
-            "Name" = "8:Shortcut to 主要輸出 from iDental (Active)"
+            "Name" = "8:iDental"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_B2A33B82E79F43378BC92F33EEAE9D67"
+            "Target" = "8:_8FDA3B6577944E4F979848E35EC69C88"
             "Folder" = "8:_FDA5834A10284211B6E440CA89025A2B"
             "WorkingFolder" = "8:_5575D87E787F467FA8C3215E69C63F4C"
-            "Icon" = "8:"
+            "Icon" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
             "Feature" = "8:"
             }
         }
@@ -813,7 +863,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B2A33B82E79F43378BC92F33EEAE9D67"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8FDA3B6577944E4F979848E35EC69C88"
             {
             "SourcePath" = "8:..\\iDental\\obj\\Debug\\iDental.exe"
             "TargetName" = "8:"
