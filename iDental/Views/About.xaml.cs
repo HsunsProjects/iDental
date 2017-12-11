@@ -24,10 +24,6 @@ namespace iDental.Views
                 {
                     Product = ((AssemblyProductAttribute)attr).Product;
                 }
-                else if (attr.GetType() == typeof(AssemblyFileVersionAttribute))
-                {
-                    Version = ((AssemblyFileVersionAttribute)attr).Version;
-                }
                 else if (attr.GetType() == typeof(AssemblyCopyrightAttribute))
                 {
                     Copyright = ((AssemblyCopyrightAttribute)attr).Copyright;
@@ -38,7 +34,7 @@ namespace iDental.Views
                 }
             }
 
-            ProductVersion.Text = Product + @"　" + Version;
+            ProductVersion.Text = Product + @"　" + assembly.GetName().Version;
             CompanyCopyright.Text = Company + @"　" + Copyright;            
         }
     }

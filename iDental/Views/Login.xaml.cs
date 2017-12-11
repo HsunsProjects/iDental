@@ -2,7 +2,6 @@
 using iDental.DatabaseAccess.DatabaseObject;
 using iDental.DatabaseAccess.QueryEntities;
 using System;
-using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows;
@@ -59,6 +58,19 @@ namespace iDental.Views
         {
             try
             {
+                //取得本機訊息
+                //HostName、IP
+                string hostName = Dns.GetHostName();
+                string localIP = string.Empty;
+                IPHostEntry ipHostEntry = Dns.GetHostEntry(hostName);
+                foreach (IPAddress ip in ipHostEntry.AddressList)
+                {
+                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                    {
+                        localIP = ip.ToString();
+                    }
+                }
+
                 TextBlockStatus.Dispatcher.Invoke(() =>
                 {
                     TextBlockStatus.Text = "伺服器位置確認中";
@@ -89,18 +101,6 @@ namespace iDental.Views
                         TextBlockStatus.Text = "取得本機資訊";
                     }, DispatcherPriority.Render);
 
-                    //取得本機訊息
-                    //HostName、IP
-                    string hostName = Dns.GetHostName();
-                    string localIP = string.Empty;
-                    IPHostEntry ipHostEntry = Dns.GetHostEntry(hostName);
-                    foreach (IPAddress ip in ipHostEntry.AddressList)
-                    {
-                        if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                        {
-                            localIP = ip.ToString();
-                        }
-                    }
 
                     TableAgencys tableAgencys = new TableAgencys();
                     //取得已經驗證的機構
@@ -114,7 +114,7 @@ namespace iDental.Views
                         Clients clients = tableClients.QueryClient(hostName);
                         if (clients != null)
                         {
-                            if (clients.Agency_VerificationCode.Equals(agencys.Agency_VerificationCode))
+                            if (!string.IsNullOrEmpty(clients.Agency_VerificationCode) && clients.Agency_VerificationCode.Equals(agencys.Agency_VerificationCode))
                             {
                                 if (clients.Client_IsVerify)
                                 {
@@ -177,16 +177,6 @@ namespace iDental.Views
                         MessageBoxTips = "伺服器尚未被驗證，無法使用，請聯絡資訊廠商";
                     }
 
-                    //寫入ConnectingLog資訊
-                    TableConnectingLogs tableConnectingLogs = new TableConnectingLogs();
-                    ConnectingLogs connectingLogs = new ConnectingLogs()
-                    {
-                        ConnectingLog_HostName = hostName,
-                        ConnectingLog_IP = localIP,
-                        ConnectingLog_Error = MessageBoxTips,
-                        ConnectingLog_IsPermit = ReturnDialogResult
-                    };
-                    tableConnectingLogs.InsertConnectingLog(connectingLogs);
                 }
                 else
                 {
@@ -194,9 +184,16 @@ namespace iDental.Views
                     ConfigManage.AddUpdateAppCongig("Server", "");
                 }
 
+                //登入成功
                 //show MessageBox
                 if (ReturnDialogResult)
                 {
+                    TextBlockStatus.Dispatcher.Invoke(() =>
+                    {
+                        TextBlockStatus.Text = "載入病患資料";
+                    }, DispatcherPriority.Render);
+                    LoadPatient();
+
                     TextBlockStatus.Dispatcher.Invoke(() =>
                     {
                         TextBlockStatus.Text = "影像路徑測試中，請稍候";
@@ -223,6 +220,18 @@ namespace iDental.Views
 
                     MessageBox.Show(MessageBoxTips, "提示", MessageBoxButton.OK, MessageBoxImage.Stop);
                 }
+
+                //寫入ConnectingLog資訊
+                TableConnectingLogs tableConnectingLogs = new TableConnectingLogs();
+                ConnectingLogs connectingLogs = new ConnectingLogs()
+                {
+                    ConnectingLog_HostName = hostName,
+                    ConnectingLog_IP = localIP,
+                    ConnectingLog_Error = MessageBoxTips,
+                    ConnectingLog_IsPermit = ReturnDialogResult
+                };
+                tableConnectingLogs.InsertConnectingLog(connectingLogs);
+
                 Thread.Sleep(2000);
                 //回傳結果
                 DialogResult = ReturnDialogResult;
@@ -260,28 +269,12 @@ namespace iDental.Views
                         IsValidTrialPeriod = true;
 
                         MessageBoxTips = "此為試用版本，試用日期至" + ((DateTime)agencys.Agency_TrialPeriod).ToShortDateString();
-
-                        TextBlockStatus.Dispatcher.Invoke(() =>
-                        {
-                            TextBlockStatus.Text = "病患資訊確認中...";
-                        }, DispatcherPriority.Render);
-
-                        //載入病患
-                        LoadPatient();
-
+                        
                         ReturnDialogResult = true;
                     }
                 }
                 else
                 {
-                    TextBlockStatus.Dispatcher.Invoke(() =>
-                    {
-                        TextBlockStatus.Text = "病患資訊確認中...";
-                    }, DispatcherPriority.Render);
-
-                    //載入病患
-                    LoadPatient();
-
                     ReturnDialogResult = true;
                 }
             }
@@ -291,18 +284,44 @@ namespace iDental.Views
             }
         }
 
-        /// <summary>
-        /// 新增新病患
-        /// </summary>
+        #region
+
         private void LoadPatient()
         {
-            //Data from AppStartup
-            if (((Application.Current as App).Patients).Patient_ID != null)
+            //Environment.GetCommandLineArgs()
+            //args[0] 為程式啟動路徑
+            string[] args = Environment.GetCommandLineArgs();
+            if (args.Length > 1)
             {
-                Patients patients = (Application.Current as App).Patients;
+                Patients p = new Patients()
+                {
+                    Patient_ID = !string.IsNullOrEmpty(args[1].ToString()) ? args[1].ToString() : string.Empty,
+                    Patient_Number = !string.IsNullOrEmpty(args[2].ToString()) ? args[2].ToString() : string.Empty,
+                    Patient_Name = !string.IsNullOrEmpty(args[3].ToString()) ? args[3].ToString() : string.Empty,
+                    Patient_Gender = TransGender(args[4].ToString()),
+                    Patient_Birth = DateTime.TryParse(args[5].ToString(), out DateTime patientBirth) ? DateTime.Parse(args[5].ToString()) : default(DateTime),
+                    Patient_IDNumber = !string.IsNullOrEmpty(args[6].ToString()) ? args[6].ToString() : string.Empty
+                };
                 TablePatients tablePatients = new TablePatients();
-                Patients = tablePatients.QueryNewOldPatient(patients);
+                Patients = tablePatients.QueryNewOldPatient(p);
+            }
+            else
+            {
+                Patients = null;
             }
         }
+
+        private bool TransGender(string input)
+        {
+            if (!string.IsNullOrEmpty(input))
+            {
+                if (input.ToUpper().Equals("M"))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
     }
 }

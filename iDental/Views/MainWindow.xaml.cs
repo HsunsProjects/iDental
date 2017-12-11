@@ -1,5 +1,4 @@
 ﻿using iDental.Class;
-using iDental.DatabaseAccess.QueryEntities;
 using iDental.ViewModels;
 using iDental.Views.UserControlViews;
 using System;
@@ -29,7 +28,6 @@ namespace iDental.Views
         /// 影像路徑是否存在(接受login.xaml回傳
         /// </summary>
         private bool IsExistImagePath = false;
-
         private MainWindowViewModel mainWindowViewModel;
         public MainWindow()
         {
@@ -41,11 +39,10 @@ namespace iDental.Views
                 {
                     //影像路徑是否存在(接受login.xaml回傳
                     IsExistImagePath = login.IsExistImagePath;
-                    //因為更改機構資料會重新載入病患資料
-                    //所以先載入病患資料
-                    //再載入機構資料(載入時會重設病患資料
-                    Patients = login.Patients;
+                    //載入機構資料
                     Agencys = login.Agencys;
+                    //載入病患資料
+                    Patients = login.Patients;
                     //先判斷影像路徑是否存在
                     //不存在提醒路徑有問題
                     //MainWindow 設定
@@ -124,6 +121,5 @@ namespace iDental.Views
             about.ShowDialog();
         }
         #endregion
-
     }
 }
