@@ -47,7 +47,7 @@ namespace iDental.Views.UserControlViews
 
             ImagesCollection = imagesCollection;
 
-            imageEditorBaseViewModel = new ImageEditorBaseViewModel(imageInfo);
+            imageEditorBaseViewModel = new ImageEditorBaseViewModel(imageInfo, imagesCollection.Count, 0);
 
             DataContext = imageEditorBaseViewModel;
 
@@ -264,6 +264,7 @@ namespace iDental.Views.UserControlViews
                 scaleTransform.ScaleY = 1;
                 ImageEdi.LayoutTransform = transformGroup;
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) - 1];
+                imageEditorBaseViewModel.ImageIndex = ImagesCollection.IndexOf(ImageInfo);
             }
         }
 
@@ -276,6 +277,7 @@ namespace iDental.Views.UserControlViews
                 scaleTransform.ScaleY = 1;
                 ImageEdi.LayoutTransform = transformGroup;
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) + 1];
+                imageEditorBaseViewModel.ImageIndex = ImagesCollection.IndexOf(ImageInfo);
             }
         }
 

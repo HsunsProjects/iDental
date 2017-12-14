@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ToolBarPanel Grid.Row="0" Orientation="Horizontal" Background="Beige">
             <Button x:Name="buttonSure" ToolTip="儲存" Click="Button_Sure_Click" IsEnabled="False">
@@ -25,6 +26,12 @@
         <Canvas Grid.Row="1" x:Name="Cvs" Background="Black"
                     MouseLeftButtonDown="Cvs_MouseLeftButtonDown"
                     MouseMove="Cvs_MouseMove"
-                    MouseLeftButtonUp="Cvs_MouseLeftButtonUp"/> 
+                    MouseLeftButtonUp="Cvs_MouseLeftButtonUp"/>
+        <Grid Grid.Row="2" Background="Black">
+            <TextBlock Grid.Column="0" 
+                       Text="{Binding ImageInfo.Image_FileName}" 
+                       Foreground="White"
+                       FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </UserControl>

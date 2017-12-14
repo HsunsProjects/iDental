@@ -7,7 +7,6 @@ namespace iDental.ViewModels.UserControlViewModels
     public class ImageEditorBaseViewModel : ViewModelBase.PropertyChangedBase
     {
         private ImageInfo imageInfo;
-
         public ImageInfo ImageInfo
         {
             get { return imageInfo; }
@@ -19,6 +18,33 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
+        private int imageCollectionCount = 0;
+        public int ImageCollectionCount
+        {
+            get { return imageCollectionCount; }
+            set
+            {
+                imageCollectionCount = value;
+                OnPropertyChanged("ImageCollectionCount");
+            }
+        }
+
+        private int imageIndex;
+
+        public int ImageIndex
+        {
+            get { return imageIndex; }
+            set
+            {
+                imageIndex = value;
+                OnPropertyChanged("ImageTips");
+            }
+        }
+
+        public string ImageTips
+        {
+            get { return "[ " + (ImageIndex + 1) + " / " + ImageCollectionCount + " ]"; }
+        }
 
         private BitmapImage bitmapImage;
         public BitmapImage BitmapImage
@@ -31,9 +57,11 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        public ImageEditorBaseViewModel(ImageInfo imageInfo)
+        public ImageEditorBaseViewModel(ImageInfo imageInfo, int imageCollectionCount, int imageIndex)
         {
             ImageInfo = imageInfo;
+            ImageCollectionCount = imageCollectionCount;
+            ImageIndex = imageIndex;
         }
     }
 }
