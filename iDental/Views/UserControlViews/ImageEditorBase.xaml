@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="600">
+             d:DesignHeight="500" d:DesignWidth="600"
+             Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -12,12 +13,12 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ToolBarPanel Grid.Row="0" Orientation="Horizontal" Background="Beige">
-            <Button ToolTip="儲存" Click="Button_Save_Click">
+            <!--<Button ToolTip="儲存" Click="Button_Save_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/save.png"/>
             </Button>
             <Button ToolTip="另存新檔" Click="Button_SaveAs_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/saveas.png"/>
-            </Button>
+            </Button>-->
             <Button ToolTip="左旋轉90度" Click="Button_RotateLeft_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/rotateleft.png"/>
             </Button>
@@ -36,37 +37,67 @@
             <Button ToolTip="旋轉" Click="Button_Rotate_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/rotate.png"/>
             </Button>
-            <Button ToolTip="上一張" Click="Button_LastPhoto_Click">
+            <!--<Button ToolTip="上一張" Click="Button_LastPhoto_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/last.png"/>
             </Button>
             <Button ToolTip="下一張" Click="Button_NextPhoto_Click">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/next.png"/>
-            </Button>
+            </Button>-->
+            <StackPanel Orientation="Horizontal">
+                <Button ToolTip="放大" Click="Button_ZoomIn_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/zoomin.png"/>
+                </Button>
+                <Slider x:Name="slider" Width="100" 
+                        Minimum="1"
+                        Maximum="3"
+                        FlowDirection="RightToLeft"
+                        VerticalAlignment="Center"/>
+                <Button ToolTip="縮小" Click="Button_ZoomOut_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/zoomout.png"/></Button>
+            </StackPanel>
         </ToolBarPanel>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="Black">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" Background="Black" >
-                <ScrollViewer ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                    <Viewbox Stretch="Uniform">
-                        <Image Name="ImageEdi" Source="{Binding BitmapImage}"
-                               MouseWheel="ImageEdi_MouseWheel">
-                        </Image>
-                    </Viewbox>
-                </ScrollViewer>
-            </Border>
-        </Grid>
-        <Grid Grid.Row="2" Background="Black">
-            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" 
-                       Text="{Binding ImageInfo.Image_FileName}" 
+            <Button Grid.Column="0" Height="50" Background="Transparent"
+                    Click="Button_LastPhoto_Click">
+                <Image Source="/iDental;component/Resource/Icon/last.png"/>
+            </Button>
+            <ScrollViewer Name="scrollViewer" Grid.Column="1" 
+                          VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <Grid Name="grid" Width="{Binding ElementName=scrollViewer, Path=ActualWidth}"
+                      Height="{Binding ElementName=scrollViewer,Path=ActualHeight}" 
+                      RenderTransformOrigin="0.5,0.5">
+                    <Grid.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="scaleTransform"/>
+                        </TransformGroup>
+                    </Grid.LayoutTransform>
+                    <Viewbox x:Name="viewbox" Grid.Column="0" Grid.Row="0"/>
+                </Grid>
+            </ScrollViewer>
+            <Button Grid.Column="2" Height="50" Background="Transparent"
+                    Click="Button_NextPhoto_Click">
+                <Image Source="/iDental;component/Resource/Icon/next.png"/>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="2" Background="Black">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="textFileName" Grid.Column="0"
                        Foreground="White"
                        FontWeight="Bold"/>
-            <TextBlock Grid.Column="1" Text="{Binding ImageTips}" 
+            <TextBlock x:Name="textZoomRate" Grid.Column="1"
+                       Text="( 100% )"
+                       Foreground="White"
+                       FontWeight="Bold"/>
+            <TextBlock x:Name="textTips" Grid.Column="2"
                        Foreground="White"
                        FontWeight="Bold"/>
         </Grid>

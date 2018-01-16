@@ -75,11 +75,17 @@ namespace iDental.Views.UserControlViews
                 }
 
                 ImageEditor imageEditor = new ImageEditor(DisplayImageInfoList);
-                imageEditor.ShowDialog();
+                if (imageEditor.ShowDialog() == true)
+                {
+
+                    GC.Collect();
+
+                    GC.WaitForPendingFinalizers();
+
+                    GC.Collect();
+                }
 
                 lbImages.UnselectAll();
-
-                GC.Collect();
             }
             else
             {

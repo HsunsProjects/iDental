@@ -202,7 +202,7 @@ namespace iDental.Views.UserControlViews
 
                                         Images images = new Images()
                                         {
-                                            Image_Path = @"\" + patientImageFolderInfo.PatientImagePath + @"\" + imageFileName,
+                                            Image_Path = patientImageFolderInfo.PatientImagePath + @"\" + imageFileName,
                                             Image_FileName = imageFileName,
                                             Image_Extension = extension
                                         };
