@@ -102,10 +102,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <Canvas x:Name="canvas" Grid.Row="0" Grid.Column="0"
-                    ClipToBounds="True"
-                    MouseLeftButtonDown="canvas_MouseLeftButtonDown"
-                    MouseMove="canvas_MouseMove"
-                    MouseLeftButtonUp="canvas_MouseLeftButtonUp">
+                    ClipToBounds="True">
                 <Border x:Name="border" RenderTransformOrigin="0.5,0.5">
                     <Border.RenderTransform>
                         <TransformGroup x:Name="transformgroup">

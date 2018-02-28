@@ -260,6 +260,16 @@ namespace iDental.Views.UserControlViews
             }
         }
 
+        private void TipsMsg()
+        {
+            string tipsMsg = string.Empty;
+            tipsMsg += "圖片:[" + ImageInfo.Image_FileName + "] , ";
+            tipsMsg += "旋轉角度:[" + rotateAngle + "] ";
+            info.Text = tipsMsg;
+        }
+
+
+        #region Canvas Event(drag image)
         private void canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             /*
@@ -301,13 +311,6 @@ namespace iDental.Views.UserControlViews
             }
             */
         }
-
-        private void TipsMsg()
-        {
-            string tipsMsg = string.Empty;
-            tipsMsg += "圖片:[" + ImageInfo.Image_FileName + "] , ";
-            tipsMsg += "旋轉角度:[" + rotateAngle + "] ";
-            info.Text = tipsMsg;
-        }
+        #endregion
     }
 }
