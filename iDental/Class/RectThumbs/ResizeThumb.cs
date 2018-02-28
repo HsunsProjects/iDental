@@ -15,8 +15,7 @@ namespace iDental.Class.RectThumbs
         private void ResizeThumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Control designerItem = this.DataContext as Control;
-
-
+            
             if (designerItem != null)
             {
                 Canvas canvas = designerItem.Parent as Canvas;
