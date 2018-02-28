@@ -301,7 +301,11 @@ namespace iDental.Views.UserControlViews
             Content = new ImageEditorRotate(ImagesCollection, ImageInfo);
             GC.Collect();
         }
-        
+        private void Button_Advance_Click(object sender, RoutedEventArgs e)
+        {
+            Content = new ImageEditorAdvanced(ImagesCollection, ImageInfo);
+        }
+
         private void Button_ZoomIn_Click(object sender, RoutedEventArgs e)
         {
             slider.Value += 0.1;
@@ -320,7 +324,7 @@ namespace iDental.Views.UserControlViews
             var centerOfViewport = new Point(scrollViewer.ViewportWidth / 2,
                                              scrollViewer.ViewportHeight / 2);
             lastCenterPositionOnTarget = scrollViewer.TranslatePoint(centerOfViewport, grid);
-            textZoomRate.Text = "( " + (e.NewValue * 100) + "% )";
+            textZoomRate.Text = (e.NewValue * 100) + "%";
         }
 
         private void scrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

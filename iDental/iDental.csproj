@@ -86,6 +86,8 @@
     <Compile Include="Class\ImageHelper.cs" />
     <Compile Include="Class\KeyGenerator.cs" />
     <Compile Include="Class\PathCheck.cs" />
+    <Compile Include="Class\RectThumbs\MoveThumb.cs" />
+    <Compile Include="Class\RectThumbs\ResizeThumb.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableFunctions.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TableImages.cs" />
     <Compile Include="DatabaseAccess\QueryEntities\TablePatientCategorys.cs" />
@@ -114,6 +116,7 @@
     <Compile Include="ViewModels\UserControlViewModels\FunctionListViewModel.cs" />
     <Compile Include="ViewModels\UserControlViewModels\FunctionTemplateViewModel.cs" />
     <Compile Include="ViewModels\UserControlViewModels\PatientInformationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase\CenterConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase\MTObservableCollection.cs" />
     <Compile Include="ViewModels\ViewModelBase\RadioButtonConverter.cs" />
     <Compile Include="Views\About.xaml.cs">
@@ -184,6 +187,9 @@
     </Compile>
     <Compile Include="Views\UserControlViews\FunctionTemplates\TXRay6s.xaml.cs">
       <DependentUpon>TXRay6s.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControlViews\ImageEditorAdvanced.xaml.cs">
+      <DependentUpon>ImageEditorAdvanced.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserControlViews\ImageEditorBase.xaml.cs">
       <DependentUpon>ImageEditorBase.xaml</DependentUpon>
@@ -367,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControlViews\FunctionTemplates\TXRay6s.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControlViews\ImageEditorAdvanced.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

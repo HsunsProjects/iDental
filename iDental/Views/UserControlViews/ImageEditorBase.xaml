@@ -12,38 +12,41 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ToolBarPanel Grid.Row="0" Orientation="Horizontal" Background="Beige">
-            <!--<Button ToolTip="儲存" Click="Button_Save_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/save.png"/>
-            </Button>
-            <Button ToolTip="另存新檔" Click="Button_SaveAs_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/saveas.png"/>
-            </Button>-->
-            <Button ToolTip="左旋轉90度" Click="Button_RotateLeft_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/rotateleft.png"/>
-            </Button>
-            <Button ToolTip="右旋轉90度" Click="Button_RotateRight_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/rotateright.png"/>
-            </Button>
-            <Button ToolTip="上下鏡射" Click="Button_MirrorVertical_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/mirrorvertical.png"/>
-            </Button>
-            <Button ToolTip="左右鏡射" Click="Button_MirrorHorizontal_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/mirrorhorizontal.png"/>
-            </Button>
-            <Button ToolTip="裁切" Click="Button_Crop_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/crop.png"/>
-            </Button>
-            <Button ToolTip="旋轉" Click="Button_Rotate_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/rotate.png"/>
-            </Button>
-            <!--<Button ToolTip="上一張" Click="Button_LastPhoto_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/last.png"/>
-            </Button>
-            <Button ToolTip="下一張" Click="Button_NextPhoto_Click">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/next.png"/>
-            </Button>-->
-            <StackPanel Orientation="Horizontal">
+        <Grid Grid.Row="0" Background="Beige">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ToolBarPanel Grid.Column="0" Orientation="Horizontal">
+                <!--<Button ToolTip="儲存" Click="Button_Save_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/save.png"/>
+                </Button>
+                <Button ToolTip="另存新檔" Click="Button_SaveAs_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/saveas.png"/>
+                </Button>-->
+                <Button ToolTip="左旋轉90度" Click="Button_RotateLeft_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/rotateleft.png"/>
+                </Button>
+                <Button ToolTip="右旋轉90度" Click="Button_RotateRight_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/rotateright.png"/>
+                </Button>
+                <Button ToolTip="上下鏡射" Click="Button_MirrorVertical_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/mirrorvertical.png"/>
+                </Button>
+                <Button ToolTip="左右鏡射" Click="Button_MirrorHorizontal_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/mirrorhorizontal.png"/>
+                </Button>
+                <Button ToolTip="裁切" Click="Button_Crop_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/crop.png"/>
+                </Button>
+                <Button ToolTip="旋轉" Click="Button_Rotate_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/rotate.png"/>
+                </Button>
+                <Button ToolTip="進階" Click="Button_Advance_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/edit.png"/>
+                </Button>
+            </ToolBarPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button ToolTip="放大" Click="Button_ZoomIn_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/zoomin.png"/>
                 </Button>
@@ -53,9 +56,12 @@
                         FlowDirection="RightToLeft"
                         VerticalAlignment="Center"/>
                 <Button ToolTip="縮小" Click="Button_ZoomOut_Click">
-                    <Image Height="30" Source="/iDental;component/Resource/Icon/zoomout.png"/></Button>
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/zoomout.png"/>
+                </Button>
+                <TextBlock x:Name="textZoomRate" Text="100%" VerticalAlignment="Center"
+                           FontWeight="Bold"/>
             </StackPanel>
-        </ToolBarPanel>
+        </Grid>
         <Grid Grid.Row="1" Background="Black">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -91,10 +97,6 @@
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="textFileName" Grid.Column="0"
-                       Foreground="White"
-                       FontWeight="Bold"/>
-            <TextBlock x:Name="textZoomRate" Grid.Column="1"
-                       Text="( 100% )"
                        Foreground="White"
                        FontWeight="Bold"/>
             <TextBlock x:Name="textTips" Grid.Column="2"
