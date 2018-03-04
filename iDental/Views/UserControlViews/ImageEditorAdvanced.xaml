@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:iDental.Views.UserControlViews"
+             xmlns:e="clr-namespace:EffectsLibrary.ContrastBrightness;assembly=EffectsLibrary"
              xmlns:ieavm="clr-namespace:iDental.ViewModels.ViewModelBase"
              xmlns:s="clr-namespace:iDental.Class.RectThumbs"
              mc:Ignorable="d" 
@@ -126,6 +127,13 @@
                             <Binding ElementName="border" Path="Height"/>
                         </MultiBinding>
                     </Canvas.Left>
+                    <Image x:Name="image">
+                        <Image.Effect>
+                            <e:ContrastAdjustEffect
+                                Brightness="{Binding ElementName=sliderBrightness, Path=Value}"
+                                Contrast="{Binding ElementName=sliderContrast, Path=Value}"/>
+                        </Image.Effect>
+                    </Image>
                 </Border>
                 <ContentControl x:Name="rectangle"
                                 MinWidth="50" MinHeight="50"
@@ -171,17 +179,20 @@
             </Grid>
             <Grid Grid.Column="1" Grid.RowSpan="2">
                 <StackPanel>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                    <DockPanel>
+                        <TextBlock Grid.Column="0" Text="亮度" Foreground="White"/>
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderBrightness, Path=Value}" Foreground="White"/>
+                    </DockPanel>
+                    <Slider x:Name="sliderBrightness"
+                            Minimum="-1" Maximum="1" Value="0"/>
+                    <DockPanel>
                         <TextBlock Grid.Column="0" Text="對比" Foreground="White"/>
-                        <TextBlock Grid.Column="1" Text="{Binding ElementName=sliderContrast, Path=Value}" Foreground="White"/>
-                    </Grid>
+                        <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderContrast, Path=Value}" Foreground="White"/>
+                    </DockPanel>
                     <Slider x:Name="sliderContrast"
-                            Minimum="-100" Value="0" Maximum="100"
-                            TickFrequency="1" IsSnapToTickEnabled="True"/>
+                            Minimum="0" Maximum="2" Value="1"/>
                 </StackPanel>
             </Grid>
         </Grid>

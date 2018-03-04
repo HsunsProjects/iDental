@@ -22,14 +22,9 @@ namespace iDental.Views.UserControlViews
         /// </summary>
         private BitmapImage bitmapImage;
         /// <summary>
-        /// 顯示圖片控制項
-        /// </summary>
-        private Image image;
-        /// <summary>
         /// 原圖比例
         /// </summary>
         private double ratio;
-
 
         public ImageEditorAdvanced(ObservableCollection<ImageInfo> imagesCollection, ImageInfo imageInfo)
         {
@@ -157,10 +152,7 @@ namespace iDental.Views.UserControlViews
         private void SetImageDefault(string FileName)
         {
             bitmapImage = new CreateBitmapImage().SettingBitmapImage(FileName, 0);
-            image = new Image()
-            {
-                Source = bitmapImage
-            };
+            image.Source = bitmapImage;
 
             double w;
             double h;
@@ -193,6 +185,10 @@ namespace iDental.Views.UserControlViews
 
             sliderRotate.Value = 0;
 
+            sliderBrightness.Value = 0;
+
+            sliderContrast.Value = 1;
+
             SetRectanglePosition(0);
 
             TipsMsg();
@@ -218,11 +214,11 @@ namespace iDental.Views.UserControlViews
                 cont.PushTransform(transformGroup);
                 cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
                 cont.Close();
-
+                vis.Effect = image.Effect;
                 RenderTargetBitmap rtb = new RenderTargetBitmap(width, height, 96d, 96d, PixelFormats.Default);
                 rtb.Render(vis);
 
-                System.IO.FileStream stream = new System.IO.FileStream(filePath, System.IO.FileMode.Create);
+                System.IO.FileStream stream = new System.IO.FileStream(ImageInfo.Image_FullPath, System.IO.FileMode.Create);
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create(rtb));
                 encoder.Save(stream);

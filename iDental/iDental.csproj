@@ -480,5 +480,11 @@
     <Resource Include="Resource\Icon\manage.png" />
     <Resource Include="Resource\Icon\exit.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EffectsLibrary\EffectsLibrary.csproj">
+      <Project>{64c10728-f5f7-4ce4-b5a4-2fce457113b9}</Project>
+      <Name>EffectsLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
