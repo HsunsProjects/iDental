@@ -1,10 +1,11 @@
-﻿using iDental.Class;
+﻿using EffectsLibrary;
+using iDental.Class;
 using iDental.iDentalClass;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -25,6 +26,34 @@ namespace iDental.Views.UserControlViews
         /// 原圖比例
         /// </summary>
         private double ratio;
+        /// <summary>
+        /// 預設旋轉角度
+        /// </summary>
+        private const double defaultRotateAngle = 0;
+        /// <summary>
+        /// 預設亮度
+        /// </summary>
+        private const double defaultBrightness = 0;
+        /// <summary>
+        /// 預設對比
+        /// </summary>
+        private const double defaultConstrast = 1;
+        /// <summary>
+        /// 預設銳化
+        /// </summary>
+        private const double defaultSharpen = 0;
+        /// <summary>
+        /// 預設除霧
+        /// </summary>
+        private const double defaultDefog = 0;
+        /// <summary>
+        /// 預設曝光
+        /// </summary>
+        private const double defaultExposure = 0;
+        /// <summary>
+        /// 預設Gamma
+        /// </summary>
+        private const double defaultGamma = 1;
 
         public ImageEditorAdvanced(ObservableCollection<ImageInfo> imagesCollection, ImageInfo imageInfo)
         {
@@ -57,7 +86,7 @@ namespace iDental.Views.UserControlViews
                     //原始圖片的P1
                     Point oriStartPoint = new Point(bitmapImage.PixelWidth * rectangleRatioX, bitmapImage.PixelHeight * rectangleRatioY);
 
-                    RotateAndSaveImage(bitmapImage, rotateAngle, (int)oriStartPoint.X, (int)oriStartPoint.Y, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
+                    DealNewImage(bitmapImage, rotateAngle, (int)oriStartPoint.X, (int)oriStartPoint.Y, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
 
                     //儲存完馬上重載修改後的圖片
                     ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
@@ -75,10 +104,6 @@ namespace iDental.Views.UserControlViews
         private void Button_Undo_Click(object sender, RoutedEventArgs e)
         {
             SetImageDefault(ImageInfo.Image_FullPath);
-
-            sliderRotate.Value = 0;
-
-            SetRectanglePosition(0);
         }
 
         private void Button_ExitEditor_Click(object sender, RoutedEventArgs e)
@@ -98,6 +123,51 @@ namespace iDental.Views.UserControlViews
         {
             SetRectanglePosition(Math.Round(e.NewValue,1));
             TipsMsg();
+        }
+
+        /// <summary>
+        /// 灰階Effect
+        /// </summary>
+        private GrayScaleEffect grayScaleEffect = new GrayScaleEffect();
+        /// <summary>
+        /// 顏色反轉Effect
+        /// </summary>
+        private InvertColorEffect invertColorEffect = new InvertColorEffect();
+
+        private void CheckBox_FilterGrayScale_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.IsChecked == true)
+            {
+                filterGrayScale.Effect = grayScaleEffect;
+            }
+        }
+
+        private void CheckBox_FilterGrayScale_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.IsChecked == false)
+            {
+                filterGrayScale.Effect = null;
+            }
+        }
+
+        private void CheckBox_FilterInvertColor_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.IsChecked == true)
+            {
+                filterInvertColor.Effect = invertColorEffect;
+            }
+        }
+
+        private void CheckBox_FilterInvertColor_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+            if (checkBox.IsChecked == false)
+            {
+                filterInvertColor.Effect = null;
+            }
         }
 
         /// <summary>
@@ -149,9 +219,13 @@ namespace iDental.Views.UserControlViews
             return wh;
         }
 
+        /// <summary>
+        /// 恢復圖片預設
+        /// </summary>
+        /// <param name="FileName"></param>
         private void SetImageDefault(string FileName)
         {
-            bitmapImage = new CreateBitmapImage().SettingBitmapImage(FileName, 0);
+            bitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
             image.Source = bitmapImage;
 
             double w;
@@ -178,51 +252,111 @@ namespace iDental.Views.UserControlViews
             border.Width = image.Width;
             border.Height = image.Height;
 
-            border.Child = image;
-
             rectangle.Width = image.Width;
             rectangle.Height = image.Height;
+            
+            //rotate angle default
+            sliderRotate.Value = defaultRotateAngle;
 
-            sliderRotate.Value = 0;
+            //filter default
+            sliderBrightness.Value = defaultBrightness;
 
-            sliderBrightness.Value = 0;
+            sliderContrast.Value = defaultConstrast;
 
-            sliderContrast.Value = 1;
+            sliderSharpen.Value = defaultSharpen;
+            ((SharpenEffect)filterSharpen.Effect).InputSize = new Size(border.Width, border.Height);
+
+            sliderDefog.Value = defaultDefog;
+
+            sliderExposure.Value = defaultExposure;
+
+            sliderGamma.Value = defaultGamma;
+
+            checkboxGrayScale.IsChecked = false;
+
+            checkboxInvertColor.IsChecked = false;
 
             SetRectanglePosition(0);
 
             TipsMsg();
         }
-        public void RotateAndSaveImage(BitmapImage sourceImage, double angle,
+
+        /// <summary>
+        /// 處理變動後的Image
+        /// </summary>
+        /// <param name="sourceImage">圖片來源</param>
+        /// <param name="angle">旋轉角度</param>
+        /// <param name="startX">裁切起始點X</param>
+        /// <param name="startY">裁切起始點Y</param>
+        /// <param name="width">裁切寬</param>
+        /// <param name="height">裁切高</param>
+        /// <param name="filePath">圖片路徑</param>
+        public void DealNewImage(BitmapImage sourceImage, double angle,
                               int startX, int startY, int width, int height,
                               string filePath)
         {
             try
             {
-                TransformGroup transformGroup = new TransformGroup();
-                RotateTransform rotateTransform = new RotateTransform(angle);
-                rotateTransform.CenterX = sourceImage.PixelWidth / 2.0;
-                rotateTransform.CenterY = sourceImage.PixelHeight / 2.0;
-                transformGroup.Children.Add(rotateTransform);
-                TranslateTransform translateTransform = new TranslateTransform();
-                translateTransform.X = -startX;
-                translateTransform.Y = -startY;
-                transformGroup.Children.Add(translateTransform);
 
                 DrawingVisual vis = new DrawingVisual();
-                DrawingContext cont = vis.RenderOpen();
-                cont.PushTransform(transformGroup);
-                cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
-                cont.Close();
-                vis.Effect = image.Effect;
-                RenderTargetBitmap rtb = new RenderTargetBitmap(width, height, 96d, 96d, PixelFormats.Default);
-                rtb.Render(vis);
+                RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default);
+                using (DrawingContext cont = vis.RenderOpen())
+                {
+                    if (sliderRotate.Value != defaultRotateAngle || border.Width != rectangle.Width || border.Height != rectangle.Height)
+                    {
+                        TransformGroup transformGroup = new TransformGroup();
+                        RotateTransform rotateTransform = new RotateTransform(angle);
+                        rotateTransform.CenterX = sourceImage.PixelWidth / 2.0;
+                        rotateTransform.CenterY = sourceImage.PixelHeight / 2.0;
+                        transformGroup.Children.Add(rotateTransform);
+                        TranslateTransform translateTransform = new TranslateTransform();
+                        translateTransform.X = -startX;
+                        translateTransform.Y = -startY;
+                        transformGroup.Children.Add(translateTransform);
 
-                System.IO.FileStream stream = new System.IO.FileStream(ImageInfo.Image_FullPath, System.IO.FileMode.Create);
-                PngBitmapEncoder encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create(rtb));
-                encoder.Save(stream);
-                stream.Close();
+                        cont.PushTransform(transformGroup);
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+                        rtb = new RenderTargetBitmap(width, height, 96d, 96d, PixelFormats.Default);
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+                    else
+                    {
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+
+                    if (sliderBrightness.Value != defaultBrightness || sliderContrast.Value != defaultConstrast)
+                    {
+                        vis.Effect = filterBrightnessContrast.Effect;
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+
+                    if (sliderSharpen.Value != defaultSharpen)
+                    {
+                        vis.Effect = filterSharpen.Effect;
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+
+                    if (sliderDefog.Value != defaultDefog || sliderExposure.Value != defaultExposure || sliderGamma.Value != defaultGamma)
+                    {
+                        vis.Effect = filterExposureGamma.Effect;
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+
+                    if (checkboxGrayScale.IsChecked == true)
+                    {
+                        vis.Effect = filterGrayScale.Effect;
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+
+                    if (checkboxInvertColor.IsChecked == true)
+                    {
+                        vis.Effect = filterInvertColor.Effect;
+                        SaveNewImage(rtb, vis, filePath);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -230,7 +364,33 @@ namespace iDental.Views.UserControlViews
             }
         }
 
+        /// <summary>
+        /// 儲存新影像
+        /// </summary>
+        /// <param name="renderTargetBitmap">儲存Bitmap來源</param>
+        /// <param name="drawingVisual">新圖</param>
+        /// <param name="fileName">寫入檔案名稱</param>
+        private void SaveNewImage(RenderTargetBitmap renderTargetBitmap, DrawingVisual drawingVisual, string fileName)
+        {
+            renderTargetBitmap.Render(drawingVisual);
+
+            using (FileStream stream = new FileStream(fileName, FileMode.Create))
+            {
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+                encoder.Save(stream);
+                stream.Close();
+            }
+        }
+
+        /// <summary>
+        /// 旋轉角度
+        /// </summary>
         private double rotateAngle;
+        /// <summary>
+        /// 放Rectangle位置
+        /// </summary>
+        /// <param name="RotateAngle">旋轉角度</param>
         private void SetRectanglePosition(double RotateAngle)
         {
             rotateAngle = RotateAngle;
@@ -256,6 +416,9 @@ namespace iDental.Views.UserControlViews
             }
         }
 
+        /// <summary>
+        /// 提示
+        /// </summary>
         private void TipsMsg()
         {
             string tipsMsg = string.Empty;
@@ -263,50 +426,5 @@ namespace iDental.Views.UserControlViews
             tipsMsg += "旋轉角度:[" + rotateAngle + "] ";
             info.Text = tipsMsg;
         }
-
-
-        #region Canvas Event(drag image)
-        private void canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            /*
-            var image = e.Source as Image;
-
-            if (image != null && canvas.CaptureMouse())
-            {
-                mousePosition = e.GetPosition(canvas);
-
-                draggedImage = image;
-                
-                //Panel.SetZIndex(draggedImage, 1); // in case of multiple images
-            }
-            */
-        }
-        private void canvas_MouseMove(object sender, MouseEventArgs e)
-        {
-            /*
-            if (draggedImage != null)
-            {
-                var position = e.GetPosition(canvas);
-                var offset = position - mousePosition;
-                mousePosition = position;
-
-                Canvas.SetLeft(draggedImage, Canvas.GetLeft(draggedImage) + offset.X);
-                Canvas.SetTop(draggedImage, Canvas.GetTop(draggedImage) + offset.Y);
-            }
-            */
-        }
-
-        private void canvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            /*
-            if (draggedImage != null)
-            {
-                canvas.ReleaseMouseCapture();
-                //Panel.SetZIndex(draggedImage, 0);
-                draggedImage = null;
-            }
-            */
-        }
-        #endregion
     }
 }

@@ -4,7 +4,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 
 
-namespace EffectsLibrary.ContrastBrightness
+namespace EffectsLibrary
 {
     public class ContrastAdjustEffect : ShaderEffect
     {
@@ -14,7 +14,7 @@ namespace EffectsLibrary.ContrastBrightness
         public ContrastAdjustEffect()
         {
             PixelShader pixelShader = new PixelShader();
-            pixelShader.UriSource = new Uri(@"pack://application:,,,/EffectsLibrary;component/ContrastBrightness/ContrastAdjustEffect.ps");
+            pixelShader.UriSource = new Uri(@"pack://application:,,,/EffectsLibrary;component/ContrastAdjustEffect.ps");
             this.PixelShader = pixelShader;
 
             this.UpdateShaderValue(InputProperty);

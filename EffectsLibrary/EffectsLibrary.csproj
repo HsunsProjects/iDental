@@ -55,14 +55,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContrastBrightness\ContrastAdjustEffect.cs" />
+    <Compile Include="ContrastAdjustEffect.cs" />
+    <Compile Include="GrayScaleEffect.cs" />
+    <Compile Include="InvertColorEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Resource Include="ContrastBrightness\ContrastAdjustEffect.ps" />
+    <Compile Include="SharpenEffect.cs" />
+    <Compile Include="ToneMappingEffect.cs" />
+    <Resource Include="ContrastAdjustEffect.ps" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ContrastBrightness\ContrastAdjustEffect.fx" />
+    <None Include="ContrastAdjustEffect.fx" />
+    <Resource Include="InvertColorEffect.ps" />
+    <Resource Include="GrayScaleEffect.ps" />
+    <Resource Include="ToneMappingEffect.ps" />
+    <Resource Include="SharpenEffect.ps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="GrayScaleEffect.fx" />
+    <Content Include="InvertColorEffect.fx" />
+    <Content Include="SharpenEffect.fx" />
+    <Content Include="ToneMappingEffect.fx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:iDental.Views.UserControlViews"
-             xmlns:e="clr-namespace:EffectsLibrary.ContrastBrightness;assembly=EffectsLibrary"
+             xmlns:e="clr-namespace:EffectsLibrary;assembly=EffectsLibrary"
              xmlns:ieavm="clr-namespace:iDental.ViewModels.ViewModelBase"
              xmlns:s="clr-namespace:iDental.Class.RectThumbs"
              mc:Ignorable="d" 
@@ -75,14 +75,6 @@
             <!--<Button ToolTip="另存新檔">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/saveas.png"/>
             </Button>-->
-            <!--<Button ToolTip="裁切">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/crop.png"/>
-            </Button>-->
-            <!--<Button ToolTip="旋轉">
-                <Image Height="30" Source="/iDental;component/Resource/Icon/rotate.png"/>
-            </Button>-->
-            <Button Content="灰階" ToolTip="灰階">
-            </Button>
             <ToggleButton x:Name="showLines" ToolTip="格線" IsChecked="True">
                 <Image Height="30" Source="/iDental;component/Resource/Icon/gridline.png"/>
             </ToggleButton>
@@ -108,7 +100,6 @@
                     <Border.RenderTransform>
                         <TransformGroup x:Name="transformgroup">
                             <RotateTransform Angle="{Binding ElementName=sliderRotate, Path=Value}"/>
-                            <ScaleTransform x:Name="scaletransform"/>
                         </TransformGroup>
                     </Border.RenderTransform>
                     <Canvas.Top>
@@ -127,13 +118,29 @@
                             <Binding ElementName="border" Path="Height"/>
                         </MultiBinding>
                     </Canvas.Left>
-                    <Image x:Name="image">
-                        <Image.Effect>
-                            <e:ContrastAdjustEffect
-                                Brightness="{Binding ElementName=sliderBrightness, Path=Value}"
-                                Contrast="{Binding ElementName=sliderContrast, Path=Value}"/>
-                        </Image.Effect>
-                    </Image>
+                    <Border x:Name="filterInvertColor">
+                        <Border x:Name="filterGrayScale">
+                            <Border x:Name="filterExposureGamma">
+                                <Border.Effect>
+                                    <e:ToneMappingEffect Defog="{Binding ElementName=sliderDefog,Path=Value}"
+                                                         Exposure="{Binding ElementName=sliderExposure, Path=Value}"
+                                                         Gamma="{Binding ElementName=sliderGamma,Path=Value}"/>
+                                </Border.Effect>
+                                <Border x:Name="filterSharpen">
+                                    <Border.Effect>
+                                        <e:SharpenEffect Amount="{Binding ElementName=sliderSharpen,Path=Value}"/>
+                                    </Border.Effect>
+                                    <Border x:Name="filterBrightnessContrast">
+                                        <Border.Effect>
+                                            <e:ContrastAdjustEffect Brightness="{Binding ElementName=sliderBrightness, Path=Value}"
+                                                                    Contrast="{Binding ElementName=sliderContrast, Path=Value}"/>
+                                        </Border.Effect>
+                                        <Image x:Name="image"/>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Border>
+                    </Border>
                 </Border>
                 <ContentControl x:Name="rectangle"
                                 MinWidth="50" MinHeight="50"
@@ -158,42 +165,82 @@
                     </Canvas.Left>
                 </ContentControl>
             </Canvas>
-            <Grid Grid.Column="0" Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="1"
+            <DockPanel Grid.Column="0" Grid.Row="1" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="1"
                            Text="{Binding ElementName=sliderRotate, Path=Value, StringFormat=N1}" TextAlignment="Center"
                            FontWeight="Bold" Foreground="White"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="-45" FontWeight="Bold" Foreground="White"/>
-                <Slider x:Name="sliderRotate" Grid.Row="1" Grid.Column="1" TickPlacement="TopLeft"
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="-45" FontWeight="Bold" Foreground="White"/>
+                    <Slider x:Name="sliderRotate" Grid.Row="1" Grid.Column="1" TickPlacement="TopLeft"
                         Minimum="-45" Maximum="45" Value="0"
                         ValueChanged="sliderRotate_ValueChanged"/>
-                <TextBlock Grid.Row="1" Grid.Column="2" Text="45" FontWeight="Bold" Foreground="White"/>
-            </Grid>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="45" FontWeight="Bold" Foreground="White"/>
+                </Grid>
+            </DockPanel>
             <Grid Grid.Column="1" Grid.RowSpan="2">
-                <StackPanel>
-                    <DockPanel>
-                        <TextBlock Grid.Column="0" Text="亮度" Foreground="White"/>
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                <GroupBox Header="照片調整" FontWeight="Bold" Foreground="White">
+                    <StackPanel Margin="5,15,5,5">
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="亮度" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
                                    Text="{Binding ElementName=sliderBrightness, Path=Value}" Foreground="White"/>
-                    </DockPanel>
-                    <Slider x:Name="sliderBrightness"
-                            Minimum="-1" Maximum="1" Value="0"/>
-                    <DockPanel>
-                        <TextBlock Grid.Column="0" Text="對比" Foreground="White"/>
-                        <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                        </DockPanel>
+                        <Slider x:Name="sliderBrightness" Margin="0,5,0,15"
+                                Minimum="-1" Maximum="1" Value="0"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="對比" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
                                    Text="{Binding ElementName=sliderContrast, Path=Value}" Foreground="White"/>
-                    </DockPanel>
-                    <Slider x:Name="sliderContrast"
-                            Minimum="0" Maximum="2" Value="1"/>
-                </StackPanel>
+                        </DockPanel>
+                        <Slider x:Name="sliderContrast" Margin="0,5,0,15"
+                                Minimum="0" Maximum="2" Value="1"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="銳利" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderSharpen, Path=Value}" Foreground="White"/>
+                        </DockPanel>
+                        <Slider x:Name="sliderSharpen" Margin="0,5,0,15"
+                                Minimum="0" Maximum="2" Value="0"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="除霧" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderDefog, Path=Value}" Foreground="White"/>
+                        </DockPanel>
+                        <Slider x:Name="sliderDefog" Margin="0,5,0,15"
+                                Minimum="0" Maximum="1" Value="0"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="曝光" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderExposure, Path=Value}" Foreground="White"/>
+                        </DockPanel>
+                        <Slider x:Name="sliderExposure" Margin="0,5,0,15"
+                                Minimum="-1" Maximum="1" Value="0"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <DockPanel>
+                            <TextBlock Grid.Column="0" Text="Gamm校正" Foreground="White"/>
+                            <TextBlock Grid.Column="1" HorizontalAlignment="Right"
+                                   Text="{Binding ElementName=sliderGamma, Path=Value}" Foreground="White"/>
+                        </DockPanel>
+                        <Slider x:Name="sliderGamma" Margin="0,5,0,15"
+                                Minimum="0.5" Maximum="2" Value="1"
+                                IsSnapToTickEnabled="True" TickFrequency="0.01"/>
+                        <CheckBox x:Name="checkboxGrayScale" Content="灰階" Margin="0,5,0,15" Foreground="White" Checked="CheckBox_FilterGrayScale_Checked" Unchecked="CheckBox_FilterGrayScale_Unchecked"/>
+                        <CheckBox x:Name="checkboxInvertColor" Content="反色" Margin="0,5,0,15" Foreground="White" Checked="CheckBox_FilterInvertColor_Checked" Unchecked="CheckBox_FilterInvertColor_Unchecked"/>
+                    </StackPanel>
+                </GroupBox>
             </Grid>
         </Grid>
         <Grid Grid.Row="2" Background="Black">

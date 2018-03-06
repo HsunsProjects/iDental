@@ -36,12 +36,12 @@
                 <Button ToolTip="左右鏡射" Click="Button_MirrorHorizontal_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/mirrorhorizontal.png"/>
                 </Button>
-                <Button ToolTip="裁切" Click="Button_Crop_Click">
+                <!--<Button ToolTip="裁切" Click="Button_Crop_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/crop.png"/>
-                </Button>
-                <Button ToolTip="旋轉" Click="Button_Rotate_Click">
+                </Button>-->
+                <!--<Button ToolTip="旋轉" Click="Button_Rotate_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/rotate.png"/>
-                </Button>
+                </Button>-->
                 <Button ToolTip="進階" Click="Button_Advance_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/edit.png"/>
                 </Button>
@@ -53,6 +53,7 @@
                 <Slider x:Name="slider" Width="100" 
                         Minimum="1"
                         Maximum="3"
+                        IsSnapToTickEnabled="True" TickFrequency="0.01"
                         FlowDirection="RightToLeft"
                         VerticalAlignment="Center"/>
                 <Button ToolTip="縮小" Click="Button_ZoomOut_Click">
