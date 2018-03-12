@@ -30,7 +30,7 @@ namespace iDental.Views.UserControlViews
                 textTips.Text = " [ " + (ImagesCollection.IndexOf(ImageInfo) + 1) + " / " + ImagesCollection.Count + " ] ";
             }
         }
-        
+
         Image image;
 
         Point? lastCenterPositionOnTarget;
@@ -268,6 +268,8 @@ namespace iDental.Views.UserControlViews
             {
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) - 1];
 
+                slider.Value = 0;
+
                 GC.Collect();
 
                 GC.WaitForPendingFinalizers();
@@ -281,6 +283,8 @@ namespace iDental.Views.UserControlViews
             if (ImagesCollection.IndexOf(ImageInfo) < ImagesCollection.Count - 1)
             {
                 ImageInfo = ImagesCollection[ImagesCollection.IndexOf(ImageInfo) + 1];
+
+                slider.Value = 0;
 
                 GC.Collect();
 

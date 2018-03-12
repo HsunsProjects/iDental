@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Login" Height="300" Width="650"
-        Topmost="True" WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None"
         ContentRendered="Window_Login_ContentRendered">
     <Grid>

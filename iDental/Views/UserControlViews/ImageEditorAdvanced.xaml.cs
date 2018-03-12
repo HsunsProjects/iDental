@@ -4,6 +4,7 @@ using iDental.iDentalClass;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -74,25 +75,54 @@ namespace iDental.Views.UserControlViews
             {
                 try
                 {
-                    //原始圖片比例的rectangle
-                    double oriWidth = bitmapImage.PixelWidth * (rectangle.Width / border.Width);
-                    double oriHeight = bitmapImage.PixelHeight * (rectangle.Height / border.Height);
+                    Thread thread = new Thread(() =>
+                    {
+                        WaitingDialog waitingDialog = new WaitingDialog();
+                        waitingDialog.WText = "請稍後";
+                        waitingDialog.WDetail = "影像儲存中...";
+                        waitingDialog.Show();
+                        waitingDialog.Closed += (sender1, e1) => waitingDialog.Dispatcher.InvokeShutdown();
+
+                        System.Windows.Threading.Dispatcher.Run();
+                    });
+                    thread.SetApartmentState(ApartmentState.STA);
+                    thread.IsBackground = true;
+                    thread.Start();
+
+                    double pw = bitmapImage.PixelWidth;
+                    double ph = bitmapImage.PixelHeight;
+
+                    double rw = rectangle.Width;
+                    double rh = rectangle.Height;
+
+                    double bw = border.Width;
+                    double bh = border.Height;
 
                     //image 控制項P1
                     Point sourceP1 = new Point(Canvas.GetLeft(rectangle) - Canvas.GetLeft(border), Canvas.GetTop(rectangle) - Canvas.GetTop(border));
+
+                    //原始圖片比例的rectangle
+                    double oriWidth = pw * (rw / bw);
+                    double oriHeight = ph * (rh / bh);
+
                     //比例
-                    double rectangleRatioX = sourceP1.X / border.Width;
-                    double rectangleRatioY = sourceP1.Y / border.Height;
+                    double rectangleRatioX = sourceP1.X / bw;
+                    double rectangleRatioY = sourceP1.Y / bh;
                     //原始圖片的P1
-                    Point oriStartPoint = new Point(bitmapImage.PixelWidth * rectangleRatioX, bitmapImage.PixelHeight * rectangleRatioY);
+                    Point oriStartPoint = new Point(pw * rectangleRatioX, ph * rectangleRatioY);
 
                     DealNewImage(bitmapImage, rotateAngle, (int)oriStartPoint.X, (int)oriStartPoint.Y, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
+                    
+                    thread.Abort();
 
                     //儲存完馬上重載修改後的圖片
                     ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
+
                     MessageBox.Show("儲存成功", "提示", MessageBoxButton.OK);
-                    
+
                     SetImageDefault(ImageInfo.Image_FullPath);
+
+                    GC.Collect();
                 }
                 catch (Exception ex)
                 {
@@ -246,8 +276,8 @@ namespace iDental.Views.UserControlViews
                 h = ratio * bitmapImage.PixelHeight;
             }
 
-            image.Width = w * 4 / 5;
-            image.Height = h * 4 / 5;
+            image.Width = w * 6 / 7;
+            image.Height = h * 6 / 7;
 
             border.Width = image.Width;
             border.Height = image.Height;
@@ -297,64 +327,148 @@ namespace iDental.Views.UserControlViews
         {
             try
             {
+                bool isEditRotate = sliderRotate.Value != defaultRotateAngle ? true : false;
+                bool isEditWidth = border.Width != rectangle.Width ? true : false;
+                bool isEditHeight = border.Height != rectangle.Height ? true : false;
 
-                DrawingVisual vis = new DrawingVisual();
-                RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default);
-                using (DrawingContext cont = vis.RenderOpen())
+                bool isEditBrightness = sliderBrightness.Value != defaultBrightness ? true : false;
+                bool isEditContrast = sliderContrast.Value != defaultConstrast ? true : false;
+                ContrastAdjustEffect effectBrightnessContrast = (ContrastAdjustEffect)filterBrightnessContrast.Effect;
+
+                bool isEditSharpen = sliderSharpen.Value != defaultSharpen ? true : false;
+                SharpenEffect effectSharpen = (SharpenEffect)filterSharpen.Effect;
+
+                bool isEditDefog = sliderDefog.Value != defaultDefog ? true : false;
+                bool isEditExposure = sliderExposure.Value != defaultExposure ? true : false;
+                bool isEditGamma = sliderGamma.Value != defaultGamma ? true : false;
+                ToneMappingEffect effectExposureGamma = (ToneMappingEffect)filterExposureGamma.Effect;
+
+                bool isEditGrayScale = (bool)checkboxGrayScale.IsChecked ? true : false;
+                GrayScaleEffect effectGrayScale = (GrayScaleEffect)filterGrayScale.Effect;
+
+                bool isEditInvertColor = (bool)checkboxInvertColor.IsChecked ? true : false;
+                InvertColorEffect effectInvertColor = (InvertColorEffect)filterInvertColor.Effect;
+
+                if (isEditRotate || isEditWidth || isEditWidth)
                 {
-                    if (sliderRotate.Value != defaultRotateAngle || border.Width != rectangle.Width || border.Height != rectangle.Height)
-                    {
-                        TransformGroup transformGroup = new TransformGroup();
-                        RotateTransform rotateTransform = new RotateTransform(angle);
-                        rotateTransform.CenterX = sourceImage.PixelWidth / 2.0;
-                        rotateTransform.CenterY = sourceImage.PixelHeight / 2.0;
-                        transformGroup.Children.Add(rotateTransform);
-                        TranslateTransform translateTransform = new TranslateTransform();
-                        translateTransform.X = -startX;
-                        translateTransform.Y = -startY;
-                        transformGroup.Children.Add(translateTransform);
+                    TransformGroup transformGroup = new TransformGroup();
+                    RotateTransform rotateTransform = new RotateTransform(angle);
+                    rotateTransform.CenterX = sourceImage.PixelWidth / 2.0;
+                    rotateTransform.CenterY = sourceImage.PixelHeight / 2.0;
+                    transformGroup.Children.Add(rotateTransform);
+                    TranslateTransform translateTransform = new TranslateTransform();
+                    translateTransform.X = -startX;
+                    translateTransform.Y = -startY;
+                    transformGroup.Children.Add(translateTransform);
 
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb;
+
+                    using (DrawingContext cont = vis.RenderOpen())
+                    {
                         cont.PushTransform(transformGroup);
                         cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
                         cont.Close();
                         rtb = new RenderTargetBitmap(width, height, 96d, 96d, PixelFormats.Default);
                         SaveNewImage(rtb, vis, filePath);
+
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
                     }
-                    else
+                }
+
+                if (isEditBrightness || isEditContrast)
+                {
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default); ;
+
+                    using (DrawingContext cont = vis.RenderOpen())
                     {
                         cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
                         cont.Close();
-                        SaveNewImage(rtb, vis, filePath);
-                    }
 
-                    if (sliderBrightness.Value != defaultBrightness || sliderContrast.Value != defaultConstrast)
-                    {
-                        vis.Effect = filterBrightnessContrast.Effect;
-                        SaveNewImage(rtb, vis, filePath);
-                    }
+                        vis.Effect = effectBrightnessContrast;
 
-                    if (sliderSharpen.Value != defaultSharpen)
-                    {
-                        vis.Effect = filterSharpen.Effect;
                         SaveNewImage(rtb, vis, filePath);
-                    }
 
-                    if (sliderDefog.Value != defaultDefog || sliderExposure.Value != defaultExposure || sliderGamma.Value != defaultGamma)
-                    {
-                        vis.Effect = filterExposureGamma.Effect;
-                        SaveNewImage(rtb, vis, filePath);
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
                     }
+                }
 
-                    if (checkboxGrayScale.IsChecked == true)
+                if (isEditSharpen)
+                {
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default); ;
+
+                    using (DrawingContext cont = vis.RenderOpen())
                     {
-                        vis.Effect = filterGrayScale.Effect;
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+
+                        vis.Effect = effectSharpen;
+
                         SaveNewImage(rtb, vis, filePath);
+
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
                     }
+                }
 
-                    if (checkboxInvertColor.IsChecked == true)
+                if (isEditDefog || isEditExposure || isEditGamma)
+                {
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default); ;
+
+                    using (DrawingContext cont = vis.RenderOpen())
                     {
-                        vis.Effect = filterInvertColor.Effect;
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+
+                        vis.Effect = effectExposureGamma;
+
                         SaveNewImage(rtb, vis, filePath);
+
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                    }
+                }
+
+                if (isEditGrayScale)
+                {
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default); ;
+
+                    using (DrawingContext cont = vis.RenderOpen())
+                    {
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+
+                        vis.Effect = effectGrayScale;
+
+                        SaveNewImage(rtb, vis, filePath);
+
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                    }
+                }
+
+                if (isEditInvertColor)
+                {
+                    DrawingVisual vis = new DrawingVisual();
+
+                    RenderTargetBitmap rtb = new RenderTargetBitmap(sourceImage.PixelWidth, sourceImage.PixelHeight, 96d, 96d, PixelFormats.Default); ;
+
+                    using (DrawingContext cont = vis.RenderOpen())
+                    {
+                        cont.DrawImage(sourceImage, new Rect(new Size(sourceImage.PixelWidth, sourceImage.PixelHeight)));
+                        cont.Close();
+
+                        vis.Effect = effectInvertColor;
+
+                        SaveNewImage(rtb, vis, filePath);
+
+                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
                     }
                 }
             }
@@ -373,7 +487,6 @@ namespace iDental.Views.UserControlViews
         private void SaveNewImage(RenderTargetBitmap renderTargetBitmap, DrawingVisual drawingVisual, string fileName)
         {
             renderTargetBitmap.Render(drawingVisual);
-
             using (FileStream stream = new FileStream(fileName, FileMode.Create))
             {
                 PngBitmapEncoder encoder = new PngBitmapEncoder();
