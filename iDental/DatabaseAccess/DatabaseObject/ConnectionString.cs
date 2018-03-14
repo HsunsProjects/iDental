@@ -34,7 +34,10 @@ namespace iDental.DatabaseAccess.DatabaseObject
             sqlBuilder.InitialCatalog = databaseName;
             sqlBuilder.UserID = userID;
             sqlBuilder.Password = password;
-            sqlBuilder.IntegratedSecurity = true;
+            
+            //如果設定Security 區網電腦設定要做認證
+            //sqlBuilder.IntegratedSecurity = true;
+
             sqlBuilder.MultipleActiveResultSets = true;
             sqlBuilder.ApplicationName = "EntityFramework";
             // Build the SqlConnection connection string.
