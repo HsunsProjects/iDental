@@ -3,74 +3,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vmb="clr-namespace:iDental.ViewModels.ViewModelBase"
-        xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="診所設定" 
-        Height="380" Width="500" FontSize="16"
+        Height="450" Width="600" FontSize="16"
         Icon="/iDental;component/Resource/Icon/setting.png"
-        WindowStartupLocation="CenterScreen" Topmost="True" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Loaded="Window_Loaded">
-    <Window.Resources>
-        <vmb:RadioButtonConverter x:Key="radioButtonConverterKey"></vmb:RadioButtonConverter>
-        <s:Int32 x:Key="1">1</s:Int32>
-        <s:Int32 x:Key="2">2</s:Int32>
-    </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.14*"></RowDefinition>
-            <RowDefinition Height="0.16*"></RowDefinition>
+            <RowDefinition Height="0.85*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   Text="影像路徑設定:" 
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"/>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding Agency_ImagePath}"/>
-            <Button Grid.Column="1" Content="選擇"
-                    Click="Button_ImagePath_Click"/>
-        </Grid>
-        <TextBlock Grid.Row="2"
-                   Text="Wifi Card路徑設定:" 
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"/>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Text="{Binding Agency_WifiCardPath}"/>
-            <Button Grid.Column="1" Content="選擇"
-                    Click="Button_WifiCardPath_Click"/>
-        </Grid>
-        <TextBlock Grid.Row="4" 
-                   Text="預設功能起始頁:" 
-                   FontWeight="Bold"
-                   VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center">
-            <RadioButton GroupName="StartFunction" Content="瀏覽模式" IsChecked="{Binding Agency_Function, Converter={StaticResource ResourceKey=radioButtonConverterKey},  ConverterParameter={StaticResource 1}}"/>
-            <RadioButton GroupName="StartFunction" Content="片套模式" IsChecked="{Binding Agency_Function, Converter={StaticResource ResourceKey=radioButtonConverterKey},  ConverterParameter={StaticResource 2}}"/>
-        </StackPanel>
-        <TextBlock Grid.Row="6" 
-               Text="片套模式設定:" 
-                   FontWeight="Bold"
-               VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="7" Orientation="Horizontal" VerticalAlignment="Center">
-            <RadioButton GroupName="Mode" Content="橫幅" IsChecked="{Binding Agency_ViewType, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=0}"/>
-            <RadioButton GroupName="Mode" Content="直幅" IsChecked="{Binding Agency_ViewType, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=1}"/>
-        </StackPanel>
-        <StackPanel Grid.Row="8" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <TabControl Grid.Row="0"
+                    ItemsSource="{Binding AgencySettingTabs}" SelectedItem="{Binding SelectedTabItem, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Content="取消" Height="30" Width="80" Margin="5" Click="Button_Cancel_Click"/>
             <ToggleButton Content="儲存" Height="30" Width="80" Margin="5" Click="ToggleButton_Save_Click"/>
         </StackPanel>

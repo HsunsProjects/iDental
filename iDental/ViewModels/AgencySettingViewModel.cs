@@ -1,58 +1,80 @@
-﻿namespace iDental.ViewModels
+﻿using iDental.Views.UserControlViews;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+
+namespace iDental.ViewModels
 {
     public class AgencySettingViewModel : ViewModelBase.PropertyChangedBase
     {
-        private string agency_ImagePath;
-        public string Agency_ImagePath
+        /// <summary>
+        /// 取得AgencySettingTab1值
+        /// </summary>
+        public Agencys Agencys { get { return agencySettingTab1.Agencys; } }
+        /// <summary>
+        /// 取得AgencySettingTab2值
+        /// </summary>
+        public string Pointofix { get { return agencySettingTab2.PointofixPath; } }
+
+        public AgencySettingViewModel()
         {
-            get { return agency_ImagePath; }
+            TabsSetting();
+        }
+
+        #region FinctionTab
+        /// <summary>
+        /// binding Tab ItemSource來源
+        /// </summary>
+        private ObservableCollection<TabItem> agencySettingTabs;
+        public ObservableCollection<TabItem> AgencySettingTabs
+        {
+            get { return agencySettingTabs; }
             set
             {
-                agency_ImagePath = value;
-                OnPropertyChanged("Agency_ImagePath");
+                agencySettingTabs = value;
+                OnPropertyChanged("AgencySettingTabs");
             }
         }
 
-        private string agency_WifiCardPath;
-
-        public string Agency_WifiCardPath
+        /// <summary>
+        /// Selected Tab頁面(載入圖片)
+        /// </summary>
+        private TabItem selectedTabItem;
+        public TabItem SelectedTabItem
         {
-            get { return agency_WifiCardPath; }
+            get { return selectedTabItem; }
             set
             {
-                agency_WifiCardPath = value;
-                OnPropertyChanged("Agency_WifiCardPath");
+                selectedTabItem = value;
+                OnPropertyChanged("SelectedTabItem");
             }
         }
+        #endregion
 
-        private int agency_Function;
-        public int Agency_Function
+        /// <summary>
+        /// Main Tab
+        /// </summary>
+        private AgencySettingTab1 agencySettingTab1 = new AgencySettingTab1();
+        /// <summary>
+        /// Other Tab
+        /// </summary>
+        private AgencySettingTab2 agencySettingTab2 = new AgencySettingTab2();
+
+        private void TabsSetting()
         {
-            get { return agency_Function; }
-            set
+            AgencySettingTabs = new ObservableCollection<TabItem>();
+            //AgencySettingTab1
+            AgencySettingTabs.Add(new TabItem()
             {
-                agency_Function = value;
-                OnPropertyChanged("Agency_Function");
-            }
-        }
-
-        private string agency_ViewType;
-        public string Agency_ViewType
-        {
-            get { return agency_ViewType; }
-            set
+                Header = "主要設定",
+                Content = agencySettingTab1
+            });
+            //AgencySettingTab2
+            AgencySettingTabs.Add(new TabItem()
             {
-                agency_ViewType = value;
-                OnPropertyChanged("Agency_ViewType");
-            }
-        }
-
-        public AgencySettingViewModel(Agencys agencys)
-        {
-            Agency_ImagePath = agencys.Agency_ImagePath;
-            Agency_WifiCardPath = agencys.Agency_WifiCardPath;
-            Agency_ViewType = agencys.Agency_ViewType;
-            Agency_Function = agencys.Function_ID;
+                Header = "其他",
+                Content = agencySettingTab2
+            });
+            SelectedTabItem = AgencySettingTabs[0];
         }
     }
 }

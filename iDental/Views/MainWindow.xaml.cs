@@ -1,4 +1,5 @@
 ﻿using iDental.Class;
+using iDental.DatabaseAccess.QueryEntities;
 using iDental.ViewModels;
 using iDental.Views.UserControlViews;
 using System;
@@ -107,10 +108,10 @@ namespace iDental.Views
 
         private void MenuItem_Setting_Click(object sender, RoutedEventArgs e)
         {
-            AgencySetting agencySetting = new AgencySetting(Agencys);
+            AgencySetting agencySetting = new AgencySetting();
             if (agencySetting.ShowDialog() == true)
             {
-                Agencys = agencySetting.Agencys;
+                Agencys = new TableAgencys().QueryVerifyAgencys();
                 MainContent.Content = new PatientInformation(Agencys, Patients);
             }
         }

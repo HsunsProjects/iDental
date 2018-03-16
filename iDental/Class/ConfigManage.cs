@@ -9,7 +9,7 @@ namespace iDental.Class
         /// </summary>
         /// <param name="key">Config Key</param>
         /// <returns>true/false</returns>
-        public static bool ReadSetting(string key)
+        public static bool IsHaveValue(string key)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace iDental.Class
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="value">Value</param>
-        public static void AddUpdateAppCongig(string key, string value)
+        public static void AddUpdateAppConfig(string key, string value)
         {
             try
             {
@@ -53,6 +53,25 @@ namespace iDental.Class
             catch (ConfigurationErrorsException cex)
             {
                 ErrorLog.ErrorMessageOutput(cex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 載入config值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string ReadAppConfig(string key)
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                return ConfigurationManager.AppSettings[key];
+            }
+            catch (ConfigurationErrorsException cex)
+            {
+                ErrorLog.ErrorMessageOutput(cex.ToString());
+                return null;
             }
         }
     }

@@ -77,14 +77,14 @@ namespace iDental.Views
                 }, DispatcherPriority.Render);
 
                 //判斷app.config
-                if (!ConfigManage.ReadSetting("Server"))//尚未設置
+                if (!ConfigManage.IsHaveValue("Server"))//尚未設置
                 {
                     AnswerDialogOne answerDialogOne = new AnswerDialogOne("請輸入伺服器位置:", "IP");
                     if (answerDialogOne.ShowDialog() == true)
                     {
                         //寫入config Server 欄位
                         string serverIP = answerDialogOne.Answer;
-                        ConfigManage.AddUpdateAppCongig("Server", serverIP);
+                        ConfigManage.AddUpdateAppConfig("Server", serverIP);
                     }
                 }
 
@@ -181,7 +181,7 @@ namespace iDental.Views
                 else
                 {
                     MessageBoxTips = "伺服器連接失敗";
-                    ConfigManage.AddUpdateAppCongig("Server", "");
+                    ConfigManage.AddUpdateAppConfig("Server", "");
                 }
 
                 //登入成功

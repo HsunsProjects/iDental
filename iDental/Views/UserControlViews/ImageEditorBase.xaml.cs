@@ -2,6 +2,7 @@
 using iDental.iDentalClass;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -308,6 +309,33 @@ namespace iDental.Views.UserControlViews
         private void Button_Advance_Click(object sender, RoutedEventArgs e)
         {
             Content = new ImageEditorAdvanced(ImagesCollection, ImageInfo);
+        }
+
+        private void Button_Pointofix_Click(object sender, RoutedEventArgs e)
+        {
+            string PointofixPath = ConfigManage.ReadAppConfig("PointofixPath");
+            if (PathCheck.IsFileExist(PointofixPath))
+            {
+                //如果Pointofix已經執行 先關閉
+                Process[] processes = Process.GetProcessesByName("Pointofix");
+                if (processes.Length > 0)
+                {
+                    foreach (Process p in processes)
+                    {
+                        // 關閉目前程序前先等待 200 毫秒
+                        p.WaitForExit(200);
+                        p.CloseMainWindow();
+                    }
+                }
+                //啟用Pointofix
+                Process pointofix = new Process();
+                pointofix.StartInfo.FileName = PointofixPath;
+                pointofix.Start();
+            }
+            else
+            {
+                MessageBox.Show("尚未找到Pointofix的執行程式，請至設定重新設定");
+            }
         }
 
         private void Button_ZoomIn_Click(object sender, RoutedEventArgs e)

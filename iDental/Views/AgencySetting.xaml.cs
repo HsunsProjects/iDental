@@ -11,19 +11,21 @@ namespace iDental.Views
     /// </summary>
     public partial class AgencySetting : Window
     {
-        public Agencys Agencys { get; set; }
+        /// <summary>
+        /// 視窗結果
+        /// </summary>
+        private bool ReturnDialogResult = false;
 
         private AgencySettingViewModel agencySettingViewModel;
-        public AgencySetting(Agencys agencys)
+
+        public AgencySetting()
         {
             InitializeComponent();
-
-            Agencys = agencys;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            agencySettingViewModel = new AgencySettingViewModel(Agencys);
+            agencySettingViewModel = new AgencySettingViewModel();
             DataContext = agencySettingViewModel;
         }
 
@@ -31,21 +33,34 @@ namespace iDental.Views
         {
             try
             {
-                if (PathCheck.IsPathExist(agencySettingViewModel.Agency_ImagePath))
+                //診所設定判斷
+                Agencys agencys = agencySettingViewModel.Agencys;
+                if (PathCheck.IsPathExist(agencys.Agency_ImagePath))
                 {
-                    Agencys = new TableAgencys().UpdateAgency(Agencys, agencySettingViewModel.Agency_ImagePath, agencySettingViewModel.Agency_WifiCardPath, agencySettingViewModel.Agency_ViewType, agencySettingViewModel.Agency_Function);
-                    DialogResult = true;
+                    new TableAgencys().UpdateAgency(agencys, agencys.Agency_ImagePath, agencys.Agency_WifiCardPath, agencys.Agency_ViewType, agencys.Function_ID);
+                    ReturnDialogResult = true;
                 }
                 else
                 {
                     if (MessageBox.Show("您所設定的影像路徑無法使用，可能會導致影像無法存取，是否繼續?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        Agencys = new TableAgencys().UpdateAgency(Agencys, agencySettingViewModel.Agency_ImagePath, agencySettingViewModel.Agency_WifiCardPath, agencySettingViewModel.Agency_ViewType, agencySettingViewModel.Agency_Function);
-                        DialogResult = true;
+                        new TableAgencys().UpdateAgency(agencys, agencys.Agency_ImagePath, agencys.Agency_WifiCardPath, agencys.Agency_ViewType, agencys.Function_ID);
+                        ReturnDialogResult = true;
                     }
-                    else
+                }
+                //其他
+                string PointofixPath = agencySettingViewModel.Pointofix;
+                if (PathCheck.IsFileExist(PointofixPath) || string.IsNullOrEmpty(PointofixPath))
+                {
+                    ConfigManage.AddUpdateAppConfig("PointofixPath", PointofixPath);
+                    ReturnDialogResult = true;
+                }
+                else
+                {
+                    if (MessageBox.Show("您所設定的Pointofix的位置不存在，可能會導致該軟體無法使用，是否繼續?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
-                        DialogResult = false;
+                        ConfigManage.AddUpdateAppConfig("PointofixPath", PointofixPath);
+                        ReturnDialogResult = true;
                     }
                 }
             }
@@ -53,8 +68,8 @@ namespace iDental.Views
             {
                 MessageBox.Show("儲存設定時發生異常", "提示", MessageBoxButton.OK, MessageBoxImage.Error);
                 ErrorLog.ErrorMessageOutput(ex.ToString());
-                DialogResult = false;
             }
+            DialogResult = ReturnDialogResult;
             Close();
         }
 
@@ -62,29 +77,6 @@ namespace iDental.Views
         {
             DialogResult = false;
             Close();
-        }
-
-        private void Button_ImagePath_Click(object sender, RoutedEventArgs e)
-        {
-            using (System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())
-            {
-                folderBrowserDialog.Description = "請選擇影像路徑";
-                if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    agencySettingViewModel.Agency_ImagePath = folderBrowserDialog.SelectedPath;
-                }
-            }
-        }
-        private void Button_WifiCardPath_Click(object sender, RoutedEventArgs e)
-        {
-            using (System.Windows.Forms.FolderBrowserDialog folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog())
-            {
-                folderBrowserDialog.Description = "請選擇WifiCard路徑";
-                if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    agencySettingViewModel.Agency_WifiCardPath = folderBrowserDialog.SelectedPath;
-                }
-            }
         }
     }
 }

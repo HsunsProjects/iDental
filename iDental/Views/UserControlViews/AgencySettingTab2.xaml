@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="iDental.Views.UserControlViews.AgencySettingTab2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iDental.Views.UserControlViews"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             VerticalAlignment="Top">
+    <Grid>
+        <StackPanel Margin="10">
+            <TextBlock Text="Pointofix執行路徑:" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <Grid Margin="10,0,10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding PointofixPath}" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" Content="選擇"
+                        Click="Button_PointofixPath_Click"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

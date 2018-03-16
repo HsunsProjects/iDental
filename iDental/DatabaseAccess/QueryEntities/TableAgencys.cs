@@ -27,7 +27,7 @@ namespace iDental.DatabaseAccess.QueryEntities
         /// <param name="viewType"></param>
         /// <param name="functionID"></param>
         /// <returns></returns>
-        public Agencys UpdateAgency(Agencys agencys, string imagePath, string wifiCardPath, string viewType, int functionID)
+        public void UpdateAgency(Agencys agencys, string imagePath, string wifiCardPath, string viewType, int functionID)
         {
             using (var ide = new iDentalEntities())
             {
@@ -39,8 +39,6 @@ namespace iDental.DatabaseAccess.QueryEntities
                 newAgencys.Agency_ViewType = viewType;
                 newAgencys.Function_ID = functionID;
                 ide.SaveChanges();
-
-                return newAgencys;
             }
         }
     }

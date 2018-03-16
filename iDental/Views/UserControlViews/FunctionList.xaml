@@ -86,7 +86,7 @@
                         </Grid.RowDefinitions>
                         <Viewbox Grid.Row="0">
                             <Border BorderThickness="1" BorderBrush="Black">
-                                <Image Margin="10" MaxHeight="600" Height="600" Width="600" Source="{Binding BitmapImage}"
+                                <Image Margin="10" Height="800" Width="800" Source="{Binding BitmapImage}"
                                    MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                             </Border>
                         </Viewbox>

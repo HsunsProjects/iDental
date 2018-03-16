@@ -45,6 +45,9 @@
                 <Button ToolTip="進階" Click="Button_Advance_Click">
                     <Image Height="30" Source="/iDental;component/Resource/Icon/edit.png"/>
                 </Button>
+                <Button ToolTip="啟用Pointofix" Click="Button_Pointofix_Click">
+                    <Image Height="30" Source="/iDental;component/Resource/Icon/pointofix.jpg"/>
+                </Button>
             </ToolBarPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">
                 <Button ToolTip="放大" Click="Button_ZoomIn_Click">
