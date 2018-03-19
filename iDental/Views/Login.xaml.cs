@@ -77,7 +77,7 @@ namespace iDental.Views
                 }, DispatcherPriority.Render);
 
                 //判斷app.config
-                if (!ConfigManage.IsHaveValue("Server"))//尚未設置
+                if (!ConfigManage.IsConfigValue("Server"))//尚未設置
                 {
                     AnswerDialogOne answerDialogOne = new AnswerDialogOne("請輸入伺服器位置:", "IP");
                     if (answerDialogOne.ShowDialog() == true)

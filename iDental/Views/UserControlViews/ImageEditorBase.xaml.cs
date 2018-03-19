@@ -26,7 +26,7 @@ namespace iDental.Views.UserControlViews
             set
             {
                 imageInfo = value;
-                image.Source = new CreateBitmapImage().SettingBitmapImage(imageInfo.Image_FullPath, 0);
+                image.Source = new CreateBitmapImage().BitmapImageShow(imageInfo.Image_FullPath, 0);
                 textFileName.Text = imageInfo.Image_FileName;
                 textTips.Text = " [ " + (ImagesCollection.IndexOf(ImageInfo) + 1) + " / " + ImagesCollection.Count + " ] ";
             }
@@ -465,13 +465,14 @@ namespace iDental.Views.UserControlViews
         private void SaveImage(Transform transform)
         {
             //載入原圖至BitmapSource
-            BitmapSource bitmapSource = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+            BitmapSource bitmapSource = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
             bitmapSource = new TransformedBitmap(bitmapSource, transform);
             ImageHelper.SaveUsingEncoder(bitmapSource, ImageInfo.Image_FullPath, ImageInfo.Image_Extension);
 
-            ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
-            image.Source = bitmapSource;
+            ImageInfo.BitmapImage = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 800);
+            //image.Source = bitmapSource;
             bitmapSource = null;
+            ImageInfo = imageInfo;
         }
     }
 }

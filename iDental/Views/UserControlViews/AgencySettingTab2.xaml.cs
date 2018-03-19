@@ -11,6 +11,7 @@ namespace iDental.Views.UserControlViews
     public partial class AgencySettingTab2 : UserControl
     {
         public string PointofixPath { get { return agencySettingTab2ViewModel.PointofixPath; } }
+        public string ImageDecodePixel { get { return agencySettingTab2ViewModel.ImageDecodePixel; } }
 
         private AgencySettingTab2ViewModel agencySettingTab2ViewModel;
         public AgencySettingTab2()

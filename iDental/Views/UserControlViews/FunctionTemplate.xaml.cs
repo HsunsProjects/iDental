@@ -245,7 +245,7 @@ namespace iDental.Views.UserControlViews
                                             iTarget = new Image();
                                             iTarget = (Image)TemplateContent.FindName("Image" + Imagei);
                                             iTarget.Uid = ImageUID;
-                                            iTarget.Source = createBitmapImage.SettingBitmapImage(patientImageFolderInfo.PatientImageFullPath + @"\" + imageFileName, DecodePixelWidth);
+                                            iTarget.Source = createBitmapImage.BitmapImageShow(patientImageFolderInfo.PatientImageFullPath + @"\" + imageFileName, DecodePixelWidth);
                                             isChanged = true;
                                         });
 
@@ -267,7 +267,7 @@ namespace iDental.Views.UserControlViews
                                                                select tc;
                                             if (findOriImage.Count() > 0)
                                             {
-                                                iTarget.Source = createBitmapImage.SettingBitmapImage(findOriImage.First().Image_Path, DecodePixelWidth);
+                                                iTarget.Source = createBitmapImage.BitmapImageShow(findOriImage.First().Image_Path, DecodePixelWidth);
                                             }
                                             else
                                             {
@@ -293,7 +293,7 @@ namespace iDental.Views.UserControlViews
                                                                        select tc;
                                                     if (findOriImage.Count() > 0)
                                                     {
-                                                        iTarget.Source = createBitmapImage.SettingBitmapImage(findOriImage.First().Image_Path, DecodePixelWidth);
+                                                        iTarget.Source = createBitmapImage.BitmapImageShow(findOriImage.First().Image_Path, DecodePixelWidth);
                                                     }
                                                     else
                                                     {

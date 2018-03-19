@@ -63,6 +63,9 @@ namespace iDental.Views
                         ReturnDialogResult = true;
                     }
                 }
+                string ImageDecodePixel = agencySettingViewModel.ImageDecodePixel;
+                ConfigManage.AddUpdateAppConfig("ImageDecodePixel", ImageDecodePixel);
+                MessageBox.Show("設定已更改");
             }
             catch (Exception ex)
             {

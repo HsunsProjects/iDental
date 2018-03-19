@@ -38,7 +38,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 Patient_Birth = patients.Patient_Birth;
                 if (PathCheck.IsFileExist(Agencys.Agency_ImagePath + patients.Patient_Photo))
                 {
-                    Patient_Photo = new CreateBitmapImage().SettingBitmapImage(Agencys.Agency_ImagePath + patients.Patient_Photo, 400);
+                    Patient_Photo = new CreateBitmapImage().BitmapImageShow(Agencys.Agency_ImagePath + patients.Patient_Photo, 400);
                 }
 
                 Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_FirstRegistrationDate).ToString("yyyy/MM/dd");
@@ -47,6 +47,11 @@ namespace iDental.ViewModels.UserControlViewModels
                 PatientCategoryInfo = new TablePatientCategorys().QueryPatientCheckedPatientCategoryInfo(patients);
                 //設定掛號日
                 RegistrationSetting();
+                //預設載入最近掛號
+                if (RegistrationsList.Where(w => w.DisplayName == Patient_LastRegistrationDate).Count() > 0)
+                {
+                    ComboBoxItemInfo = RegistrationsList.Where(w => w.DisplayName == Patient_LastRegistrationDate).First();
+                }
             }
         }
 
@@ -279,7 +284,7 @@ namespace iDental.ViewModels.UserControlViewModels
                         {
                             Parallel.ForEach(imageInfo, ii =>
                             {
-                                ii.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ii.Image_FullPath, 800);
+                                ii.BitmapImage = new CreateBitmapImage().BitmapImageShow(ii.Image_FullPath, 800);
                                 DisplayImageInfo.Add(ii);
 
                                 progressDialog.Dispatcher.Invoke(() =>

@@ -81,7 +81,8 @@
                                VerticalAlignment="Center"
                                Text="生日:"/>
                     <DatePicker Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="2" Margin="2"
-                                SelectedDate="{Binding Patient_Birth}" IsEnabled="False"/>
+                                SelectedDate="{Binding Patient_Birth}"
+                                VerticalContentAlignment="Center" IsEnabled="False"/>
                     <TextBlock Grid.Column="0" Grid.Row="6" Margin="2"
                                VerticalAlignment="Center"
                                Text="初診日:"/>
@@ -111,12 +112,14 @@
                 <StackPanel>
                     <TextBlock Text="匯入圖片日期"/>
                     <ComboBox ItemsSource="{Binding RegistrationsList}" SelectedItem="{Binding ComboBoxItemInfo}"
+                              VerticalContentAlignment="Center"
                               DisplayMemberPath="DisplayName" SelectedValuePath="SelectedValue" ItemStringFormat="yyyyMM/dd"/>
                 </StackPanel>
             </GroupBox>
             <GroupBox Grid.Row="2" Header="匯入圖片" FontSize="14">
                 <StackPanel>
-                    <DatePicker SelectedDate="{Binding ImportDate}"/>
+                    <DatePicker SelectedDate="{Binding ImportDate}"
+                                VerticalContentAlignment="Center"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>

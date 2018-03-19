@@ -51,7 +51,7 @@ namespace iDental.Views.UserControlViews
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             //Default Photo
-            bi = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+            bi = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 0);
 
             SettingImage(bi);
         }
@@ -343,9 +343,10 @@ namespace iDental.Views.UserControlViews
             {
                 try
                 {
+
                     ImageHelper.SaveUsingEncoder((BitmapSource)image.Source, ImageInfo.Image_FullPath, ImageInfo.Image_Extension.ToUpper());
                     //儲存完馬上重載修改後的圖片
-                    ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
+                    ImageInfo.BitmapImage = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 800);
                     //編輯過 可以復原
                     buttonUndo.IsEnabled = false;
                     //未執行過編輯 不可以儲存
@@ -366,7 +367,7 @@ namespace iDental.Views.UserControlViews
             Cvs.Children.Remove(image);
             Cvs.Children.Remove(path);
             //Default Photo
-            bi = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+            bi = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 0);
             SettingImage(bi);
 
             //已復原 不能再復原

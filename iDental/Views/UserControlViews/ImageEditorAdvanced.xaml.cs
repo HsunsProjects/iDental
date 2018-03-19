@@ -75,13 +75,13 @@ namespace iDental.Views.UserControlViews
             {
                 try
                 {
+                    WaitingDialog waitingDialog = new WaitingDialog();
                     Thread thread = new Thread(() =>
                     {
-                        WaitingDialog waitingDialog = new WaitingDialog();
+                        waitingDialog = new WaitingDialog();
                         waitingDialog.WText = "請稍後";
                         waitingDialog.WDetail = "影像儲存中...";
                         waitingDialog.Show();
-                        waitingDialog.Closed += (sender1, e1) => waitingDialog.Dispatcher.InvokeShutdown();
 
                         System.Windows.Threading.Dispatcher.Run();
                     });
@@ -89,8 +89,10 @@ namespace iDental.Views.UserControlViews
                     thread.IsBackground = true;
                     thread.Start();
 
-                    double pw = bitmapImage.PixelWidth;
-                    double ph = bitmapImage.PixelHeight;
+                    BitmapImage saveBitmapImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
+
+                    double pw = saveBitmapImage.PixelWidth;
+                    double ph = saveBitmapImage.PixelHeight;
 
                     double rw = rectangle.Width;
                     double rh = rectangle.Height;
@@ -111,12 +113,16 @@ namespace iDental.Views.UserControlViews
                     //原始圖片的P1
                     Point oriStartPoint = new Point(pw * rectangleRatioX, ph * rectangleRatioY);
 
-                    DealNewImage(bitmapImage, rotateAngle, (int)oriStartPoint.X, (int)oriStartPoint.Y, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
-                    
+                    DealNewImage(saveBitmapImage, rotateAngle, (int)oriStartPoint.X, (int)oriStartPoint.Y, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
+
+                    waitingDialog.Dispatcher.BeginInvoke(new Action(() => {
+                        System.Windows.Threading.Dispatcher.CurrentDispatcher.InvokeShutdown();
+                        waitingDialog.Close();
+                    }));
                     thread.Abort();
 
                     //儲存完馬上重載修改後的圖片
-                    ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
+                    ImageInfo.BitmapImage = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 800);
 
                     MessageBox.Show("儲存成功", "提示", MessageBoxButton.OK);
 
@@ -255,7 +261,7 @@ namespace iDental.Views.UserControlViews
         /// <param name="FileName"></param>
         private void SetImageDefault(string FileName)
         {
-            bitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+            bitmapImage = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 0);
             image.Source = bitmapImage;
 
             double w;
@@ -373,7 +379,7 @@ namespace iDental.Views.UserControlViews
                         rtb = new RenderTargetBitmap(width, height, 96d, 96d, PixelFormats.Default);
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
 
@@ -392,7 +398,7 @@ namespace iDental.Views.UserControlViews
 
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
 
@@ -411,7 +417,7 @@ namespace iDental.Views.UserControlViews
 
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
 
@@ -430,7 +436,7 @@ namespace iDental.Views.UserControlViews
 
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
 
@@ -449,7 +455,7 @@ namespace iDental.Views.UserControlViews
 
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
 
@@ -468,7 +474,7 @@ namespace iDental.Views.UserControlViews
 
                         SaveNewImage(rtb, vis, filePath);
 
-                        sourceImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                        sourceImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
                     }
                 }
             }

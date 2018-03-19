@@ -370,7 +370,7 @@ namespace iDental.Views.UserControlViews
                 File.Copy(dragImage.Image_FullPath, newPatientPhotoFile);
                 Thread.Sleep(500);
 
-                patientInformationViewModel.Patient_Photo = new CreateBitmapImage().SettingBitmapImage(newPatientPhotoFile, 400);
+                patientInformationViewModel.Patient_Photo = new CreateBitmapImage().BitmapImageShow(newPatientPhotoFile, 400);
 
                 new TablePatients().UpdatePatientPhoto(Patients, patientPhotoFolderInfo.PatientPhotoPath + @"\" + newPatientPhotoFileName);
             }

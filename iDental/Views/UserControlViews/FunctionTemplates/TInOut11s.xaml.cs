@@ -63,7 +63,7 @@ namespace iDental.Views.UserControlViews.FunctionTemplates
                 //寫入資料庫再帶回畫面
                 ImageUID = tableTemplates_Images.InsertOrUpdateTemplatesImages(Patients, Templates, TemplateImportDate, dragImage.Image_ID, dragImage.Image_Path, Template_Image_Number);
                 img.Uid = ImageUID;
-                img.Source = new CreateBitmapImage().SettingBitmapImage(dragImage.Image_FullPath, TemplateImagePixelWidth);
+                img.Source = new CreateBitmapImage().BitmapImageShow(dragImage.Image_FullPath, TemplateImagePixelWidth);
             }
             catch (Exception ex)
             {

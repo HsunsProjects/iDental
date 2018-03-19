@@ -226,7 +226,7 @@ namespace iDental.ViewModels
             Patient_Birth = patients.Patient_Birth;
             if (PathCheck.IsFileExist(agencys.Agency_ImagePath + patients.Patient_Photo))
             {
-                Patient_Photo = new CreateBitmapImage().SettingBitmapImage(agencys.Agency_ImagePath + patients.Patient_Photo, 400);
+                Patient_Photo = new CreateBitmapImage().BitmapImageShow(agencys.Agency_ImagePath + patients.Patient_Photo, 400);
             }
             Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? DateTime.Now : (DateTime)patients.Patient_FirstRegistrationDate;
             DateTime lastRegistrationDate = new TableRegistrations().QueryLastRegistrationDate(patients);

@@ -14,6 +14,10 @@ namespace iDental.ViewModels
         /// 取得AgencySettingTab2值
         /// </summary>
         public string Pointofix { get { return agencySettingTab2.PointofixPath; } }
+        /// <summary>
+        /// 取得AgencySettingTab2值
+        /// </summary>
+        public string ImageDecodePixel { get { return agencySettingTab2.ImageDecodePixel; } }
 
         public AgencySettingViewModel()
         {

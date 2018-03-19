@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:iDental.Views.UserControlViews"
+             xmlns:vmb="clr-namespace:iDental.ViewModels.ViewModelBase"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              VerticalAlignment="Top">
+    <UserControl.Resources>
+        <vmb:RadioButtonConverter x:Key="radioButtonConverterKey"></vmb:RadioButtonConverter>
+    </UserControl.Resources>
     <Grid>
         <StackPanel Margin="10">
             <TextBlock Text="Pointofix執行路徑:" 
@@ -21,6 +25,13 @@
                 <Button Grid.Column="1" Content="選擇"
                         Click="Button_PointofixPath_Click"/>
             </Grid>
+            <TextBlock Text="載入圖片解析:" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,10,10">
+                <RadioButton GroupName="SizeMode" Content="原始尺寸" IsChecked="{Binding ImageDecodePixel, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=0}"/>
+                <RadioButton GroupName="SizeMode" Content="一般尺寸(1920)" IsChecked="{Binding ImageDecodePixel, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=1920}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -70,16 +70,18 @@ namespace iDental.Views.UserControlViews
                     double oriWidth = rect2WAndH[0] / ratio;
                     double oriHeight = rect2WAndH[1] / ratio;
 
-                    double sourceCenX = bi.PixelWidth / 2;
-                    double sourceCenY = bi.PixelHeight / 2;
+                    BitmapImage saveBitmapImage = new CreateBitmapImage().BitmapImageOriginal(ImageInfo.Image_FullPath);
+
+                    double sourceCenX = saveBitmapImage.PixelWidth / 2;
+                    double sourceCenY = saveBitmapImage.PixelHeight / 2;
 
                     double oriStartX = sourceCenX - (oriWidth / 2);
                     double oriStartY = sourceCenY - (oriHeight / 2);
 
-                    RotateAndSaveImage(bi, rotateAngle, (int)oriStartX, (int)oriStartY, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
+                    RotateAndSaveImage(saveBitmapImage, rotateAngle, (int)oriStartX, (int)oriStartY, (int)oriWidth, (int)oriHeight, ImageInfo.Image_FullPath);
 
                     //儲存完馬上重載修改後的圖片
-                    ImageInfo.BitmapImage = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 800);
+                    ImageInfo.BitmapImage = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 800);
                     MessageBox.Show("儲存成功", "提示", MessageBoxButton.OK);
 
                     Cvs.Children.Clear();
@@ -238,7 +240,7 @@ namespace iDental.Views.UserControlViews
         {
             try
             {
-                bi = new CreateBitmapImage().SettingBitmapImage(ImageInfo.Image_FullPath, 0);
+                bi = new CreateBitmapImage().BitmapImageShow(ImageInfo.Image_FullPath, 0);
                 image = new Image()
                 {
                     Source = bi

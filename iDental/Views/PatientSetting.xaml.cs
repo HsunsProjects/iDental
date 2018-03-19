@@ -274,7 +274,7 @@ namespace iDental.Views
             {
                 IsRemove = false;
                 ImportPatientPhotoPath = ofd.FileName;
-                patientSettingViewModel.Patient_Photo = new CreateBitmapImage().SettingBitmapImage(ImportPatientPhotoPath, 400);
+                patientSettingViewModel.Patient_Photo = new CreateBitmapImage().BitmapImageShow(ImportPatientPhotoPath, 400);
             }
         }
 

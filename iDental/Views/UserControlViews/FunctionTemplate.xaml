@@ -31,18 +31,21 @@
                            FontSize="16"
                            VerticalAlignment="Center"/>
                 <DatePicker SelectedDate="{Binding SelectedDate}"
+                            VerticalContentAlignment="Center"
                             FontSize="14"
                             Width="120"/>
                 <TextBlock Text="選擇模板"
                            FontSize="16"
                            VerticalAlignment="Center"/>
                 <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}"
+                          VerticalContentAlignment="Center"
                           DisplayMemberPath="Template_Title" 
                           Width="100"/>
                 <TextBlock Text="瀏覽"
                            FontSize="16"
                            VerticalAlignment="Center"/>
                 <ComboBox ItemsSource="{Binding ImportDateCollect}" SelectedItem="{Binding SelectedImportDate}"
+                          VerticalContentAlignment="Center"
                           Width="100"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal">

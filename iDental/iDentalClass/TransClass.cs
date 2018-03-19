@@ -22,7 +22,7 @@ namespace iDental.iDentalClass
                 Image_Extension = images.Image_Extension,
                 CreateDate = images.CreateDate,
                 Registration_ID = images.Registration_ID,
-                BitmapImage = new CreateBitmapImage().SettingBitmapImage(agencys.Agency_ImagePath + images.Image_Path, decodePixelWidth),
+                BitmapImage = new CreateBitmapImage().BitmapImageShow(agencys.Agency_ImagePath + images.Image_Path, decodePixelWidth),
                 IsSelected = false
             };
             return imageInfo;
