@@ -266,7 +266,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 try
                 {
                     DisplayImageInfo = new MTObservableCollection<ImageInfo>();
-                    if (imageInfo != null)
+                    if (imageInfo != null && ImageInfo.Count > 0)
                     {
                         ProgressDialog progressDialog = new ProgressDialog();
 
@@ -292,6 +292,7 @@ namespace iDental.ViewModels.UserControlViewModels
                                     progressDialog.PValue++;
                                     progressDialog.PText = "圖片載入中( " + progressDialog.PValue + " / " + imageInfo.Count + " )";
                                 });
+
                                 UpdateImageInfo();
                             });
                         }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Default).ContinueWith(cw =>
@@ -369,8 +370,9 @@ namespace iDental.ViewModels.UserControlViewModels
                 switch (fTabItem.Uid)
                 {
                     case "1":
-                        functionList = new FunctionList(DisplayImageInfo);
+                        functionList = new FunctionList(Agencys, Patients, DisplayImageInfo);
                         functionList.ReturnValueCallback += new FunctionList.ReturnValueDelegate(RegistrationSetting);
+                        functionList.ReturnRenewCallback += new FunctionList.ReturnRenewDelegate(RenewImageSource);
                         break;
                     case "2":
                         functionTemplate = new FunctionTemplate(Agencys, Patients, DisplayImageInfo);
@@ -423,6 +425,28 @@ namespace iDental.ViewModels.UserControlViewModels
             //wifi auto 載入  取掛號資訊清單 Registration
             RegistrationSetting();
             ComboBoxItemInfo = RegistrationsList.Where(w => w.DisplayName == registrationDate.ToString("yyyy/MM/dd")).First();
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="registrationDate"></param>
+        public void RenewImageSource()
+        {
+            ComboBoxItemInfo cbii = ComboBoxItemInfo;
+            //取掛號資訊清單 Registration
+            RegistrationSetting();
+
+            var querySelectItem = from r in RegistrationsList
+                               where r.DisplayName.Equals(cbii.DisplayName)
+                               select r;
+            if (querySelectItem.Count() > 0)
+            {
+                ComboBoxItemInfo = querySelectItem.First() as ComboBoxItemInfo;
+            }
+            else
+            {
+                ImageInfo = null;
+            }
         }
     }
 }

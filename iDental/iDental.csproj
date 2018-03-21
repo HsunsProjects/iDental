@@ -109,6 +109,7 @@
     <Compile Include="iDentalClass\TransClass.cs" />
     <Compile Include="iDentalClass\UIElementExport.cs" />
     <Compile Include="ViewModels\AgencySettingViewModel.cs" />
+    <Compile Include="ViewModels\ImageTransferIntoViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PatientCategorySettingViewModel.cs" />
     <Compile Include="ViewModels\PatientCategoryViewModel.cs" />
@@ -133,6 +134,9 @@
     </Compile>
     <Compile Include="Views\ImageEditor.xaml.cs">
       <DependentUpon>ImageEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImageTransferInto.xaml.cs">
+      <DependentUpon>ImageTransferInto.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PatientCategory.xaml.cs">
       <DependentUpon>PatientCategory.xaml</DependentUpon>
@@ -231,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ImageEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImageTransferInto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

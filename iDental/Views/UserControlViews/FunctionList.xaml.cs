@@ -16,6 +16,8 @@ namespace iDental.Views.UserControlViews
     /// </summary>
     public partial class FunctionList : UserControl
     {
+        private Agencys Agencys { get; set; }
+        private Patients Patients { get; set; }
         public MTObservableCollection<ImageInfo> DisplayImageInfo
         {
             get { return functionListViewModel.DisplayImageInfo; }
@@ -23,9 +25,13 @@ namespace iDental.Views.UserControlViews
         }
 
         private FunctionListViewModel functionListViewModel;
-        public FunctionList(MTObservableCollection<ImageInfo> displayImageInfo)
+        public FunctionList(Agencys agencys, Patients patients, MTObservableCollection<ImageInfo> displayImageInfo)
         {
             InitializeComponent();
+
+            Agencys = agencys;
+
+            Patients = patients;
 
             functionListViewModel = new FunctionListViewModel();
 
@@ -118,6 +124,10 @@ namespace iDental.Views.UserControlViews
         // 刪圖片完後更新所有匯入的紀錄
         public delegate void ReturnValueDelegate();
         public event ReturnValueDelegate ReturnValueCallback;
+        // 委派回傳 MainWindows
+        // 更新UserControl資料來源
+        public delegate void ReturnRenewDelegate();
+        public event ReturnRenewDelegate ReturnRenewCallback;
 
         private void Button_ImageDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -169,6 +179,32 @@ namespace iDental.Views.UserControlViews
             {
                 ErrorLog.ErrorMessageOutput(ex.ToString());
                 MessageBox.Show("移動圖片發生錯誤，聯絡資訊人員", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void Button_ImageTransferInto_Click(object sender, RoutedEventArgs e)
+        {
+            if (functionListViewModel.DisplayImageInfo.Count() > 0)
+            {
+                ObservableCollection<ImageInfo> DisplayImageInfoList = new ObservableCollection<ImageInfo>(functionListViewModel.DisplayImageInfo.Where(i => i.IsSelected));
+                if (DisplayImageInfoList.Count() > 0)
+                {
+                    DisplayImageInfoList = new ObservableCollection<ImageInfo>(DisplayImageInfoList.OrderBy(o => o.Image_ID).OrderByDescending(o2 => o2.Registration_Date));
+                }
+                else
+                {
+                    DisplayImageInfoList = new ObservableCollection<ImageInfo>(functionListViewModel.DisplayImageInfo.OrderBy(o => o.Image_ID).OrderByDescending(o2 => o2.Registration_Date));
+                }
+                ImageTransferInto imageTransferInto = new ImageTransferInto(Agencys, Patients, DisplayImageInfoList);
+                if (imageTransferInto.ShowDialog() == true)
+                {
+                    //要重新刷新FunctionList 頁面的圖片
+                    ReturnRenewCallback();
+                }
+            }
+            else
+            {
+                MessageBox.Show("尚未載入圖片", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="600">
     <UserControl.Resources>
@@ -40,6 +41,9 @@
                     <Button ToolTip="編輯模式" Height="30"
                             Click="Button_ImageEditor_Click">
                         <Image Source="/iDental;component/Resource/Icon/edit.png"/>
+                    </Button>
+                    <Button ToolTip="轉至其他病患" Height="30" Width="30" Click="Button_ImageTransferInto_Click">
+                        <fa:ImageAwesome Margin="3" Stretch="Fill" Icon="Retweet"/>
                     </Button>
                     <Button ToolTip="匯出" Height="30"
                             Click="Button_ImageExport_Click"

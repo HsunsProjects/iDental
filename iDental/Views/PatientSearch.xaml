@@ -64,7 +64,7 @@
                                      Content="最近14天"/>
                         <RadioButton x:Name="rb30Day"  Margin="5"
                                       Content="最近30天"/>
-                        <RadioButton x:Name="rbRange" Margin="5">
+                        <RadioButton x:Name="rbRange" Margin="5" VerticalContentAlignment="Center">
                             <WrapPanel Orientation="Horizontal" IsEnabled="{Binding ElementName=rbRange, Path=IsChecked}">
                                 <TextBlock Margin="0,0,10,0" Text="起始日:" VerticalAlignment="Center"/>
                                 <DatePicker Width="200" SelectedDate="{Binding SelectStartDate}"/>
