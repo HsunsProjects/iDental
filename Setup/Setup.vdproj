@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
+        "MsmKey" = "8:_6CB8735163BA4386BDCDB0EB22A32B99"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -192,7 +192,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2EE208C05D974F03A9E378EEA4B3BB75"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6CB8735163BA4386BDCDB0EB22A32B99"
             {
             "SourcePath" = "8:..\\iDental\\iDental.ico"
             "TargetName" = "8:iDental.ico"
@@ -424,7 +424,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:iDental"
         "ProductCode" = "8:{D6A7E8C8-C90E-431F-B2D4-69B03976D0A5}"
-        "PackageCode" = "8:{06DB0F2A-66B2-4B0A-ACBA-8F52E30C1E13}"
+        "PackageCode" = "8:{5459F0DD-9463-4CB2-ACB7-24FCB15F9FCF}"
         "UpgradeCode" = "8:{F0096319-A6DC-4E25-B738-EBAC95A3D351}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -441,7 +441,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
+        "ARPPRODUCTICON" = "8:_6CB8735163BA4386BDCDB0EB22A32B99"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -544,7 +544,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_AE5CC8BBCFA0485CAA10281D5194D3AB"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DC874E7D21C44602AF267F3595F74B18"
             {
             "Name" = "8:iDental"
             "Arguments" = "8:"
@@ -555,7 +555,7 @@
             "Target" = "8:_8FDA3B6577944E4F979848E35EC69C88"
             "Folder" = "8:_FDA5834A10284211B6E440CA89025A2B"
             "WorkingFolder" = "8:_5575D87E787F467FA8C3215E69C63F4C"
-            "Icon" = "8:_2EE208C05D974F03A9E378EEA4B3BB75"
+            "Icon" = "8:_6CB8735163BA4386BDCDB0EB22A32B99"
             "Feature" = "8:"
             }
         }
