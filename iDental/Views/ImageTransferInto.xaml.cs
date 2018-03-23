@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace iDental.Views
 {
@@ -24,6 +25,20 @@ namespace iDental.Views
             imageTransferIntoViewModel = new ImageTransferIntoViewModel(agencys, patients, displayImageInfoList);
 
             DataContext = imageTransferIntoViewModel;
+        }
+
+        private void Image_MouseRightButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            ImageInfo imageInfo = ((Image)e.Source).DataContext as ImageInfo;
+            if (imageInfo != null)
+            {
+                if (MessageBox.Show("取消此影像轉換?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                {
+                    imageInfo.IsSelected = false;
+                    imageTransferIntoViewModel.DisplayImageInfoList.Remove(imageInfo);
+                    imageTransferIntoViewModel.DisplayImageInfoListCount = imageTransferIntoViewModel.DisplayImageInfoList.Count;
+                }
+            }
         }
 
         private void Button_PatientSearch_Click(object sender, RoutedEventArgs e)
