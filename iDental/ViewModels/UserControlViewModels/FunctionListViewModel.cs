@@ -24,13 +24,11 @@ namespace iDental.ViewModels.UserControlViewModels
             {
                 if (imageSelectedCount > 0)
                 {
-                    IsEditMode = true;
                     SelectedAll = false;
                     SelectedList = true;
                 }
                 else
                 {
-                    IsEditMode = false;
                     SelectedAll = true;
                     SelectedList = false;
                 }
@@ -81,17 +79,6 @@ namespace iDental.ViewModels.UserControlViewModels
         public string TextBlockTips
         {
             get { return "已選取圖片 " + ImageSelectedCount + " 張，共 " + CountImages + " 張"; }
-        }
-
-        private bool isEditMode;
-        public bool IsEditMode
-        {
-            get { return isEditMode; }
-            set
-            {
-                isEditMode = value;
-                OnPropertyChanged("IsEditMode");
-            }
         }
 
         /// <summary>

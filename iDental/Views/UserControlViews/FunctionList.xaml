@@ -43,16 +43,14 @@
                         <Image Source="/iDental;component/Resource/Icon/edit.png"/>
                     </Button>
                     <Button ToolTip="轉至其他病患" Height="30" Width="30" Click="Button_ImageTransferInto_Click">
-                        <fa:ImageAwesome Margin="3" Stretch="Fill" Icon="Retweet"/>
+                        <fa:ImageAwesome Margin="5" Stretch="Fill" Icon="Exchange" Foreground="SeaGreen"/>
                     </Button>
                     <Button ToolTip="匯出" Height="30"
-                            Click="Button_ImageExport_Click"
-                            IsEnabled="{Binding IsEditMode}">
+                            Click="Button_ImageExport_Click">
                         <Image Source="/iDental;component/Resource/Icon/export.png"/>
                     </Button>
                     <Button ToolTip="刪除" Height="30"
-                            Click="Button_ImageDelete_Click"
-                            IsEnabled="{Binding IsEditMode}">
+                            Click="Button_ImageDelete_Click">
                         <Image Source="/iDental;component/Resource/Icon/delete.png"/>
                     </Button>
                 </StackPanel>

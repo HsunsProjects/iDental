@@ -107,6 +107,7 @@ namespace iDental.Views.UserControlViews
                 if (folderBrowserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     var listIsSelected = DisplayImageInfo.Where(w => w.IsSelected == true);
+                    listIsSelected = listIsSelected.Count() > 0 ? listIsSelected : DisplayImageInfo;
                     foreach (ImageInfo ii in listIsSelected)
                     {
                         //判斷圖片是否為正
@@ -131,15 +132,19 @@ namespace iDental.Views.UserControlViews
 
         private void Button_ImageDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("確定刪除已選定的" + functionListViewModel.ImageSelectedCount + "個項目?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (lbImages.SelectedItems.Count == 0)
+            {
+                lbImages.SelectAll();
+            }
+            if (MessageBox.Show("確定刪除已選定的" + lbImages.SelectedItems.Count + "個項目?", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 using (var ide = new iDentalEntities())
                 {
                     try
                     {
                         var selectedItemID = from si in DisplayImageInfo
-                                             where si.IsSelected == true
-                                             select si.Image_ID;
+                                           where si.IsSelected == true
+                                           select si.Image_ID;
                         var deleteItem = (from i in ide.Images
                                           where selectedItemID.Contains(i.Image_ID)
                                           select i).ToList();
