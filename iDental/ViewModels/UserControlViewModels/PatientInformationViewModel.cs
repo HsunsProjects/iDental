@@ -40,6 +40,10 @@ namespace iDental.ViewModels.UserControlViewModels
                 {
                     Patient_Photo = new CreateBitmapImage().BitmapImageShow(Agencys.Agency_ImagePath + patients.Patient_Photo, 400);
                 }
+                else
+                {
+                    Patient_Photo = new BitmapImage(new Uri(@"pack://application:,,,/iDental;component/Resource/Image/avatar.jpg", UriKind.Absolute));
+                }
 
                 Patient_FirstRegistrationDate = patients.Patient_FirstRegistrationDate == null ? string.Empty : ((DateTime)patients.Patient_FirstRegistrationDate).ToString("yyyy/MM/dd");
 
@@ -194,12 +198,12 @@ namespace iDental.ViewModels.UserControlViewModels
                     if (!comboBoxItemInfo.SelectedValue.Equals(-1))
                     {
                         //設定匯入日期，並載入那天的影像
-                        ImageInfo = new TableImages().QueryRegistrationDateImageToImageInfo(Agencys, Patients, DateTime.Parse(comboBoxItemInfo.DisplayName)); ;
+                        ImageInfo = tableImages.QueryRegistrationDateImageToImageInfo(Agencys, Patients, DateTime.Parse(comboBoxItemInfo.DisplayName)); ;
                     }
                     else
                     {
                         //載入全部影像
-                        ImageInfo = new TableImages().QueryAllImagesToImageInfo(Agencys, Patients);
+                        ImageInfo = tableImages.QueryAllImagesToImageInfo(Agencys, Patients);
                     }
                 }
             }
@@ -266,7 +270,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 try
                 {
                     DisplayImageInfo = new MTObservableCollection<ImageInfo>();
-                    if (imageInfo != null && ImageInfo.Count > 0)
+                    if (imageInfo != null && imageInfo.Count > 0)
                     {
                         ProgressDialog progressDialog = new ProgressDialog();
 
@@ -333,6 +337,8 @@ namespace iDental.ViewModels.UserControlViewModels
         private FunctionList functionList;
         private FunctionTemplate functionTemplate;
 
+        private TableImages tableImages;
+
         public PatientInformationViewModel()
         {
             //無病患帶入
@@ -341,6 +347,8 @@ namespace iDental.ViewModels.UserControlViewModels
 
         public PatientInformationViewModel(Agencys agencys, Patients patients)
         {
+            tableImages = new TableImages();
+
             Agencys = agencys;
             Patients = patients;            
 
@@ -446,6 +454,64 @@ namespace iDental.ViewModels.UserControlViewModels
             else
             {
                 ImageInfo = null;
+            }
+        }
+
+        public void UpdateDisplayImageInfo()
+        {
+            ObservableCollection<ImageInfo> newInsertImage = tableImages.QueryNewInsertImage(Agencys, Patients, ImportDate, DisplayImageInfo);
+
+            if (newInsertImage != null && newInsertImage.Count > 0)
+            {
+                ProgressDialog progressDialog = new ProgressDialog();
+
+                progressDialog.Dispatcher.Invoke(() =>
+                {
+                    progressDialog.PText = "載入新加入的圖片中( 0 / " + newInsertImage.Count + " )";
+                    progressDialog.PMinimum = 0;
+                    progressDialog.PValue = 0;
+                    progressDialog.PMaximum = newInsertImage.Count;
+                    progressDialog.Show();
+                });
+
+                //multi - thread
+                Task t = Task.Factory.StartNew(() =>
+                {
+                    foreach (ImageInfo ii in newInsertImage)
+                    {
+                        ii.BitmapImage = new CreateBitmapImage().BitmapImageShow(ii.Image_FullPath, 800);
+                        DisplayImageInfo.Add(ii);
+
+                        progressDialog.Dispatcher.Invoke(() =>
+                        {
+                            progressDialog.PValue++;
+                            progressDialog.PText = "圖片載入中( " + progressDialog.PValue + " / " + newInsertImage.Count + " )";
+                        });
+
+                        UpdateImageInfo();
+                    }
+                    //Parallel.ForEach(newInsertImage, ii =>
+                    //{
+                    //    ii.BitmapImage = new CreateBitmapImage().BitmapImageShow(ii.Image_FullPath, 800);
+                    //    DisplayImageInfo.Add(ii);
+
+                    //    progressDialog.Dispatcher.Invoke(() =>
+                    //    {
+                    //        progressDialog.PValue++;
+                    //        progressDialog.PText = "圖片載入中( " + progressDialog.PValue + " / " + newInsertImage.Count + " )";
+                    //    });
+
+                    //    UpdateImageInfo();
+                    //});
+                }, CancellationToken.None, TaskCreationOptions.None, TaskScheduler.Current).ContinueWith(cw =>
+                {
+                    progressDialog.Dispatcher.Invoke(() =>
+                    {
+                        progressDialog.PText = "載入完成";
+                        progressDialog.Close();
+                    });
+                    GC.Collect();
+                });
             }
         }
     }

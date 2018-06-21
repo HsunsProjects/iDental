@@ -97,9 +97,11 @@
                      Grid.Column="{Binding ListColumn}" Grid.Row="{Binding ListRow}"
                      Grid.ColumnSpan="{Binding ColumnSpan}" Grid.RowSpan="{Binding RowSpan}">
                 <ListBox ItemsSource="{Binding Source={StaticResource SortedItems}}"
-                     ScrollViewer.HorizontalScrollBarVisibility="{Binding ListHSBV}"
-                     ScrollViewer.VerticalScrollBarVisibility="{Binding ListVSBV}"
-                     BorderBrush="Black" BorderThickness="0">
+                         ScrollViewer.HorizontalScrollBarVisibility="{Binding ListHSBV}"
+                         ScrollViewer.VerticalScrollBarVisibility="{Binding ListVSBV}"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Center"
+                         BorderBrush="Black" BorderThickness="0">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="{Binding WrapOrientation}"></WrapPanel>

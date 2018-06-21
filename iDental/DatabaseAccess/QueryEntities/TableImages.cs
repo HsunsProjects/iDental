@@ -36,7 +36,7 @@ namespace iDental.DatabaseAccess.QueryEntities
                 return observableCollection;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -50,8 +50,38 @@ namespace iDental.DatabaseAccess.QueryEntities
             {
                 var qi = from i in ide.Images
                          where i.Registrations.Patient_ID == patients.Patient_ID
-                         && i.Registrations.Registration_Date == registrationDate
+                         && i.Registrations.Registration_Date == registrationDate.Date
                          && i.Image_IsEnable == true
+                         select i;
+                ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(qi.ToList().Select(s => new ImageInfo
+                {
+                    Registration_Date = s.Registrations.Registration_Date,
+                    Image_ID = s.Image_ID,
+                    Image_Path = s.Image_Path,
+                    Image_FullPath = agencys.Agency_ImagePath + s.Image_Path,
+                    Image_FileName = s.Image_FileName,
+                    Image_Extension = s.Image_Extension,
+                    Registration_ID = s.Registration_ID,
+                    CreateDate = s.CreateDate,
+                    IsSelected = false
+                }));
+                return observableCollection;
+            }
+        }
+
+        public ObservableCollection<ImageInfo> QueryNewInsertImage(Agencys agencys, Patients patients, DateTime registrationDate, ObservableCollection<ImageInfo> oriImageInfos)
+        {
+            using (var ide = new iDentalEntities())
+            {
+
+                var queryID = from ori in oriImageInfos
+                              select ori.Image_ID;
+
+                var qi = from i in ide.Images
+                         where i.Registrations.Patient_ID == patients.Patient_ID
+                         && i.Registrations.Registration_Date == registrationDate.Date
+                         && i.Image_IsEnable == true
+                         && !queryID.Contains(i.Image_ID)
                          select i;
                 ObservableCollection<ImageInfo> observableCollection = new ObservableCollection<ImageInfo>(qi.ToList().Select(s => new ImageInfo
                 {

@@ -1,4 +1,5 @@
-﻿using iDental.Class;
+﻿using AForge.Video.DirectShow;
+using iDental.Class;
 using iDental.DatabaseAccess.QueryEntities;
 using iDental.iDentalClass;
 using iDental.ViewModels.UserControlViewModels;
@@ -80,6 +81,28 @@ namespace iDental.Views.UserControlViews
             }
         }
 
+        private void Button_WebcamImport_Click(object sender, RoutedEventArgs e)
+        {
+            FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            if (filterInfoCollection.Count > 0)
+            {
+                DateTime RegistrationDate = patientInformationViewModel.ImportDate;
+
+                Webcam webcam = new Webcam(filterInfoCollection, Agencys, Patients, RegistrationDate);
+
+                if (webcam.ShowDialog() == true)
+                {
+                    Registrations registrations = webcam.registrations;
+                    ReloadOrAddImage(registrations, RegistrationDate);
+                }
+            }
+            else
+            {
+                MessageBox.Show("提示", "尚未偵測到影像裝置", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
         private void Button_Import_Click(object sender, RoutedEventArgs e)
         {
             btnImport.Dispatcher.Invoke(() =>
@@ -99,10 +122,7 @@ namespace iDental.Views.UserControlViews
             {
                 if (PathCheck.IsPathExist(Agencys.Agency_ImagePath))
                 {
-                    //讀寫Registrations
-                    //確認掛號資料
-                    DateTime RegistrationDate = patientInformationViewModel.ImportDate;                
-
+                    DateTime RegistrationDate = patientInformationViewModel.ImportDate;
                     //設定病患資料夾
                     PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients.Patient_ID, RegistrationDate);
                     //檢查是否存在，不存在就新增
@@ -180,8 +200,9 @@ namespace iDental.Views.UserControlViews
                             progressDialog.Close();
                         });
 
-                        patientInformationViewModel.RegistrationSetting();
-                        patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
+                        ReloadOrAddImage(registrations, RegistrationDate);
+                        //patientInformationViewModel.RegistrationSetting();
+                        //patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
                         GC.Collect();
 
                     }, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
@@ -205,8 +226,6 @@ namespace iDental.Views.UserControlViews
             {
                 if (PathCheck.IsPathExist(Agencys.Agency_ImagePath) && PathCheck.IsPathExist(Agencys.Agency_WifiCardPath))
                 {
-                    //讀寫Registrations
-                    //確認掛號資料
                     DateTime RegistrationDate = patientInformationViewModel.ImportDate;
 
                     ProgressDialogIndeterminate progressDialogIndeterminate = new ProgressDialogIndeterminate();
@@ -329,8 +348,9 @@ namespace iDental.Views.UserControlViews
 
                         if (imageCount > 0)
                         {
-                            patientInformationViewModel.RegistrationSetting();
-                            patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
+                            ReloadOrAddImage(registrations, RegistrationDate);
+                            //patientInformationViewModel.RegistrationSetting();
+                            //patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
                         }
 
                         GC.Collect();
@@ -350,7 +370,42 @@ namespace iDental.Views.UserControlViews
                 isStop = isDetecting;
             }
         }
-        
+
+        /// <summary>
+        /// 新增同一天日期的影像，或是新增其他天再重載
+        /// </summary>
+        /// <param name="registrations">掛號資訊</param>
+        /// <param name="RegistrationDate">匯入的日期</param>
+        private void ReloadOrAddImage(Registrations registrations, DateTime RegistrationDate)
+        {
+            //要載入裝置的圖片
+            if (patientInformationViewModel.ComboBoxItemInfo == null)
+            {
+                patientInformationViewModel.UpdateDisplayImageInfo();
+            }
+            else
+            {
+                DateTime displayDate;
+                if (DateTime.TryParse(patientInformationViewModel.ComboBoxItemInfo.DisplayName, out displayDate))
+                {
+                    if (displayDate.Date.Equals(RegistrationDate.Date))
+                    {
+                        patientInformationViewModel.UpdateDisplayImageInfo();
+                    }
+                    else
+                    {
+                        patientInformationViewModel.RegistrationSetting();
+                        patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
+                    }
+                }
+                else
+                {
+                    patientInformationViewModel.RegistrationSetting();
+                    patientInformationViewModel.ComboBoxItemInfo = patientInformationViewModel.RegistrationsList.Where(w => w.SelectedValue.Equals(registrations.Registration_ID)).First();
+                }
+            }
+        }
+
         private void Image_Drop(object sender, DragEventArgs e)
         {
             try
@@ -381,5 +436,6 @@ namespace iDental.Views.UserControlViews
             }
         }
         #endregion
+
     }
 }
