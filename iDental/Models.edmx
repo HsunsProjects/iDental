@@ -126,6 +126,10 @@
           <Property Name="Template_ID" Type="int" Nullable="false" />
           <Property Name="Image_ID" Type="int" />
           <Property Name="Image_Path" Type="varchar" MaxLength="300" />
+          <Property Name="Image_Width" Type="decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Height" Type="decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Location_X" Type="decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Location_Y" Type="decimal" Precision="18" Scale="12" />
           <Property Name="Patient_ID" Type="nvarchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <Association Name="FK_Agencys_Functions">
@@ -324,15 +328,10 @@
             <End Role="Functions" EntitySet="Functions" />
             <End Role="Agencys" EntitySet="Agencys" />
           </AssociationSet>
-          <EntitySet Name="Templates_Images" EntityType="iDentalModel.Templates_Images" />
           <EntitySet Name="Images" EntityType="iDentalModel.Images" />
           <AssociationSet Name="FK_Images_Registrations" Association="iDentalModel.FK_Images_Registrations">
             <End Role="Registrations" EntitySet="Registrations" />
             <End Role="Images" EntitySet="Images" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Templates_Images_Images" Association="iDentalModel.FK_Templates_Images_Images">
-            <End Role="Images" EntitySet="Images" />
-            <End Role="Templates_Images" EntitySet="Templates_Images" />
           </AssociationSet>
           <EntitySet Name="PatientCategorys" EntityType="iDentalModel.PatientCategorys" />
           <EntitySet Name="Patients" EntityType="iDentalModel.Patients" />
@@ -340,15 +339,20 @@
             <End Role="Patients" EntitySet="Patients" />
             <End Role="Registrations" EntitySet="Registrations" />
           </AssociationSet>
-          <AssociationSet Name="FK_Templates_Images_Patients" Association="iDentalModel.FK_Templates_Images_Patients">
-            <End Role="Patients" EntitySet="Patients" />
-            <End Role="Templates_Images" EntitySet="Templates_Images" />
-          </AssociationSet>
           <AssociationSet Name="Patients_PatientCategorys" Association="iDentalModel.Patients_PatientCategorys">
             <End Role="PatientCategorys" EntitySet="PatientCategorys" />
             <End Role="Patients" EntitySet="Patients" />
           </AssociationSet>
           <EntitySet Name="Templates" EntityType="iDentalModel.Templates" />
+          <EntitySet Name="Templates_Images" EntityType="iDentalModel.Templates_Images" />
+          <AssociationSet Name="FK_Templates_Images_Images" Association="iDentalModel.FK_Templates_Images_Images">
+            <End Role="Images" EntitySet="Images" />
+            <End Role="Templates_Images" EntitySet="Templates_Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Templates_Images_Patients" Association="iDentalModel.FK_Templates_Images_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Templates_Images" EntitySet="Templates_Images" />
+          </AssociationSet>
           <AssociationSet Name="FK_Templates_Images_Templates" Association="iDentalModel.FK_Templates_Images_Templates">
             <End Role="Templates" EntitySet="Templates" />
             <End Role="Templates_Images" EntitySet="Templates_Images" />
@@ -384,21 +388,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Templates_Images">
-          <Key>
-            <PropertyRef Name="Template_Image_ID" />
-          </Key>
-          <Property Name="Template_Image_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Template_Image_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Template_Image_ImportDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Template_ID" Type="Int32" Nullable="false" />
-          <Property Name="Image_ID" Type="Int32" />
-          <Property Name="Image_Path" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Patient_ID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Images" Relationship="iDentalModel.FK_Templates_Images_Images" FromRole="Templates_Images" ToRole="Images" />
-          <NavigationProperty Name="Patients" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Templates_Images" ToRole="Patients" />
-          <NavigationProperty Name="Templates" Relationship="iDentalModel.FK_Templates_Images_Templates" FromRole="Templates_Images" ToRole="Templates" />
-        </EntityType>
         <EntityType Name="Images">
           <Key>
             <PropertyRef Name="Image_ID" />
@@ -422,18 +411,6 @@
             </Principal>
             <Dependent Role="Images">
               <PropertyRef Name="Registration_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Templates_Images_Images">
-          <End Type="iDentalModel.Images" Role="Images" Multiplicity="0..1" />
-          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Images">
-              <PropertyRef Name="Image_ID" />
-            </Principal>
-            <Dependent Role="Templates_Images">
-              <PropertyRef Name="Image_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -461,8 +438,8 @@
           <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Registrations" Relationship="iDentalModel.FK_Registrations_Patients" FromRole="Patients" ToRole="Registrations" />
-          <NavigationProperty Name="Templates_Images" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Patients" ToRole="Templates_Images" />
           <NavigationProperty Name="PatientCategorys" Relationship="iDentalModel.Patients_PatientCategorys" FromRole="Patients" ToRole="PatientCategorys" />
+          <NavigationProperty Name="Templates_Images" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Patients" ToRole="Templates_Images" />
         </EntityType>
         <Association Name="FK_Registrations_Patients">
           <End Type="iDentalModel.Patients" Role="Patients" Multiplicity="1" />
@@ -472,18 +449,6 @@
               <PropertyRef Name="Patient_ID" />
             </Principal>
             <Dependent Role="Registrations">
-              <PropertyRef Name="Patient_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Templates_Images_Patients">
-          <End Type="iDentalModel.Patients" Role="Patients" Multiplicity="1" />
-          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Patients">
-              <PropertyRef Name="Patient_ID" />
-            </Principal>
-            <Dependent Role="Templates_Images">
               <PropertyRef Name="Patient_ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -506,6 +471,49 @@
           <Property Name="Template_IsEnable" Type="Boolean" Nullable="false" DefaultValue="true" />
           <NavigationProperty Name="Templates_Images" Relationship="iDentalModel.FK_Templates_Images_Templates" FromRole="Templates" ToRole="Templates_Images" />
         </EntityType>
+        <EntityType Name="Templates_Images">
+          <Key>
+            <PropertyRef Name="Template_Image_ID" />
+          </Key>
+          <Property Name="Template_Image_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Template_Image_Number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Template_Image_ImportDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Template_ID" Type="Int32" Nullable="false" />
+          <Property Name="Image_ID" Type="Int32" />
+          <Property Name="Image_Path" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Image_Width" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Height" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Location_X" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="Image_Location_Y" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="Patient_ID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Images" Relationship="iDentalModel.FK_Templates_Images_Images" FromRole="Templates_Images" ToRole="Images" />
+          <NavigationProperty Name="Patients" Relationship="iDentalModel.FK_Templates_Images_Patients" FromRole="Templates_Images" ToRole="Patients" />
+          <NavigationProperty Name="Templates" Relationship="iDentalModel.FK_Templates_Images_Templates" FromRole="Templates_Images" ToRole="Templates" />
+        </EntityType>
+        <Association Name="FK_Templates_Images_Images">
+          <End Type="iDentalModel.Images" Role="Images" Multiplicity="0..1" />
+          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Images">
+              <PropertyRef Name="Image_ID" />
+            </Principal>
+            <Dependent Role="Templates_Images">
+              <PropertyRef Name="Image_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Templates_Images_Patients">
+          <End Type="iDentalModel.Patients" Role="Patients" Multiplicity="1" />
+          <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="Patient_ID" />
+            </Principal>
+            <Dependent Role="Templates_Images">
+              <PropertyRef Name="Patient_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Templates_Images_Templates">
           <End Type="iDentalModel.Templates" Role="Templates" Multiplicity="1" />
           <End Type="iDentalModel.Templates_Images" Role="Templates_Images" Multiplicity="*" />
@@ -584,19 +592,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Templates_Images">
-            <EntityTypeMapping TypeName="iDentalModel.Templates_Images">
-              <MappingFragment StoreEntitySet="Templates_Images">
-                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
-                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
-                <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
-                <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
-                <ScalarProperty Name="Template_Image_ImportDate" ColumnName="Template_Image_ImportDate" />
-                <ScalarProperty Name="Template_Image_Number" ColumnName="Template_Image_Number" />
-                <ScalarProperty Name="Template_Image_ID" ColumnName="Template_Image_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Images">
             <EntityTypeMapping TypeName="iDentalModel.Images">
               <MappingFragment StoreEntitySet="Images">
@@ -654,6 +649,23 @@
                 <ScalarProperty Name="Template_UserControlName" ColumnName="Template_UserControlName" />
                 <ScalarProperty Name="Template_Title" ColumnName="Template_Title" />
                 <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates_Images">
+            <EntityTypeMapping TypeName="iDentalModel.Templates_Images">
+              <MappingFragment StoreEntitySet="Templates_Images">
+                <ScalarProperty Name="Patient_ID" ColumnName="Patient_ID" />
+                <ScalarProperty Name="Image_Location_Y" ColumnName="Image_Location_Y" />
+                <ScalarProperty Name="Image_Location_X" ColumnName="Image_Location_X" />
+                <ScalarProperty Name="Image_Height" ColumnName="Image_Height" />
+                <ScalarProperty Name="Image_Width" ColumnName="Image_Width" />
+                <ScalarProperty Name="Image_Path" ColumnName="Image_Path" />
+                <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
+                <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
+                <ScalarProperty Name="Template_Image_ImportDate" ColumnName="Template_Image_ImportDate" />
+                <ScalarProperty Name="Template_Image_Number" ColumnName="Template_Image_Number" />
+                <ScalarProperty Name="Template_Image_ID" ColumnName="Template_Image_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

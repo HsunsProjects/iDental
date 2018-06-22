@@ -11,16 +11,16 @@
         <EntityTypeShape EntityType="iDentalModel.Registrations" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="iDentalModel.Agencys" Width="1.5" PointX="3" PointY="6" />
         <AssociationConnector Association="iDentalModel.FK_Agencys_Functions" />
-        <EntityTypeShape EntityType="iDentalModel.Templates_Images" Width="1.5" PointX="9.75" PointY="3" />
         <EntityTypeShape EntityType="iDentalModel.Images" Width="1.5" PointX="7.5" PointY="1.25" />
         <AssociationConnector Association="iDentalModel.FK_Images_Registrations" />
-        <AssociationConnector Association="iDentalModel.FK_Templates_Images_Images" />
         <EntityTypeShape EntityType="iDentalModel.PatientCategorys" Width="1.5" PointX="0.75" PointY="1.75" />
         <EntityTypeShape EntityType="iDentalModel.Patients" Width="1.5" PointX="3" PointY="0.875" />
         <AssociationConnector Association="iDentalModel.FK_Registrations_Patients" />
-        <AssociationConnector Association="iDentalModel.FK_Templates_Images_Patients" />
         <AssociationConnector Association="iDentalModel.Patients_PatientCategorys" />
         <EntityTypeShape EntityType="iDentalModel.Templates" Width="1.5" PointX="7.875" PointY="5.25" />
+        <EntityTypeShape EntityType="iDentalModel.Templates_Images" Width="1.5" PointX="10.125" PointY="2.625" />
+        <AssociationConnector Association="iDentalModel.FK_Templates_Images_Images" />
+        <AssociationConnector Association="iDentalModel.FK_Templates_Images_Patients" />
         <AssociationConnector Association="iDentalModel.FK_Templates_Images_Templates" />
       </Diagram>
     </edmx:Diagrams>

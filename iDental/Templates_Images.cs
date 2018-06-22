@@ -20,6 +20,10 @@ namespace iDental
         public int Template_ID { get; set; }
         public Nullable<int> Image_ID { get; set; }
         public string Image_Path { get; set; }
+        public Nullable<decimal> Image_Width { get; set; }
+        public Nullable<decimal> Image_Height { get; set; }
+        public Nullable<decimal> Image_Location_X { get; set; }
+        public Nullable<decimal> Image_Location_Y { get; set; }
         public string Patient_ID { get; set; }
     
         public virtual Images Images { get; set; }
