@@ -22,8 +22,9 @@
         <TextBox Grid.Row="1" 
                  Margin="5" 
                  x:Name="txtAnswer" 
-                 FontSize="12" 
-                 Text="{Binding Answer,UpdateSourceTrigger=PropertyChanged}"/>
+                 FontSize="12"
+                 Text="{Binding Answer,UpdateSourceTrigger=PropertyChanged}"
+                 VerticalContentAlignment="Center"/>
         <Button Grid.Row="2" 
                 Margin="5" Height="30" Width="80"
                 FontSize="16" 

@@ -17,7 +17,7 @@ namespace iDental.ViewModels
                 switch (Mode)
                 {
                     case "IP":
-                        if (ValidatorHelper.IsIP(answer))
+                        if (ValidatorHelper.IsIP(answer) || answer.ToLower().Equals("localhost"))
                         {
                             IsValid = true;
                         }
