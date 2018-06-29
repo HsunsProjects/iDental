@@ -147,7 +147,8 @@
                 Click="Button_Stretch_Click"/>
         <GroupBox Grid.Column="2" Grid.Row="0" Header="選擇瀏覽日期" FontSize="14">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="匯入圖片日期"/>
+                <TextBlock Text="匯入圖片日期" Margin="10,5,10,5"
+                           VerticalAlignment="Center"/>
                 <ComboBox ItemsSource="{Binding RegistrationsList}" SelectedItem="{Binding ComboBoxItemInfo}"
                               VerticalContentAlignment="Center"
                               DisplayMemberPath="DisplayName" SelectedValuePath="SelectedValue" ItemStringFormat="yyyyMM/dd"/>
