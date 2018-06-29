@@ -95,10 +95,10 @@ namespace iDental.Views
                 bi.Freeze(); // avoid cross thread operations and prevents leaks
                 Dispatcher.BeginInvoke(new ThreadStart(delegate { iVideoPlayer.Source = bi; }));
             }
-            catch (Exception exc)
+            catch (Exception ex)
             {
-                ErrorLog.ErrorMessageOutput(exc.ToString());
-                MessageBox.Show("Error on _videoSource_NewFrame:\n" + exc.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorLog.ErrorMessageOutput(ex.ToString());
+                MessageBox.Show("裝置取得影像發生錯誤", "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
                 StopCamera();
             }
         }

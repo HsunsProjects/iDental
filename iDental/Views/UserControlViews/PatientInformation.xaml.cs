@@ -99,7 +99,7 @@ namespace iDental.Views.UserControlViews
             }
             else
             {
-                MessageBox.Show("提示", "尚未偵測到影像裝置", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("尚未偵測到影像裝置", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
