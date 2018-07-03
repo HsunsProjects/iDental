@@ -22,16 +22,6 @@ namespace iDental.ViewModels.UserControlViewModels
         {
             get
             {
-                if (imageSelectedCount > 0)
-                {
-                    SelectedAll = false;
-                    SelectedList = true;
-                }
-                else
-                {
-                    SelectedAll = true;
-                    SelectedList = false;
-                }
                 return imageSelectedCount;
             }
             set
@@ -39,6 +29,7 @@ namespace iDental.ViewModels.UserControlViewModels
                 imageSelectedCount = value;
                 OnPropertyChanged("ImageSelectedCount");
                 OnPropertyChanged("TextBlockTips");
+                OnPropertyChanged("SelectedStatus");
             }
         }
 
@@ -54,25 +45,14 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
-        private bool selectedAll;
-        public bool SelectedAll
+        public string SelectedStatus
         {
-            get { return selectedAll; }
-            set
+            get
             {
-                selectedAll = value;
-                OnPropertyChanged("SelectedAll");
-            }
-        }
-
-        private bool selectedList;
-        public bool SelectedList
-        {
-            get { return selectedList; }
-            set
-            {
-                selectedList = value;
-                OnPropertyChanged("SelectedList");
+                if (ImageSelectedCount > 0 && ImageSelectedCount < CountImages)
+                    return "選取" + ImageSelectedCount;
+                else
+                    return "全部";
             }
         }
 

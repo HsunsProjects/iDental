@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\UserControlViewModels\FunctionListViewModel.cs" />
     <Compile Include="ViewModels\UserControlViewModels\FunctionTemplateViewModel.cs" />
     <Compile Include="ViewModels\UserControlViewModels\PatientInformationViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase\CenterConverter.cs" />
     <Compile Include="ViewModels\ViewModelBase\MTObservableCollection.cs" />
     <Compile Include="ViewModels\ViewModelBase\RadioButtonConverter.cs" />

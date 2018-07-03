@@ -17,58 +17,55 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <ToolBarPanel Grid.Row="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
-                                Margin="10,0,20,0"
-                                IsEnabled="False">
-                        <RadioButton GroupName="EditMode" Content="全部"
-                                     FontSize="16"
-                                     IsChecked="{Binding SelectedAll}"/>
-                        <RadioButton GroupName="EditMode" Content="選擇"
-                                     FontSize="16"
-                                     IsChecked="{Binding SelectedList}"/>
-                    </StackPanel>
-                    <Button ToolTip="編輯模式" Height="30"
-                            Click="Button_ImageEditor_Click">
-                        <Image Source="/iDental;component/Resource/Icon/edit.png"/>
-                    </Button>
-                    <Button ToolTip="轉至其他病患" Height="30" Width="30" Click="Button_ImageTransferInto_Click">
-                        <fa:ImageAwesome Margin="5" Stretch="Fill" Icon="Exchange" Foreground="SeaGreen"/>
-                    </Button>
-                    <Button ToolTip="匯出" Height="30"
-                            Click="Button_ImageExport_Click">
-                        <Image Source="/iDental;component/Resource/Icon/export.png"/>
-                    </Button>
-                    <Button ToolTip="刪除" Height="30"
-                            Click="Button_ImageDelete_Click">
-                        <Image Source="/iDental;component/Resource/Icon/delete.png"/>
-                    </Button>
-                </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button ToolTip="放大" Height="30"
+        <Grid Grid.Row="0" Background="PowderBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center"
+                        Margin="10,0,20,0">
+                <TextBlock Text="選取狀態:"
+                           FontSize="16"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding SelectedStatus}" 
+                           FontWeight="Bold"
+                           FontSize="16"
+                           VerticalAlignment="Center"/>
+                <Button ToolTip="編輯模式" Height="30" Margin="10,0,0,0"
+                        Click="Button_ImageEditor_Click">
+                    <Image Source="/iDental;component/Resource/Icon/edit.png"/>
+                </Button>
+                <Button ToolTip="轉至其他病患" Height="30" Width="30" Click="Button_ImageTransferInto_Click">
+                    <fa:ImageAwesome Margin="5" Stretch="Fill" Icon="Exchange" Foreground="SeaGreen"/>
+                </Button>
+                <Button ToolTip="匯出" Height="30"
+                        Click="Button_ImageExport_Click">
+                    <Image Source="/iDental;component/Resource/Icon/export.png"/>
+                </Button>
+                <Button ToolTip="刪除" Height="30"
+                        Click="Button_ImageDelete_Click">
+                    <Image Source="/iDental;component/Resource/Icon/delete.png"/>
+                </Button>
+            </StackPanel>
+            <ToolBarPanel Grid.Column="1" Orientation="Horizontal" 
+                          ToolBarTray.IsLocked="True" HorizontalAlignment="Right">
+                <Button ToolTip="放大" Height="30"
                             Click="Button_ZoomIn_Click">
-                        <Image Source="/iDental;component/Resource/Icon/zoomin.png"/>
-                    </Button>
-                    <Slider Width="150" 
+                    <Image Source="/iDental;component/Resource/Icon/zoomin.png"/>
+                </Button>
+                <Slider Width="150" 
                             VerticalAlignment="Center"
                             Maximum="5" Minimum="1" Value="{Binding ColumnCount}"/>
-                    <Button ToolTip="縮小" Height="30"
+                <Button ToolTip="縮小" Height="30"
                             Click="Button_ZoomOut_Click">
-                        <Image Source="/iDental;component/Resource/Icon/zoomout.png"/>
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </ToolBarPanel>
+                    <Image Source="/iDental;component/Resource/Icon/zoomout.png"/>
+                </Button>
+            </ToolBarPanel>
+        </Grid>
         <ListBox x:Name="lbImages" Grid.Row="1" Margin="5"
                  ItemsSource="{Binding Source={StaticResource SortedItems}}" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"

@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:vmb="clr-namespace:iDental.ViewModels.ViewModelBase"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
     <UserControl.Resources>
@@ -13,6 +14,7 @@
                 <scm:SortDescription PropertyName="Image_ID" Direction="Ascending"/>
             </CollectionViewSource.SortDescriptions>
         </CollectionViewSource>
+        <vmb:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -20,35 +22,44 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <TextBlock Text="選擇日期"
-                           FontSize="16"
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Height="35"
+                     VerticalAlignment="Center" Background="PowderBlue">
+            <TextBlock Text="選擇模板"
+                           FontSize="16" Margin="10,2,0,2"
                            VerticalAlignment="Center"/>
-                <DatePicker SelectedDate="{Binding SelectedDate}"
-                            VerticalContentAlignment="Center"
-                            FontSize="14"
-                            Width="120"/>
-                <TextBlock Text="選擇模板"
-                           FontSize="16"
-                           VerticalAlignment="Center"/>
-                <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}"
+            <ComboBox ItemsSource="{Binding Templates}" SelectedItem="{Binding SelectedTemplate}"
                           VerticalContentAlignment="Center"
                           DisplayMemberPath="Template_Title" 
-                          Width="100"/>
-                <TextBlock Text="瀏覽"
-                           FontSize="16"
+                          Width="120" Margin="10,2,0,2"/>
+            <RadioButton x:Name="rbtShow" GroupName="FunctionGroup"
+                         Content="瀏覽"
+                         FontSize="16" Margin="10,2,0,2" 
+                         VerticalAlignment="Center" VerticalContentAlignment="Center"
+                         IsChecked="True"/>
+            <StackPanel Visibility="{Binding ElementName=rbtShow,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Orientation="Horizontal"
+                        ToolBarTray.IsLocked="True">
+                <TextBlock Text="模板日期"
+                           FontSize="16" Margin="10,2,0,2"
                            VerticalAlignment="Center"/>
                 <ComboBox ItemsSource="{Binding ImportDateCollect}" SelectedItem="{Binding SelectedImportDate}"
                           VerticalContentAlignment="Center"
-                          Width="100"/>
+                          Width="120" Margin="10,2,0,2"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <RadioButton x:Name="rbtImport" GroupName="FunctionGroup"
+                         Content="匯入"
+                         VerticalAlignment="Center" VerticalContentAlignment="Center"
+                         FontSize="16" Margin="10,2,0,2"/>
+            <StackPanel Visibility="{Binding ElementName=rbtImport,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Orientation="Horizontal"
+                          ToolBarTray.IsLocked="True">
+                <TextBlock Text="選擇日期"
+                           FontSize="16" Margin="10,2,0,2"
+                           VerticalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding SelectedDate}"
+                            VerticalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Width="120" Margin="10,2,0,2"/>
                 <ToggleButton x:Name="btnAutoImport" 
                               ToolTip="精靈拍攝" 
                               Height="30" IsEnabled="{Binding AutoImportEnable}"
@@ -56,10 +67,13 @@
                     <Image Source="/iDental;component/Resource/Icon/autocamera.png"/>
                 </ToggleButton>
             </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBlock Text="匯出功能"
-                           FontSize="16"
-                           VerticalAlignment="Center"/>
+            <RadioButton x:Name="rbtFunction" GroupName="FunctionGroup" 
+                         FontSize="16" Margin="10,2,0,2"
+                         VerticalAlignment="Center" VerticalContentAlignment="Center"
+                         Content="匯出"/>
+            <StackPanel Visibility="{Binding ElementName=rbtFunction,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Orientation="Horizontal" Margin="10,0,0,0"
+                          ToolBarTray.IsLocked="True">
                 <Button ToolTip="匯出模板圖片" 
                         Height="30"
                         Click="Button_ExportTemplateImage_Click">
@@ -71,7 +85,7 @@
                     <Image Source="/iDental;component/Resource/Icon/exportppt.png"/>
                 </Button>
             </StackPanel>
-        </Grid>
+        </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -126,7 +140,7 @@
         </Grid>
         <StatusBar Grid.Row="2">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Right" Text="{Binding CountImages, UpdateSourceTrigger=PropertyChanged, StringFormat={}清單總數共:{0}張}"></TextBlock>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding CountImages, UpdateSourceTrigger=PropertyChanged, StringFormat={}影像來源共{0}張}"></TextBlock>
             </DockPanel>
         </StatusBar>
     </Grid>
