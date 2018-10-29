@@ -4,6 +4,7 @@ using iDental.DatabaseAccess.QueryEntities;
 using iDental.iDentalClass;
 using iDental.ViewModels.UserControlViewModels;
 using Microsoft.Win32;
+using Saraff.Twain;
 using System;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,8 @@ namespace iDental.Views.UserControlViews
         private Agencys Agencys { get; set; }
         private Patients Patients { get; set; }
 
+        private Twain32 twain32;
+
         private PatientInformationViewModel patientInformationViewModel;
 
         public PatientInformation(Agencys agencys, Patients patients)
@@ -30,6 +33,9 @@ namespace iDental.Views.UserControlViews
 
             Agencys = agencys;
             Patients = patients;
+
+            twain32 = new Twain32();
+            twain32.AcquireCompleted += twain_AcquireCompleted;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -83,23 +89,155 @@ namespace iDental.Views.UserControlViews
 
         private void Button_WebcamImport_Click(object sender, RoutedEventArgs e)
         {
-            FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-
-            if (filterInfoCollection.Count > 0)
+            if (PathCheck.IsPathExist(Agencys.Agency_ImagePath))
             {
-                DateTime RegistrationDate = patientInformationViewModel.ImportDate;
+                FilterInfoCollection filterInfoCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-                Webcam webcam = new Webcam(filterInfoCollection, Agencys, Patients, RegistrationDate);
-
-                if (webcam.ShowDialog() == true)
+                if (filterInfoCollection.Count > 0)
                 {
-                    Registrations registrations = webcam.registrations;
-                    ReloadOrAddImage(registrations, RegistrationDate);
+                    DateTime RegistrationDate = patientInformationViewModel.ImportDate;
+
+                    Webcam webcam = new Webcam(filterInfoCollection, Agencys, Patients, RegistrationDate);
+
+                    if (webcam.ShowDialog() == true)
+                    {
+                        Registrations registrations = webcam.registrations;
+                        ReloadOrAddImage(registrations, RegistrationDate);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("尚未偵測到影像裝置", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
             else
             {
-                MessageBox.Show("尚未偵測到影像裝置", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("影像路徑有問題，請至<設定>檢查是否有誤", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void btnTwainImport_Click(object sender, RoutedEventArgs e)
+        {
+            if (PathCheck.IsPathExist(Agencys.Agency_ImagePath))
+            {
+                //判斷有沒有設定裝置
+                //有 : 掃描
+                //無 : 跳視窗選擇 (Twain)
+                string TwainDevice = ConfigManage.ReadAppConfig("TwainDevice");
+
+                twain32.Country = TwCountry.TAIWAN;
+                twain32.Language = TwLanguage.CHINESE_TAIWAN;
+                twain32.IsTwain2Enable = true;
+
+                twain32.OpenDSM();
+                if (twain32.IsTwain2Supported)
+                {
+                    if (twain32.SourcesCount > 0)
+                    {
+                        twain32.CloseDataSource();
+                        Twain32.Identity identity;
+                        bool IsDefault = false;
+                        if (!string.IsNullOrEmpty(TwainDevice))
+                        {
+                            for (var i = 0; i < twain32.SourcesCount; i++)
+                            {
+                                if (TwainDevice.Equals(twain32.GetSourceIdentity(i).Name))
+                                {
+                                    identity = twain32.GetSourceIdentity(i);
+                                    twain32.SetDefaultSource(i);
+                                    IsDefault = true;
+                                }
+                            }
+                        }
+                        if (!IsDefault)
+                        {
+                            if (twain32.SelectSource() == true)
+                            {
+                                ErrorLog.ErrorMessageOutput("STARTING SET CONFIG");
+                                ConfigManage.AddUpdateAppConfig("TwainDevice", twain32.GetSourceProductName(twain32.GetDefaultSource()));
+                                ErrorLog.ErrorMessageOutput("END SET CONFIG");
+                                ErrorLog.ErrorMessageOutput("IsDefault = false STARTING Acquire");
+                                twain32.Acquire();
+                                ErrorLog.ErrorMessageOutput("twain32.Acquire() IsDefault = false LINE 149");
+                            }
+                        }
+                        else
+                        {
+                            ErrorLog.ErrorMessageOutput("IsDefault = true STARTING Acquire");
+                            twain32.Acquire();
+                            ErrorLog.ErrorMessageOutput("twain32.Acquire() IsDefault = true LINE 155");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("尚未找到掃描裝置(TWAIN)", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                twain32.CloseDSM();
+            }
+            else
+            {
+                MessageBox.Show("影像路徑有問題，請至<設定>檢查是否有誤", "提示", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void twain_AcquireCompleted(object sender, EventArgs e)
+        {
+            try
+            {
+                DateTime RegistrationDate = patientInformationViewModel.ImportDate;
+                //設定病患資料夾
+                PatientImageFolderInfo patientImageFolderInfo = PatientFolderSetting.PatientImageFolderSetting(Agencys, Patients.Patient_ID, RegistrationDate);
+                //檢查是否存在，不存在就新增
+                PathCheck.CheckPathAndCreate(patientImageFolderInfo.PatientImageFullPath);
+
+                string imageFileName = string.Empty;
+                string extension = string.Empty;
+                string imageFullName = string.Empty;
+
+                imageFileName = @"twain" + DateTime.Now.ToString("yyyyMMddHHmmssffff");
+                extension = @".jpg";
+                imageFullName = imageFileName + extension;
+                
+                //儲存影像
+                twain32.GetImage(0).Save(patientImageFolderInfo.PatientImageFullPath + @"\" + imageFullName);
+                //寫入DB
+                Registrations registrations = new Registrations();
+                using (var ide = new iDentalEntities())
+                {
+                    var queryRegistrations = from r in ide.Registrations
+                                             where r.Patient_ID == Patients.Patient_ID && r.Registration_Date == RegistrationDate.Date
+                                             select r;
+                    if (queryRegistrations.Count() > 0)
+                    {
+                        registrations = queryRegistrations.First();
+                    }
+                    else
+                    {
+                        registrations.Patient_ID = Patients.Patient_ID;
+                        registrations.Registration_Date = RegistrationDate.Date;
+                        ide.Registrations.Add(registrations);
+                        //寫入Registrations
+                        ide.SaveChanges();
+                    }
+
+                    Images images = new Images()
+                    {
+                        Image_Path = patientImageFolderInfo.PatientImagePath + @"\" + imageFullName,
+                        Image_FileName = imageFileName,
+                        Image_Extension = extension
+                    };
+                    registrations.Images.Add(images);
+                    //Images
+                    ide.SaveChanges();
+                }
+                ReloadOrAddImage(registrations, RegistrationDate);
+                ErrorLog.ErrorMessageOutput("twain_AcquireCompleted And Saved LINE 171");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "錯誤", MessageBoxButton.OK, MessageBoxImage.Error);
+                twain32.CloseDSM();
             }
         }
 
@@ -436,6 +574,5 @@ namespace iDental.Views.UserControlViews
             }
         }
         #endregion
-
     }
 }

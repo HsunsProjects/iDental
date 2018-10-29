@@ -53,6 +53,18 @@
                 <RadioButton GroupName="Mode" Content="橫幅" IsChecked="{Binding Agency_ViewType, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=0}"/>
                 <RadioButton GroupName="Mode" Content="直幅" IsChecked="{Binding Agency_ViewType, Converter={StaticResource ResourceKey=radioButtonConverterKey}, ConverterParameter=1}"/>
             </StackPanel>
+            <TextBlock Text="TWAIN 預設裝置:" 
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
+            <Grid Margin="10,0,10,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Text="{Binding TwainDeviceName}" VerticalContentAlignment="Center"/>
+                <Button Grid.Column="1" Content="選擇"
+                        Click="Button_TwainDevice_Click"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

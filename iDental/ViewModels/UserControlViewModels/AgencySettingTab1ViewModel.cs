@@ -1,4 +1,5 @@
-﻿using iDental.DatabaseAccess.QueryEntities;
+﻿using iDental.Class;
+using iDental.DatabaseAccess.QueryEntities;
 
 namespace iDental.ViewModels.UserControlViewModels
 {
@@ -55,6 +56,23 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
+        private string twainDeviceName;
+
+        public string TwainDeviceName
+        {
+            get
+            {
+                return string.IsNullOrEmpty(ConfigManage.ReadAppConfig("TwainDevice")) ? "尚未設定" : ConfigManage.ReadAppConfig("TwainDevice");
+            }
+            set
+            {
+                twainDeviceName = value;
+                ConfigManage.AddUpdateAppConfig("TwainDevice", twainDeviceName);
+                OnPropertyChanged("TwainDeviceName");
+            }
+        }
+
+
         public AgencySettingTab1ViewModel()
         {
             Agencys = new TableAgencys().QueryVerifyAgencys();
@@ -62,6 +80,9 @@ namespace iDental.ViewModels.UserControlViewModels
             Agency_WifiCardPath = Agencys.Agency_WifiCardPath;
             Agency_ViewType = Agencys.Agency_ViewType;
             Agency_Function = Agencys.Function_ID;
+
+            //如果沒有TwainDevice,建立config,key = TwainDevice
+            ConfigManage.CreateConfig("TwainDevice");
         }
     }
 }

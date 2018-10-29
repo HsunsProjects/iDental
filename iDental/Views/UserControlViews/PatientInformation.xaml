@@ -120,18 +120,23 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Column="0"
                                 x:Name="btnWebcamImport"
-                                Content="裝置拍攝"
+                                Content="拍攝"
                                 Click="Button_WebcamImport_Click"/>
                         <Button Grid.Column="1"
+                                x:Name="btnTwainImport"
+                                Content="掃描"
+                                Click="btnTwainImport_Click"/>
+                        <Button Grid.Column="2"
                                 x:Name="btnImport"
-                                Content="手動匯入"
+                                Content="手動"
                                 Click="Button_Import_Click"/>
-                        <ToggleButton Grid.Column="2"
+                        <ToggleButton Grid.Column="3"
                                       x:Name="btnAutoImport"
-                                      Content="Wifi 匯入"
+                                      Content="Wifi"
                                       Click="ToggleButton_AutoImport_Click"/>
                     </Grid>
                 </StackPanel>

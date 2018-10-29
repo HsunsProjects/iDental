@@ -70,6 +70,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>bin\Debug\office.dll</HintPath>
     </Reference>
+    <Reference Include="Saraff.Twain, Version=1.0.27.606, Culture=neutral, PublicKeyToken=467d7c56f22cafb6, processorArchitecture=MSIL">
+      <HintPath>..\packages\Saraff.Twain.1.0.27.606\lib\net40\Saraff.Twain.dll</HintPath>
+    </Reference>
+    <Reference Include="Saraff.Twain.Extensions, Version=1.0.2.597, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Saraff.Twain.Extensions.1.0.2.597\lib\net40\Saraff.Twain.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
