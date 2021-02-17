@@ -289,6 +289,7 @@ namespace iDental.ViewModels.UserControlViewModels
                             Parallel.ForEach(imageInfo, ii =>
                             {
                                 ii.BitmapImage = new CreateBitmapImage().BitmapImageShow(ii.Image_FullPath, 800);
+                                Task.Delay(100);
                                 DisplayImageInfo.Add(ii);
 
                                 progressDialog.Dispatcher.Invoke(() =>

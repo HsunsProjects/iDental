@@ -2,6 +2,7 @@
 using iDental.iDentalClass;
 using iDental.ViewModels.UserControlViewModels;
 using iDental.ViewModels.ViewModelBase;
+using iDental.Views.ComboPics;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,10 +22,31 @@ namespace iDental.Views.UserControlViews
         public MTObservableCollection<ImageInfo> DisplayImageInfo
         {
             get { return functionListViewModel.DisplayImageInfo; }
-            set { functionListViewModel.DisplayImageInfo = value; }
+            set 
+            {
+                functionListViewModel.DisplayImageInfo = value;
+                if (ComboPic.Count() > 0)
+                {
+                    foreach (var dii in functionListViewModel.DisplayImageInfo.ToArray())
+                    {
+                        if (dii != null && ComboPic.Select(c => c.Image_ID).ToList().Contains(dii.Image_ID))
+                        {
+                            dii.IsChecked = true;
+                        }
+                    }
+                }
+            }
         }
 
+        private ObservableCollection<ImageInfo> ComboPic = new ObservableCollection<ImageInfo>();
+
+        private ComboPic1 ComboPic1;
+        private ComboPic2 ComboPic2;
+        private ComboPic3 ComboPic3;
+        private ComboPic4 ComboPic4;
+
         private FunctionListViewModel functionListViewModel;
+
         public FunctionList(Agencys agencys, Patients patients, MTObservableCollection<ImageInfo> displayImageInfo)
         {
             InitializeComponent();
@@ -211,6 +233,59 @@ namespace iDental.Views.UserControlViews
             {
                 MessageBox.Show("尚未載入圖片", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void IsComboPic_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            ComboPic.Add((ImageInfo)checkBox.DataContext);
+            functionListViewModel.ComboPicCount = ComboPic.Count();
+        }
+
+        private void IsComboPic_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = (CheckBox)sender;
+            var ii = (ImageInfo)checkBox.DataContext;
+            var target = ComboPic.Where(c => c.Image_ID.Equals(ii.Image_ID)).FirstOrDefault();
+            ComboPic.Remove(target);
+            functionListViewModel.ComboPicCount = ComboPic.Count();
+        }
+
+        private void Button_ComboPic_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboPic.Count() > 0)
+            {
+                switch (ComboPic.Count())
+                {
+                    case 1:
+                        ComboPic1 = new ComboPic1(ComboPic[0]);
+                        ComboPic1.ShowDialog();
+                        break;
+                    case 2:
+                        ComboPic2 = new ComboPic2(ComboPic[0], ComboPic[1]);
+                        ComboPic2.ShowDialog();
+                        break;
+                    case 3:
+                        ComboPic3 = new ComboPic3(ComboPic[0], ComboPic[1], ComboPic[2]);
+                        ComboPic3.ShowDialog();
+                        break;
+                    default:
+                        ComboPic4 = new ComboPic4(ComboPic[0], ComboPic[1], ComboPic[2], ComboPic[3]);
+                        ComboPic4.ShowDialog();
+                        break;
+                }
+            }
+            else
+            {
+                MessageBox.Show("請勾選想要加入組圖的影像");
+            }
+        }
+
+        private void Button_CancelComboPic_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayImageInfo.ToList().ForEach(c => c.IsChecked = false);
+            ComboPic.Clear();
+            functionListViewModel.ComboPicCount = ComboPic.Count();
         }
     }
 }

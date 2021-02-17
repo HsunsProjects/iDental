@@ -143,6 +143,18 @@
     <Compile Include="Views\AgencySetting.xaml.cs">
       <DependentUpon>AgencySetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ComboPics\ComboPic1.xaml.cs">
+      <DependentUpon>ComboPic1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComboPics\ComboPic2.xaml.cs">
+      <DependentUpon>ComboPic2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComboPics\ComboPic3.xaml.cs">
+      <DependentUpon>ComboPic3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComboPics\ComboPic4.xaml.cs">
+      <DependentUpon>ComboPic4.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ImageEditor.xaml.cs">
       <DependentUpon>ImageEditor.xaml</DependentUpon>
     </Compile>
@@ -245,6 +257,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnswerDialogOne.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ComboPics\ComboPic1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ComboPics\ComboPic2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ComboPics\ComboPic3.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ComboPics\ComboPic4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

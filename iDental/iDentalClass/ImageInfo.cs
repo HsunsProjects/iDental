@@ -38,5 +38,16 @@ namespace iDental.iDentalClass
                 }
             }
         }
+
+        private bool isChecked = false;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged("IsChecked");
+            }
+        }
     }
 }

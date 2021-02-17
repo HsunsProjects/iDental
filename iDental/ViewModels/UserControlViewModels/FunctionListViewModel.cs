@@ -42,6 +42,21 @@ namespace iDental.ViewModels.UserControlViewModels
             }
         }
 
+        private int comboPicCount = 0;
+        public int ComboPicCount
+        {
+            get
+            {
+                return comboPicCount;
+            }
+            set
+            {
+                comboPicCount = value;
+                OnPropertyChanged("ComboPicCount");
+                OnPropertyChanged("TextBlockTips");
+            }
+        }
+
         private int countImages = 0;
         public int CountImages
         {
@@ -78,7 +93,7 @@ namespace iDental.ViewModels.UserControlViewModels
 
         public string TextBlockTips
         {
-            get { return "已選取圖片 " + ImageSelectedCount + " 張，共 " + CountImages + " 張"; }
+            get { return "已選取圖片 " + ImageSelectedCount + " 張，共 " + CountImages + "張。" + "組圖選取" + ComboPicCount + "張。"; }
         }
 
         /// <summary>

@@ -24,6 +24,7 @@
         <ToolBarPanel Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" ></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
@@ -54,7 +55,18 @@
                         <Image Source="/iDental;component/Resource/Icon/delete.png"/>
                     </Button>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <Label FontSize="16" Content="組圖功能"/>
+                    <Button ToolTip="組圖" Height="30"
+                            Click="Button_ComboPic_Click">
+                        <Image Source="/iDental;component/Resource/Icon/gridline.png"/>
+                    </Button>
+                    <Button ToolTip="取消組圖選取" Height="30"
+                            Click="Button_CancelComboPic_Click">
+                        <Image Source="/iDental;component/Resource/Icon/exit.png"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button ToolTip="放大" Height="30"
                             Click="Button_ZoomIn_Click">
                         <Image Source="/iDental;component/Resource/Icon/zoomin.png"/>
@@ -85,14 +97,18 @@
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Viewbox Grid.Row="0">
+                        <Viewbox Grid.Row="0" Height="30" HorizontalAlignment="Left" >
+                            <CheckBox IsChecked="{Binding IsChecked}" Checked="IsComboPic_Checked" Unchecked="IsComboPic_Unchecked" Content="加入組圖"/>
+                        </Viewbox>
+                        <Viewbox Grid.Row="1">
                             <Border BorderThickness="1" BorderBrush="Black">
                                 <Image Margin="10" Height="800" Width="800" Source="{Binding BitmapImage}"
                                    MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                             </Border>
                         </Viewbox>
-                        <TextBlock Grid.Row="1" Text="{Binding Image_FileName}"/>
+                        <TextBlock Grid.Row="2" Text="{Binding Image_FileName}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
